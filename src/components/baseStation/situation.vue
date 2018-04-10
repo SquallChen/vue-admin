@@ -1,6 +1,6 @@
 <template>
   <div class="TableContent">
-    <el-table :data="tableData" border style="width: 100%" height="522" tooltip-effect="dark">
+    <el-table :data="tableData" border style="width: 100%" height="100%" tooltip-effect="dark">
       <el-table-column fixed prop="name" label="Name" min-width="60" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="epochnumber" label="历元数" min-width="240" show-overflow-tooltip>
@@ -209,13 +209,13 @@ export default {
 
 <style>
 .TableContent {
-  min-height: 700px;
+  height: 100%;
   overflow: auto;
 }
 .el-dialog__body {
   padding: 20px 20px;
 }
 .el-table{
-  height:700px !important;
+  /* height:700px !important; */
 }
 </style>

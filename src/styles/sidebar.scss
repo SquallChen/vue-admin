@@ -4,6 +4,8 @@
     height: 78.9%;
     transition: margin-left 0.28s;
     margin-left: 180px;
+    overflow: hidden;
+    position: relative;
   } // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
