@@ -12,7 +12,7 @@
           <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
           <!-- 折叠列表标题 -->
           <!-- <span v-if="item.meta&&item.meta.title">{{item.meta.title}}</span> -->
-          <router-link tag="span" :to="item.path+'/'+item.children[0].path" v-if="item.meta&&item.meta.title">{{item.meta.title}}</router-link>
+          <router-link tag="span" :to="item.path+'/'+item.children[0].path" v-if="item.meta&&item.meta.title"  class="f-title">{{item.meta.title}}</router-link>
         </template>
         <template v-for="child in item.children" v-if="!child.hidden">
           <sidebar-item :is-nest="true" class="nest-menu" v-if="child.children&&child.children.length>0" :routes="[child]" :key="child.path"></sidebar-item>
@@ -53,6 +53,14 @@ export default {
 }
 .el-tooltip__popper {
   visibility: hidden !important;
+}
+.f-title{
+display: inline-block;
+position: relative;
+width: 180px;
+margin-left: -46px !important;
+margin-top: -2px;
+padding-left: 45px;
 }
 </style>
 
