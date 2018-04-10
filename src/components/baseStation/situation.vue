@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { BaseInfo } from '@/api/app.js';
 export default {
   name: 'ComponentsOne',
   methods: {
@@ -215,7 +216,7 @@ export default {
 .el-dialog__body {
   padding: 20px 20px;
 }
-.el-table{
+.el-table {
   /* height:700px !important; */
 }
 </style>

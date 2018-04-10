@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '',
       component: layout,
-      redirect: 'applist',
+      redirect: 'situation',
       name: 'baseStationView',
       meta: {
         title: '基站视图',
@@ -36,9 +36,9 @@ export default new Router({
       },
       children: [
         {
-          path: 'applist',
+          path: 'situation',
           component: situation,
-          name: 'applist',
+          name: 'situation',
           meta: { title: '基站情况', noCache: true }
         },
         {

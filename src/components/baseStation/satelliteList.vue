@@ -530,6 +530,6 @@ export default {
 
 #SatelliteList .el-table td,
 #SatelliteList .el-table th {
-  padding: 0;
+  padding: 10;
 }
 </style>

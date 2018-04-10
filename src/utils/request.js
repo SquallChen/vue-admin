@@ -16,7 +16,7 @@ import { removeToken, removeName } from '@/utils/token';
 
 // 创建一个 axios 实例
 const service = axios.create({
-  baseURL: 'http://lbs.southgnss.com:81', // 设置开发与线上不同环境的 url
+  baseURL: 'http://172.16.10.118:8010/', // 设置开发与线上不同环境的 url
   timeout: 10000, // 设置超时时间
   // 设置请求头为常规的form-data形式
   headers: {

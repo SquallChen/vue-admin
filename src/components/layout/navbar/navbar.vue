@@ -2,38 +2,54 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <div class="right-menu">
+      
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
-      <span>
+      <!-- <span>
         <svg-icon icon-class="user" />:1234
-      </span>
+      </span> -->
+      <el-dropdown class="avatar-container right-menu-item" trigger="click">
+        <div class="avatar-wrapper">
+          <img class="user-avatar" src="@/assets/img/user_head.gif">
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+        <el-dropdown-menu slot="dropdown" style="margin-top:-4px !important;">
+          <router-link to="/">
+            <el-dropdown-item>
+              Homepage
+            </el-dropdown-item>
+          </router-link>
+          <el-dropdown-item divided>
+            <span @click="logout" style="display:block;">logOut</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <div class="nav-tab">
+      <tagsview></tagsview>
     </div>
   </el-menu>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Hamburger from './hamburger';
-import Screenfull from './Screenfull';
-// import ErrorLog from '@/components/ErrorLog';
+import { mapGetters } from "vuex";
+import Hamburger from "./hamburger";
+import Screenfull from "./Screenfull";
+import tagsview from "@/components/layout/navbar/tagsview";
 
 export default {
   components: {
     Hamburger,
-    Screenfull
-    //   ErrorLog,
+    Screenfull,
+    tagsview
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'name'
-      // 'avatar'
-    ])
+    ...mapGetters(["sidebar", "name", "avatar"])
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch('toggleSideBar');
+      this.$store.dispatch("toggleSideBar");
     },
     logout() {
       /* this.$store.dispatch('LogOut').then(() => {
@@ -47,7 +63,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 84px;
   line-height: 50px;
   border-radius: 0px !important;
   cursor: pointer;
@@ -58,9 +74,7 @@ export default {
     float: left;
     padding: 0 10px;
     cursor: pointer;
-
   }
-
   .right-menu {
     float: right;
     height: 50px;
@@ -71,11 +85,28 @@ export default {
     .right-menu-item {
       display: inline-block;
       margin: 15px 8px;
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        margin-top: -10px;
+        border-radius: 10px;
+      }
+      .el-icon-caret-bottom:before {
+        position: relative;
+        top: -5px;
+        font-size: 10px;
+      }
     }
+
     .screenfull {
       height: 20px;
       margin-right: 80px;
     }
+  }
+  .nav-tab {
+    height: 34px;
+    width: 100%;
+    margin-top: 50px;
   }
 }
 </style>

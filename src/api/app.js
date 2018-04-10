@@ -54,14 +54,23 @@ function updateList(page_num, num_per_page) {
 }
 function dumpList(app_id, page_num, num_per_page) {
   return request({
-    url: '/app/crash_item_page',
+    url: 'cors_station/list_page',
     method: 'post',
     data: {
-      app_id,
       page_num,
       num_per_page
     }
   });
 }
+function BaseInfo(page_num, num_per_page) {
+  return request({
+    url: 'cors_station/list_page',
+    method: 'post',
+    data: {
+      page_num,
+      num_per_page
+    }
+  });
+}
+export { appList, addApp, delApp, updateList, dumpList, BaseInfo };
 
-export { appList, addApp, delApp, updateList, dumpList };
