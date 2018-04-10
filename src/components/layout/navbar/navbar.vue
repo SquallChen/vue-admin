@@ -50,11 +50,15 @@ export default {
   height: 50px;
   line-height: 50px;
   border-radius: 0px !important;
+  cursor: pointer;
+  z-index: 1001;
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
+    cursor: pointer;
+
   }
 
   .right-menu {

@@ -15,6 +15,7 @@ import satelliteSet from '@/components/baseStation/satelliteSet';
 import serviceSet from '@/components/baseStation/serviceSet';
 import SMSSet from '@/components/baseStation/SMSSet';
 import management from '@/components/baseStation/management';
+import olmap from '@/components/baseStation/olmap';
 Vue.use(Router);
 
 export default new Router({
@@ -45,6 +46,12 @@ export default new Router({
           component: satelliteList,
           name: 'satelliteList',
           meta: { title: '卫星列表', noCache: true }
+        },
+        {
+          path: 'olmap',
+          component: olmap,
+          name: 'olmap',
+          meta: { title: 'openlayers地图', noCache: true }
         }
       ]
     },
