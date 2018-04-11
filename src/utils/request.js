@@ -22,7 +22,7 @@ const service = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   },
-  // 转换请求方式; 不然后台为接收不到参数从而报 参数错误 问题
+  // 转换请求方式; 不然后台为接收不到参数从而报 参数错误 问题（方法说明：自动拼接查询参数到请求里面）
   transformRequest: [
     function (data) {
       let ret = '';

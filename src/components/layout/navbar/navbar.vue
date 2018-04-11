@@ -4,7 +4,7 @@
     <div class="right-menu">
       
       <el-tooltip effect="dark" content="全屏" placement="bottom">
-        <screenfull class="screenfull right-menu-item"></screenfull>
+        <screenfull class="screenfull right-menu-item" style="margin-right:5px"></screenfull>
       </el-tooltip>
       <!-- <span>
         <svg-icon icon-class="user" />:1234
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Hamburger from "./hamburger";
-import Screenfull from "./Screenfull";
-import tagsview from "@/components/layout/navbar/tagsview";
+import { mapGetters } from 'vuex';
+import Hamburger from './hamburger';
+import Screenfull from './Screenfull';
+import tagsview from '@/components/layout/navbar/tagsview';
 
 export default {
   components: {
@@ -45,11 +45,11 @@ export default {
     tagsview
   },
   computed: {
-    ...mapGetters(["sidebar", "name", "avatar"])
+    ...mapGetters(['sidebar', 'name', 'avatar'])
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch("toggleSideBar");
+      this.$store.dispatch('toggleSideBar');
     },
     logout() {
       /* this.$store.dispatch('LogOut').then(() => {

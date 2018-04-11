@@ -26,7 +26,7 @@ export default {
   height:100%;
   min-height: 522px;
   position: relative;
-  padding-top: 50px;
-  top:-50px;
+  padding-top: 84px;
+  top:-84px;
 }
 </style>
