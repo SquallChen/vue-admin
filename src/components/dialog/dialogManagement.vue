@@ -51,22 +51,22 @@
             </el-form-item>
             <div class="l1l2">
               <el-form-item label="L1(mm)">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="L2(mm)">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="">
-                <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+                <el-input v-model="formInline.user" placeholder=""></el-input>
               </el-form-item>
             </div>
 
@@ -74,23 +74,63 @@
         </div>
         <div class="middle-right">
           <el-form-item label="IP">
-            <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+            <el-input v-model="formInline.user" placeholder=""></el-input>
           </el-form-item>
           <el-form-item label="Port">
-            <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+            <el-input v-model="formInline.user" placeholder=""></el-input>
           </el-form-item>
           <el-form-item label="Mount">
-            <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+            <el-input v-model="formInline.user" placeholder=""></el-input>
           </el-form-item>
           <el-form-item label="Login Name">
-            <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+            <el-input v-model="formInline.user" placeholder=""></el-input>
           </el-form-item>
           <el-form-item label="Password">
-            <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+            <el-input v-model="formInline.user" placeholder=""></el-input>
           </el-form-item>
-           <el-checkbox label="Send GGA" name="type" checked></el-checkbox>
-           <span class="top-title">网络客户端</span>
+          <el-checkbox label="Send GGA" name="type" checked></el-checkbox>
+          <span class="top-title">网络客户端</span>
         </div>
+      </div>
+      <div class="footer">
+        <div class="footer-top">
+          <el-form-item label="X(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="B(DD.MMSS)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="NORTH(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="Y(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="L(DD.MMSS)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="EAST(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="Z(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="H(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="UP(m)">
+            <el-input v-model="formInline.user" placeholder="" disabled></el-input>
+          </el-form-item>
+        </div>
+        <div class="footer-bottom">
+          <el-checkbox label="Send GGA" name="type" checked></el-checkbox>
+          <el-checkbox label="Send GGA" name="type" ></el-checkbox>
+          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
+          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
+          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
+          <el-checkbox label="Send GGA" name="type" checked disabled></el-checkbox>
+        </div>
+        <span class="top-title">天线情况</span>
       </div>
     </el-form>
 
@@ -116,20 +156,20 @@ export default {
     return {
       toggleFalg: true,
       dialogManagement: false,
-      value:'',
+      value: '',
       formInline: {
-        user: '6',
-        region: '7'
+        user: '',
+        region: ''
       },
       form: {
-        name: '0',
-        region: '1',
-        date1: '2',
-        date2: '3',
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
         delivery: false,
         type: [],
-        resource: '4',
-        desc: '5'
+        resource: '',
+        desc: ''
       },
       options: [
         {
@@ -217,17 +257,39 @@ export default {
   position: relative;
   padding-top: 14px;
 }
-.middle-content .middle-right label{
-  width:100px;
+.middle-content .middle-right label {
+  width: 100px;
 }
-.middle-content .middle-right input{
-  width:230px;
+.middle-content .middle-right input {
+  width: 230px;
 }
-.middle-content .middle-right .el-form-item{
+.middle-content .middle-right .el-form-item {
   margin-bottom: 14px;
 }
-.middle-content .middle-right .el-checkbox{
+.middle-content .middle-right .el-checkbox {
   margin-left: 120px;
+}
+.footer {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ddd;
+  position: relative;
+  padding-top: 14px;
+}
+.footer .footer-top label {
+  width: 90px;
+  margin-right: 5px;
+}
+.footer .footer-top input {
+  width: 182px;
+  margin-right: 5px;
+}
+.footer .footer-top .el-form-item {
+  margin-bottom: 10px;
+}
+.footer .footer-bottom {
+  margin-left: 80px;
+  margin-top: 8px;
 }
 .top-title {
   display: block;
@@ -235,7 +297,7 @@ export default {
   padding: 0 4px;
   background: white;
   position: absolute;
-  top: -15px;
+  top: -12px;
   left: 8px;
   font-size: 16px;
 }
