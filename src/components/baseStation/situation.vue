@@ -49,7 +49,7 @@ import { BaseInfo } from "@/api/app.js";
 import dialogManagement from '@/components/dialog/dialogManagement';
 import dialogParameterSet from '@/components/dialog/dialogParameterSet';
 export default {
-  name: "ComponentsOne",
+  name: "situation",
   methods: {
     getList() {
       this.listLoading = true;
@@ -247,8 +247,5 @@ export default {
 }
 .el-dialog__body {
   padding: 20px 20px;
-}
-.el-table {
-  /* height:700px !important; */
 }
 </style>

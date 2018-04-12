@@ -16,6 +16,7 @@ import serviceSet from '@/components/baseStation/serviceSet';
 import SMSSet from '@/components/baseStation/SMSSet';
 import management from '@/components/baseStation/management';
 import olmap from '@/components/baseStation/olmap';
+import alarmSet from '@/components/baseStation/alarmSet';
 Vue.use(Router);
 
 export default new Router({
@@ -32,7 +33,7 @@ export default new Router({
       name: 'baseStationView',
       meta: {
         title: '基站视图',
-        icon: 'component'
+        icon: 'basestationview'
       },
       children: [
         {
@@ -57,7 +58,7 @@ export default new Router({
       name: 'situation',
       meta: {
         title: '基站信息',
-        icon: 'component'
+        icon: 'situation'
       },
       children: [
         {
@@ -84,25 +85,33 @@ export default new Router({
     },
     {
       path: '',
-      ownpath: 'emailSet',
+      ownpath: 'alarmSet',
       component: layout,
-      redirect: 'emailSet',
+      redirect: 'alarmSet',
       name: 'alarmSet',
       meta: {
         title: '报警设置',
-        icon: 'component'
+        icon: 'alarm'
       },
       children: [
+        {
+          path: 'alarmSet',
+          component: alarmSet,
+          name: 'alarmSet',
+          meta: { title: '参数设置', noCache: true }
+        },
         {
           path: 'emailSet',
           component: emailSet,
           name: 'emailSet',
+          redirect: 'alarmSet',
           meta: { title: '邮件设置', noCache: true }
         },
         {
           path: 'SMSSet',
           component: SMSSet,
           name: 'SMSSet',
+          redirect: 'alarmSet',
           meta: { title: '短信设置', noCache: true }
         }
       ]
@@ -115,7 +124,7 @@ export default new Router({
       name: 'systemStatus',
       meta: {
         title: '系统状态',
-        icon: 'component'
+        icon: 'systemstatus'
       },
       children: [
         {
@@ -140,7 +149,7 @@ export default new Router({
       name: 'systemSet',
       meta: {
         title: '系统设置',
-        icon: 'component'
+        icon: 'systemset'
       },
       children: [
         {
@@ -169,145 +178,6 @@ export default new Router({
         }
       ]
     },
-    // { path: '/olmap', component: olMap },
-    // {
-    //   path: '',
-    //   component: layout,
-    //   redirect: 'situation',
-    //   name: 'baseStationView',
-    //   meta: {
-    //     title: '基站视图',
-    //     icon: 'component'
-    //   },
-    //   children: [
-    //     {
-    //       path: 'situation',
-    //       component: situation,
-    //       name: 'situation',
-    //       meta: { title: '基站情况', noCache: true }
-    //     },
-    //     {
-    //       path: 'satelliteList',
-    //       component: satelliteList,
-    //       name: 'satelliteList',
-    //       meta: { title: '卫星列表', noCache: true }
-    //     },
-    //     {
-    //       path: 'olmap',
-    //       component: olmap,
-    //       name: 'olmap',
-    //       meta: { title: 'openlayers地图', noCache: true }
-    //     }
-    //   ]
-    // },
-    // {
-    //   path: '',
-    //   component: layout,
-    //   redirect: 'situation',
-    //   name: 'situation',
-    //   meta: {
-    //     title: '基站信息',
-    //     icon: 'component'
-    //   },
-    //   children: [
-    //     {
-    //       path: 'management',
-    //       component: management,
-    //       name: 'management',
-    //       meta: { title: '基站管理', noCache: true }
-    //     },
-    //     {
-    //       path: 'parameterSet',
-    //       component: parameterSet,
-    //       name: 'parameterSet',
-    //       meta: { title: '参数设置', noCache: true }
-    //     }
-    //   ]
-    // },
-    // {
-    //   path: '',
-    //   component: layout,
-    //   redirect: 'emailSet',
-    //   name: 'alarmSet',
-    //   meta: {
-    //     title: '报警设置',
-    //     icon: 'component'
-    //   },
-    //   children: [
-    //     {
-    //       path: 'emailSet',
-    //       component: emailSet,
-    //       name: 'emailSet',
-    //       meta: { title: '邮件设置', noCache: true }
-    //     },
-    //     {
-    //       path: 'SMSSet',
-    //       component: SMSSet,
-    //       name: 'SMSSet',
-    //       meta: { title: '短信设置', noCache: true }
-    //     }
-    //   ]
-    // },
-    // {
-    //   path: '',
-    //   component: layout,
-    //   redirect: 'ephemeris',
-    //   name: 'systemStatus',
-    //   meta: {
-    //     title: '系统状态',
-    //     icon: 'component'
-    //   },
-    //   children: [
-    //     {
-    //       path: 'ephemeris',
-    //       component: ephemeris,
-    //       name: 'ephemeris',
-    //       meta: { title: '星历', noCache: true }
-    //     },
-    //     {
-    //       path: 'IONOSPHERE',
-    //       component: IONOSPHERE,
-    //       name: 'IONOSPHERE',
-    //       meta: { title: 'IONOSPHERE', noCache: true }
-    //     }
-    //   ]
-    // },
-    // {
-    //   path: '',
-    //   component: layout,
-    //   redirect: 'serviceSet',
-    //   name: 'systemSet',
-    //   meta: {
-    //     title: '系统设置',
-    //     icon: 'component'
-    //   },
-    //   children: [
-    //     {
-    //       path: 'serviceSet',
-    //       component: serviceSet,
-    //       name: 'serviceSet',
-    //       meta: { title: '服务设置', noCache: true }
-    //     },
-    //     {
-    //       path: 'satelliteSet',
-    //       component: satelliteSet,
-    //       name: 'satelliteSet',
-    //       meta: { title: '卫星设置', noCache: true }
-    //     },
-    //     {
-    //       path: 'mountSet',
-    //       component: mountSet,
-    //       name: 'mountSet',
-    //       meta: { title: 'Mount设置', noCache: true }
-    //     },
-    //     {
-    //       path: 'systemParameterSet',
-    //       component: systemParameterSet,
-    //       name: 'systemParameterSet',
-    //       meta: { title: '参数设置', noCache: true }
-    //     }
-    //   ]
-    // },
 
     { path: '*', redirect: '/404', hidden: true }
 

@@ -92,7 +92,7 @@
           <span class="top-title">网络客户端</span>
         </div>
       </div>
-      <div class="footer">
+      <div class="bottom-footer">
         <div class="footer-top">
           <el-form-item label="X(m)">
             <el-input v-model="formInline.user" placeholder="" disabled></el-input>
@@ -123,19 +123,25 @@
           </el-form-item>
         </div>
         <div class="footer-bottom">
-          <el-checkbox label="Send GGA" name="type" checked></el-checkbox>
-          <el-checkbox label="Send GGA" name="type" ></el-checkbox>
-          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
-          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
-          <el-checkbox label="Send GGA" name="type"  disabled></el-checkbox>
-          <el-checkbox label="Send GGA" name="type" checked disabled></el-checkbox>
+          <el-checkbox label="XYZ" name="type" checked></el-checkbox>
+          <el-checkbox label="BLH" name="type" ></el-checkbox>
+          <el-checkbox label="基岩" name="type"  disabled></el-checkbox>
+          <el-checkbox label="自动获取" name="type"  disabled></el-checkbox>
+          <el-checkbox label="测试站" name="type"  disabled></el-checkbox>
+          <el-checkbox label="固定基站" name="type" checked disabled></el-checkbox>
         </div>
         <span class="top-title">天线情况</span>
       </div>
     </el-form>
 
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogManagement=false">取 消</el-button>
+    <div slot="footer" class="dialog-footer" style="text-align:center">
+      <el-button disabled><<</el-button>
+      <el-button disabled>>></el-button>
+      <el-button >新 增</el-button>
+      <el-button disabled>删 除</el-button>
+      <el-button disabled>备 份</el-button>
+      <el-button >导 入</el-button>
+      <el-button >启动停止</el-button>
       <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
     </div>
   </el-dialog>
@@ -186,9 +192,7 @@ export default {
 };
 </script>
 <style>
- /* .el-dialog {
-  margin-top:10vh !important;
-} */
+
 .el-form-item__label {
   width: 80px;
 }
@@ -268,7 +272,7 @@ export default {
 .middle-content .middle-right .el-checkbox {
   margin-left: 120px;
 }
-.footer {
+.bottom-footer {
   width: 100%;
   height: 200px;
   border: 1px solid #ddd;
@@ -276,20 +280,26 @@ export default {
   padding-top: 14px;
   margin-top: 10px;
 }
-.footer .footer-top label {
+.bottom-footer .footer-top label {
   width: 90px;
   margin-right: 5px;
 }
-.footer .footer-top input {
+.bottom-footer .footer-top input {
   width: 182px;
   margin-right: 5px;
 }
-.footer .footer-top .el-form-item {
+.bottom-footer .footer-top .el-form-item {
   margin-bottom: 10px;
 }
-.footer .footer-bottom {
+.bottom-footer .footer-bottom {
   margin-left: 80px;
   margin-top: 8px;
+}
+.bottom-footer .el-checkbox{
+  width:90px;
+}
+.dialog-footer .el-button{
+  width:90px;
 }
 .top-title {
   display: block;

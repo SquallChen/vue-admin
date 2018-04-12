@@ -47,8 +47,8 @@ export default {
   },
   data() {
     return {
-      dialogManagement: false,
-      dialogParameterSet: false
+      // dialogManagement: false,
+      // dialogParameterSet: false
     };
   },
   methods: {
@@ -61,12 +61,16 @@ export default {
           bus.$emit('changeManagement', true);
           break;
         case 'parameterSet':
-        bus.$emit('changeParameterSet', true);
+          bus.$emit('changeParameterSet', true);
           console.log(this.dialogParameterSet);
           break;
+        case 'emailSet':
+        bus.$emit('changeEmailSet', true);
+          break;
+        case 'SMSSet':
+          break;
       }
-    },
-
+    }
   }
 };
 </script>

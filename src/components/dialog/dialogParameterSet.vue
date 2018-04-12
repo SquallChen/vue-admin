@@ -4,8 +4,8 @@
     <el-form :model="form">
       <div class="top-div">
         <el-checkbox label="基准模式" name="type"></el-checkbox>
-        <el-select v-model="value" placeholder="">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" disabled>
+        <el-select v-model="value" placeholder="" disabled>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
         <el-checkbox label="存储" name="type"></el-checkbox>
