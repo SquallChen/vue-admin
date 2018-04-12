@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import bus from '@/store/eventbus';
 export default {
   name: 'SidebarItem',
   props: {
@@ -46,8 +47,8 @@ export default {
   },
   data() {
     return {
-      // dialogManagement: false,
-      // dialogParameterSet: false
+      dialogManagement: false,
+      dialogParameterSet: false
     };
   },
   methods: {
@@ -55,21 +56,17 @@ export default {
       console.log(v);
       switch (v) {
         case 'management':
-          // this.dialogManagement = true;
-          console.log( this.dialogManagement);
-          //  this.$store.commit('DialogManagementChange').
-           this.$store.dispatch('toggleTest');
-           console.log( "测试中"+this.$store.state.dialogManagement);
+          console.log(this.dialogManagement);
+          //组件间利用中间层bus来传递数据，$emit自定义方法和传递参数，$on接收方法和其传递参数
+          bus.$emit('changeDialogStatus', true);
           break;
         case 'parameterSet':
-          this.dialogParameterSet = true;
-          console.log( this.dialogParameterSet);
+          console.log(this.dialogParameterSet);
           break;
       }
     },
-    opendialogManagement(){
 
-    }
+    opendialogManagement() {}
   }
 };
 </script>
