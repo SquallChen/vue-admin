@@ -2,7 +2,7 @@
   <div class="TableContent">
     <el-table :data="list" border style="width: 100%" height="100%" tooltip-effect="dark"  v-loading="false"
           element-loading-text="加载中...">
-      <el-table-column fixed prop="stationName" label="基站名" min-width="60" show-overflow-tooltip>
+      <el-table-column fixed prop="stationName" label="基站名" min-width="70" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="clientIp" label="ClientIp" min-width="80" show-overflow-tooltip>
       </el-table-column>
@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column prop="mode" label="Mode" min-width="60" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="netId" label="子网ID" min-width="50" show-overflow-tooltip>
+      <el-table-column prop="netId" label="子网ID" min-width="64" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="x" label="空间坐标X" min-width="126" show-overflow-tooltip>
       </el-table-column>
@@ -39,6 +39,7 @@
       </el-table-column>
     </el-table>
     <dialogManagement></dialogManagement>
+    <dialogParameterSet></dialogParameterSet>
   </div>
 
 </template>
@@ -46,6 +47,7 @@
 <script>
 import { BaseInfo } from "@/api/app.js";
 import dialogManagement from '@/components/dialog/dialogManagement';
+import dialogParameterSet from '@/components/dialog/dialogParameterSet';
 export default {
   name: "ComponentsOne",
   methods: {
@@ -58,12 +60,6 @@ export default {
         console.log("请求失败！")
       });
     }
-    // handleClick(row) {
-    //   console.log(row);
-    // },
-    // popup_page1() {
-    //   document.getElementById('basestationManagement').style.display = 'block';
-    // }
   },
   data() {
     return {
@@ -238,7 +234,8 @@ export default {
     this.getList();
   },
    components: {
-    dialogManagement
+    dialogManagement,
+    dialogParameterSet
   }
 };
 </script>

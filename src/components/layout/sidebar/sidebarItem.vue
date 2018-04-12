@@ -58,15 +58,15 @@ export default {
         case 'management':
           console.log(this.dialogManagement);
           //组件间利用中间层bus来传递数据，$emit自定义方法和传递参数，$on接收方法和其传递参数
-          bus.$emit('changeDialogStatus', true);
+          bus.$emit('changeManagement', true);
           break;
         case 'parameterSet':
+        bus.$emit('changeParameterSet', true);
           console.log(this.dialogParameterSet);
           break;
       }
     },
 
-    opendialogManagement() {}
   }
 };
 </script>
