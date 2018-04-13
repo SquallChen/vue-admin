@@ -17,6 +17,7 @@ import SMSSet from '@/components/baseStation/SMSSet';
 import management from '@/components/baseStation/management';
 import olmap from '@/components/baseStation/olmap';
 import alarmSet from '@/components/baseStation/alarmSet';
+import systemSet from '@/components/baseStation/systemSet';
 Vue.use(Router);
 
 export default new Router({
@@ -143,9 +144,9 @@ export default new Router({
     },
     {
       path: '',
-      ownpath: 'serviceSet',
+      ownpath: 'systemSet',
       component: layout,
-      redirect: 'serviceSet',
+      redirect: 'systemSet',
       name: 'systemSet',
       meta: {
         title: '系统设置',
@@ -153,27 +154,37 @@ export default new Router({
       },
       children: [
         {
+          path: 'systemSet',
+          component: systemSet,
+          name: 'systemSet',
+          meta: { title: '系统信息', noCache: true }
+        },
+        {
           path: 'serviceSet',
           component: serviceSet,
           name: 'serviceSet',
+          redirect: 'systemSet',
           meta: { title: '服务设置', noCache: true }
         },
         {
           path: 'satelliteSet',
           component: satelliteSet,
           name: 'satelliteSet',
+          redirect: 'systemSet',
           meta: { title: '卫星设置', noCache: true }
         },
         {
           path: 'mountSet',
           component: mountSet,
           name: 'mountSet',
+          redirect: 'systemSet',
           meta: { title: 'Mount设置', noCache: true }
         },
         {
           path: 'systemParameterSet',
           component: systemParameterSet,
           name: 'systemParameterSet',
+          redirect: 'systemSet',
           meta: { title: '参数设置', noCache: true }
         }
       ]

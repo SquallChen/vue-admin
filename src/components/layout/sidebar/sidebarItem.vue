@@ -23,6 +23,7 @@
               <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
               <!-- 折叠内容小标题 -->
               <span v-if="child.meta&&child.meta.title">{{child.meta.title}}</span>
+              <span v-else style="hei">{{child.meta.title}}</span>
             </el-menu-item>
           </router-link>
         </template>
@@ -57,7 +58,7 @@ export default {
       switch (v) {
         case 'management':
           console.log(this.dialogManagement);
-          //组件间利用中间层bus来传递数据，$emit自定义方法和传递参数，$on接收方法和其传递参数
+          // 组件间利用中间层bus来传递数据，$emit自定义方法和传递参数，$on接收方法和其传递参数
           bus.$emit('changeManagement', true);
           break;
         case 'parameterSet':
@@ -65,9 +66,10 @@ export default {
           console.log(this.dialogParameterSet);
           break;
         case 'emailSet':
-        bus.$emit('changeEmailSet', true);
+          bus.$emit('changeEmailSet', true);
           break;
         case 'SMSSet':
+          bus.$emit('changeSMSSet', true);
           break;
       }
     }

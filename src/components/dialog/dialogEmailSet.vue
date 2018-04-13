@@ -1,6 +1,6 @@
 
 <template>
-  <el-dialog title="收货地址" :visible.sync="dialogEmailSet">
+  <el-dialog title="邮件设置" :visible.sync="dialogEmailSet">
     <el-form :model="form">
       <div class="emailSet-top">
         <el-form-item label="发送邮件服务器(SMTP)" :label-width="formLabelWidth">
@@ -19,12 +19,11 @@
         <el-form-item label="SMTP-邮件帐号" :label-width="formLabelWidth">
           <el-input v-model="form.name" auto-complete="off"></el-input>
         </el-form-item>
+        <span class="top-title">邮件设置</span>
       </div>
-      <div class="emailSet-bottom">
-        <el-form-item label="接收报警邮件帐号">
-          <el-input type="textarea" v-model="form.desc" :rows="4"></el-input>
+        <el-form-item label="接收报警邮件帐号" label-width="230px">
+          <el-input type="textarea" v-model="form.desc" :rows="4" class="emailSet-bottom"></el-input>
         </el-form-item>
-      </div>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogEmailSet = false">取 消</el-button>
@@ -36,7 +35,7 @@
 <script>
 import bus from '@/store/eventbus';
 export default {
-  name: 'dialogParameterSet',
+  name: 'dialogEmailSet',
   data() {
     return {
       dialogEmailSet: false,
@@ -85,6 +84,7 @@ export default {
   border: 1px solid #ddd;
   padding-left: 50px;
   padding-top: 10px;
+  position: relative;
 }
 .emailSet-top .el-input {
   width: 260px;
@@ -99,12 +99,21 @@ export default {
 }
 .emailSet-bottom {
   width: 100%;
-  height: 80px;
-  padding-left: 106px;
   padding-top: 10px;
+  margin-bottom: -34px;
 }
 .emailSet-bottom .el-textarea{
-  width:386px;
+  width:462px;
   height:80px;
+}
+.top-title {
+  display: block;
+  text-align: center;
+  padding: 0 4px;
+  background: white;
+  position: absolute;
+  top: -12px;
+  left: 8px;
+  font-size: 16px;
 }
 </style>
