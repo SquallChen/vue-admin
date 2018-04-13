@@ -71,6 +71,18 @@ export default {
         case 'SMSSet':
           bus.$emit('changeSMSSet', true);
           break;
+        case 'serviceSet':
+          bus.$emit('changeServiceSet', true);
+          break;
+        case 'satelliteSet':
+          bus.$emit('changeSatelliteSet', true);
+          break;
+        case 'mountSet':
+          bus.$emit('changeMountSet', true);
+          break;
+        case 'systemParameterSet':
+          bus.$emit('changeSystemParameterSet', true);
+          break;
       }
     }
   }

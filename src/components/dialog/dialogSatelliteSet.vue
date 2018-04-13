@@ -1,11 +1,44 @@
 <template>
-    <p>dialogSatelliteSet</p>
+  <el-dialog title="卫星设置" :visible.sync="dialogSatelliteSet">
+    <el-form :model="form">
+
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogSatelliteSet = false">取 消</el-button>
+      <el-button type="primary" @click="dialogSatelliteSet = false">确 定</el-button>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
-
+import bus from '@/store/eventbus';
 export default {
-  name: 'dialogSatelliteSet'
+  name: 'dialogSatelliteSet',
+  data() {
+    return {
+      dialogSatelliteSet: false,
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '120px'
+    };
+  },
+
+  mounted() {
+    //  箭头函数作用域，自己百度。
+    bus.$on('changeSatelliteSet', reg => {
+      this.dialogSatelliteSet = reg;
+    });
+  }
 };
 </script>
 <style>

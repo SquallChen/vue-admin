@@ -73,12 +73,19 @@
         </div>
       </div>
       <span class="top-title">关于</span>
-
     </div>
+    <dialogServiceSet></dialogServiceSet>
+    <dialogSatelliteSet></dialogSatelliteSet>
+    <dialogMountSet></dialogMountSet>
+    <dialogSystemParameterSet></dialogSystemParameterSet>
   </div>
 </template>
 
 <script>
+import dialogServiceSet from '@/components/dialog/dialogServiceSet';
+import dialogSatelliteSet from '@/components/dialog/dialogSatelliteSet';
+import dialogMountSet from '@/components/dialog/dialogMountSet';
+import dialogSystemParameterSet from '@/components/dialog/dialogSystemParameterSet';
 export default {
   name: 'systemSet',
   data() {
@@ -127,6 +134,12 @@ export default {
     test(v) {
       console.log(v);
     }
+  },
+  components: {
+    dialogServiceSet,
+    dialogSatelliteSet,
+    dialogMountSet,
+    dialogSystemParameterSet
   }
 };
 </script>
