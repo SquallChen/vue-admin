@@ -2,7 +2,7 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <div class="right-menu">
-      
+
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <screenfull class="screenfull right-menu-item" style="margin-right:5px"></screenfull>
       </el-tooltip>
@@ -26,9 +26,6 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div class="nav-tab">
-      <tagsview></tagsview>
-    </div>
   </el-menu>
 </template>
 
@@ -36,13 +33,11 @@
 import { mapGetters } from 'vuex';
 import Hamburger from './hamburger';
 import Screenfull from './Screenfull';
-import tagsview from '@/components/layout/navbar/tagsview';
 
 export default {
   components: {
     Hamburger,
     Screenfull,
-    tagsview
   },
   computed: {
     ...mapGetters(['sidebar', 'name', 'avatar'])

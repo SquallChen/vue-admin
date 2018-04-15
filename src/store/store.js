@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import getters from './getters';
 import user from './modules/user';
+import tagsView from './modules/tagsView';
 
 Vue.use(Vuex);
 
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
   },
   // 每个 modules 都会有 state, mutations, actions
   modules: {
-    user
+    user,
+    tagsView
   },
   getters: getters
 });

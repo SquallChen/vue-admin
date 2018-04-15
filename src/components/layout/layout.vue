@@ -3,7 +3,7 @@
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <navbar></navbar>
-      <!-- <tags-view></tags-view> -->
+      <tags-view></tags-view>
       <app-main></app-main>
     </div>
     <div class="footer">
@@ -15,6 +15,7 @@
 <script type="text/ecmascript-6">
 import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
+import TagsView from './tagsView/tagsView';
 import AppMain from './appMain/appMain';
 import Footer from './footer/footer';
 export default {
@@ -26,6 +27,7 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
+    TagsView,
     Footer
   },
   computed: {
