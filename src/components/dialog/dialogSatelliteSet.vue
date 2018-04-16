@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="卫星设置" :visible.sync="dialogSatelliteSet" width="942px">
+  <el-dialog title="Star Set" :visible.sync="dialogSatelliteSet" width="942px">
     <el-form :model="form">
       <div class="satelliteSet-content">
         <div class="leftside">
