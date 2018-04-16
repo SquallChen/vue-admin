@@ -1,6 +1,6 @@
 
 <template>
-  <el-dialog title="邮件设置" :visible.sync="dialogEmailSet">
+  <el-dialog title="邮件设置" :visible.sync="dialogEmailSet" width="670px">
     <el-form :model="form">
       <div class="emailSet-top">
         <el-form-item label="发送邮件服务器(SMTP)" :label-width="formLabelWidth">
