@@ -130,7 +130,6 @@
     </el-form>
     <div class="serviceset-footer">
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogServiceSet = false">取 消</el-button>
         <el-button type="primary" @click="dialogServiceSet = false">确 定</el-button>
       </div>
     </div>
@@ -393,7 +392,7 @@ export default {
   width: 220px;
 }
 .leftside .second-select .el-select {
-  width: 280px;
+  width: 274px;
 }
 .leftside .el-select {
   width: 100px;
