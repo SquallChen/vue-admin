@@ -37,7 +37,7 @@ import Screenfull from './Screenfull';
 export default {
   components: {
     Hamburger,
-    Screenfull,
+    Screenfull
   },
   computed: {
     ...mapGetters(['sidebar', 'name', 'avatar'])
@@ -58,7 +58,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
-  height: 84px;
+  height: 50px;
   line-height: 50px;
   border-radius: 0px !important;
   cursor: pointer;

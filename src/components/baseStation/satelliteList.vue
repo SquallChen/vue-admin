@@ -9,7 +9,7 @@
 
     <div class="data">
         <el-table
-          :data="tableData"         
+          :data="tableData"
           border
           style="width: 100%"  height="100%">
           <el-table-column
@@ -56,340 +56,340 @@
 </template>
 
 <script>
-import "@/assets/js/jquery-3.3.1.js";
+import '@/assets/js/jquery-3.3.1.js';
 export default {
   data() {
     return {
       tableData: [
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         },
         {
-          Nunber: "G10",
-          DirectionAngle: "137.77",
-          HeightAngle: "72.63",
-          L1: "52.80",
-          L2: "46.00",
-          L5: "58.30",
-          Track: "1C 2W",
-          ResiDuals: "-1.371",
-          Valid: "15288"
+          Nunber: 'G10',
+          DirectionAngle: '137.77',
+          HeightAngle: '72.63',
+          L1: '52.80',
+          L2: '46.00',
+          L5: '58.30',
+          Track: '1C 2W',
+          ResiDuals: '-1.371',
+          Valid: '15288'
         }
       ]
     };
@@ -398,17 +398,16 @@ export default {
     this.$nextTick(() => {
       // 将回调延迟到下次 DOM 更新循环之后执行,否则js将先于html加载而无法获取canvas节点
       var c = this.$refs.snrPic;
-      var ctx = c.getContext("2d");
-      var img = document.getElementById("scream");
+      var ctx = c.getContext('2d');
+      var img = document.getElementById('scream');
       // 绘制背景
-      img.onload = function() {
+      img.onload = function () {
         ctx.drawImage(img, -160, 30);
       };
     });
-
   },
-  methods:{
-   
+  methods: {
+
   }
 
   // $(document).ready(function() {
