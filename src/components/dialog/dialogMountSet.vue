@@ -68,18 +68,46 @@
               </div>
             </div>
             <div class="second-div">
-              <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed" :file-list="fileList" >
+              <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed" :file-list="fileList">
                 <el-button size="small" type="primary" disabled>点击上传</el-button>
               </el-upload>
             </div>
             <div class="third-div">
-
+              <div>
+                <el-checkbox label="RTCM 3.X Tranformation Parameter Information" name="type" disabled></el-checkbox>
+                <el-checkbox label="Paramter Variation" name="type" disabled></el-checkbox>
+                <el-select v-model="value2" placeholder="" disabled>
+                  <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="inp-content">
+                <div>
+                  <el-checkbox label="1021" name="type" disabled></el-checkbox>
+                  <el-input v-model="form.num" auto-complete="off" step="5" disabled></el-input>
+                  <span>S</span>
+                </div>
+                <div>
+                  <el-checkbox label="1025/1026/1027" name="type" disabled></el-checkbox>
+                  <el-input v-model="form.num" auto-complete="off" step="5" disabled></el-input>
+                  <span>S</span>
+                </div>
+                <div>
+                  <el-checkbox label="1023" name="type" disabled></el-checkbox>
+                  <el-input v-model="form.num" auto-complete="off" step="5" disabled></el-input>
+                  <span>S</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <div slot="footer" class="dialog-footer" style="text-align:center">
+      <el-button disabled><<</el-button>
+      <el-button>>></el-button>
+      <el-button >新 增</el-button>
+      <el-button disabled>删 除</el-button>
       <el-button @click="dialogServiceSet = false">取 消</el-button>
       <el-button type="primary" @click="dialogMountSet = false">确 定</el-button>
     </div>
@@ -96,6 +124,7 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       value: 'RTCM2.3',
+      value2: '每次连接',
       form: {
         smtp: 'RTCM23',
         name: '',
@@ -105,7 +134,8 @@ export default {
         delivery: false,
         type: [],
         resource: '',
-        desc: ''
+        desc: '',
+        num: '7'
       },
       fileList: [],
       options: [
@@ -128,6 +158,20 @@ export default {
         {
           value: '选项5',
           label: 'MSM5'
+        }
+      ],
+      options2: [
+        {
+          value: '选项1',
+          label: '每次连接'
+        },
+        {
+          value: '选项2',
+          label: 'MSM2'
+        },
+        {
+          value: '选项3',
+          label: 'MSM3'
         }
       ],
       formLabelWidth: '96px'
@@ -193,7 +237,7 @@ export default {
       }
       .second-div {
         position: relative;
-        min-height: 70px;
+        min-height: 240px;
         padding-top: 10px;
         padding-left: 10px;
         border: 1px solid #ddd;
@@ -248,11 +292,58 @@ export default {
           margin-left: 10px;
         }
       }
+      .third-div {
+        > div {
+          padding-top: 10px;
+          padding-left: 10px;
+        }
+        div {
+          display: flex;
+          flex-wrap: wrap;
+          .el-input {
+            width: 180px;
+            position: relative;
+            top: -5px;
+          }
+          .el-form-item {
+            width: 180px;
+          }
+          label {
+            height: 20px;
+          }
+          span {
+            margin-left: 5px;
+          }
+        }
+        div:nth-child(2) {
+          .el-input {
+            width: 80px;
+            margin-left: -34px;
+          }
+        }
+        .el-select {
+          width: 180px;
+          position: relative;
+          top: -6px;
+        }
+        label {
+          margin-right: 50px;
+          margin-bottom: 12px;
+        }
+        .inp-content {
+          display: flex;
+          div{
+            width:240px;
+            margin-bottom: 5px;
+          }
+        }
+      }
       .el-checkbox + .el-checkbox {
         margin-left: 0;
       }
     }
   }
+
   .top-title {
     display: block;
     text-align: center;
