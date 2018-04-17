@@ -16,10 +16,12 @@ import '@/styles/index.scss'; // global css
 
 import './permission';
 import './icons/icons.js'; // icon
+import echarts from 'echarts';
 
 Vue.use(Element, { size: 'medium' });
 Vue.use(Vuex);
 Vue.config.productionTip = false;
+Vue.prototype.$echarts = echarts;
 
 /* eslint-disable no-new */
 new Vue({
