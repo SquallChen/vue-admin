@@ -25,8 +25,10 @@ export default {
 
 /* DIV样式遮挡影响tab事件 */
 .app-main{
-  height:664px;
-  min-height: 522px;
+  height:100%;
+  padding-bottom: 84px;
+  /* height:664px;
+  min-height: 522px; */
   /* position: relative; */
   /* padding-top: 84px; */
   /* top:-84px; */

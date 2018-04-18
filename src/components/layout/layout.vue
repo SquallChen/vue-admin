@@ -6,8 +6,8 @@
       <tags-view></tags-view>
       <app-main></app-main>
     </div>
-    <div class="footer">
-      <footer></footer>
+    <div class="footers">
+      <footerContent></footerContent>
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
 import TagsView from './tagsView/tagsView';
 import AppMain from './appMain/appMain';
-import Footer from './footer/footer';
+import footerContent from './footers/footerContent';
 export default {
   name: 'layout',
   data() {
@@ -28,7 +28,7 @@ export default {
     Sidebar,
     AppMain,
     TagsView,
-    Footer
+    footerContent
   },
   computed: {
     sidebar() {
@@ -46,10 +46,11 @@ export default {
 	  height: 100%;
 	  width: 100%;
   }
-  .footer{
+  .footers{
     width:100%;
     height:21.1%;
     z-index: 1002;
     border:1px solid #ddd;
+    overflow: auto;
   }
 </style>

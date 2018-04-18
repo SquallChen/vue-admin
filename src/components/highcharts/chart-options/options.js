@@ -236,5 +236,90 @@ module.exports = {
       'enabled': true,
       'fallbackToExportServer': true
     }
+  },
+  test3: {
+    'xAxis': [
+      {
+        'type': 'category',
+        'categories': [
+          '',
+          '',
+          '',
+          '',
+          '',
+          ''
+        ],
+        'index': 0,
+        'isX': true
+      }
+    ],
+    'series': [
+      {
+        'name': '市场份额',
+        'data': [
+          45,
+          26.8,
+          12.8,
+          8.5,
+          6.2,
+          0.7
+        ],
+        'animation': true,
+        'connectEnds': true,
+        'enableMouseTracking': false,
+        '_colorIndex': 0,
+        '_symbolIndex': 0
+      },
+      {
+        'enableMouseTracking': false,
+        '_colorIndex': 1,
+        '_symbolIndex': 1,
+        'data': []
+      }
+    ],
+    'yAxis': [
+      {
+        'title': {
+          'text': ''
+        },
+        'index': 0
+      }
+    ],
+    'chart': {
+      'height': '300px',
+      'style': {
+        'fontFamily': '"微软雅黑", Arial, Helvetica, sans-serif',
+        'color': '#333',
+        'fontSize': '12px',
+        'fontWeight': 'normal',
+        'fontStyle': 'normal'
+      },
+      'type': 'line'
+    },
+    'title': {
+      'text': ''
+    },
+    'subtitle': {
+      'text': ''
+    },
+    'plotOptions': {
+      'line': {
+        'animation': false,
+        'allowPointSelect': false
+      },
+      'series': {
+        'dataLabels': {
+          'enabled': true
+        },
+        'animation': false
+      }
+    },
+    'legend': {
+      'enabled': false
+    },
+    'credits': {
+      'text': '',
+      'href': ''
+    }
   }
 };

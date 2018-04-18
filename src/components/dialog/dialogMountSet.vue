@@ -109,7 +109,7 @@
       <el-button >新 增</el-button>
       <el-button disabled>删 除</el-button>
       <el-button @click="dialogServiceSet = false">取 消</el-button>
-      <el-button type="primary" @click="dialogMountSet = false">确 定</el-button>
+      <el-button type="primary">主要按钮</el-button>
     </div>
   </el-dialog>
 </template>

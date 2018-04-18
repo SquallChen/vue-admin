@@ -17,13 +17,13 @@ import options from '@/components/highcharts/chart-options/options';
 export default {
   name: 'IONOSPHERE',
   data() {
-    let option = options.test;
-    let option2 = options.test2;
+    const option = options.test;
+    const option2 = options.test2;
     return {
       id: 'test',
-      id2:"test2",
+      id2: 'test2',
       option: option,
-      option2: option2,
+      option2: option2
     };
   },
   mounted() {},

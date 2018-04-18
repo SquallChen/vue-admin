@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline management">
       <el-form-item label="基站名">
         <el-input v-model="formInline.user" placeholder="TEST"></el-input>
       </el-form-item>
@@ -153,7 +153,7 @@ export default {
   name: 'dialogManagement',
   methods: {},
   mounted() {
-    //  箭头函数作用域，自己百度。
+    //  箭头函数作用域
     bus.$on('changeManagement', reg => {
       this.dialogManagement = reg;
     });
@@ -193,7 +193,7 @@ export default {
 </script>
 <style>
 
-.el-form-item__label {
+.management .el-form-item__label {
   width: 80px;
 }
 .middle-content {

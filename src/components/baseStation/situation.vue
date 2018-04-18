@@ -1,6 +1,8 @@
 <template>
   <div class="TableContent">
-    <el-table :data="list" border style="width: 100%" height="100%" tooltip-effect="dark"  v-loading="false"
+    <el-tabs v-model="activeName" type="card" :tab-position="tabPosition">
+    <el-tab-pane label="基站情况" name="first">
+       <el-table :data="list" border style="width: 100%" height="100%" tooltip-effect="dark"  v-loading="false"
           element-loading-text="加载中...">
       <el-table-column fixed prop="stationName" label="基站名" min-width="70" show-overflow-tooltip>
       </el-table-column>
@@ -38,6 +40,19 @@
         </template>
       </el-table-column>
     </el-table>
+    </el-tab-pane>
+    <el-tab-pane label="卫星列表" name="second">
+      <satelliteList></satelliteList>
+    </el-tab-pane>
+    <el-tab-pane label="误差汇总" name="third">误差汇总</el-tab-pane>
+    <el-tab-pane label="卫星信号" name="fourth">
+      <satelliteSignal></satelliteSignal>
+    </el-tab-pane>
+    <el-tab-pane label="接收机状态" name="fifth">
+      <receiverStatus></receiverStatus>
+    </el-tab-pane>
+  </el-tabs>
+
     <dialogManagement></dialogManagement>
     <dialogParameterSet></dialogParameterSet>
   </div>
@@ -48,6 +63,9 @@
 import { BaseInfo } from '@/api/app.js';
 import dialogManagement from '@/components/dialog/dialogManagement';
 import dialogParameterSet from '@/components/dialog/dialogParameterSet';
+import satelliteList from '@/components/baseStation/satelliteList';
+import satelliteSignal from '@/components/baseStation/satelliteSignal';
+import receiverStatus from '@/components/baseStation/receiverStatus';
 export default {
   name: 'situation',
   methods: {
@@ -63,6 +81,8 @@ export default {
   },
   data() {
     return {
+      tabPosition: 'bottom',
+      activeName: 'first',
       list: null,
       listLoading: true,
       listQuery: {
@@ -235,7 +255,10 @@ export default {
   },
   components: {
     dialogManagement,
-    dialogParameterSet
+    dialogParameterSet,
+    satelliteList,
+    satelliteSignal,
+    receiverStatus
   }
 };
 </script>
@@ -247,5 +270,14 @@ export default {
 }
 .el-dialog__body {
   padding: 20px 20px;
+}
+.el-tabs,.el-tabs__content{
+  height:100%;
+}
+.el-tabs{
+  padding-bottom: 52px;
+}
+.el-tab-pane{
+height:100%;
 }
 </style>
