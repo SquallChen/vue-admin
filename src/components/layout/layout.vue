@@ -6,9 +6,12 @@
       <tags-view></tags-view>
       <app-main></app-main>
     </div>
-    <div class="footers">
+    <!-- <div class="footers">
       <footerContent></footerContent>
-    </div>
+    </div> -->
+    <el-footer :height="height">
+      <footerContent></footerContent>
+    </el-footer>
   </div>
 </template>
 
@@ -21,7 +24,9 @@ import footerContent from './footers/footerContent';
 export default {
   name: 'layout',
   data() {
-    return {};
+    return {
+      height: '200px'
+    };
   },
   components: {
     Navbar,
@@ -44,7 +49,19 @@ export default {
 	  @include clearfix;
 	  position: relative;
 	  height: 100%;
-	  width: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .main-container{
+      width:100%;
+      height:78.9%;
+    }
+    .el-footer{
+      width:100%;
+      border:1px solid #ddd;
+      position:fixed;
+      bottom: 0;
+    }
   }
   .footers{
     width:100%;
@@ -52,5 +69,21 @@ export default {
     z-index: 1002;
     border:1px solid #ddd;
     overflow: auto;
+    position: fixed;
+    bottom:0;
+    span{
+      position: absolute;
+      display: block;
+      width:60px;
+      height:20px;
+      border:1px solid #ddd;
+      border-radius: 0 0 5px 5px ;
+
+      left:50%;
+      top:-1px;
+      background:url('../../assets/img/fold.png') no-repeat center;
+      background-size: 20px 20px;
+    }
   }
+
 </style>

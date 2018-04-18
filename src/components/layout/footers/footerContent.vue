@@ -1,5 +1,6 @@
 <template>
   <div class="footer-content">
+     <a @click="togglefold"></a>
     <ul>
       <li>
         <span>2018/04/18</span>
@@ -38,7 +39,12 @@
 
 <script>
 export default {
-  name: 'footerContent'
+  name: 'footerContent',
+  methods: {
+    togglefold() {
+
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -49,8 +55,21 @@ ul {
 .footer-content {
   width: 100%;
   height:100%;
-  // min-height: 196px;
+  padding-top: 15px;
   overflow: auto;
+  a{
+     position: absolute;
+      display: block;
+      width:60px;
+      height:20px;
+      border:1px solid #ddd;
+      border-radius: 0 0 5px 5px ;
+      cursor: pointer;
+      left:50%;
+      top:-1px;
+      background:url('../../../assets/img/fold.png') no-repeat center;
+      background-size: 20px 20px;
+  }
   span:nth-child(1) {
     margin-right: 10px;
   }
