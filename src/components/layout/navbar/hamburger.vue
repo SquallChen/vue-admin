@@ -34,13 +34,26 @@ export default {
   cursor: pointer;
   width: 20px;
   height: 20px;
+  transform-origin:50% 50%;
   transform: rotate(90deg);
   transition: 0.38s;
-
-  transform-origin 50% 50% {
     &.is-active {
       transform: rotate(0deg);
-    }
   }
 }
+// .hamburger {
+//   display: inline-block;
+//   cursor: pointer;
+//   width: 20px;
+//   height: 20px;
+//   transform-origin:50% 50%;
+//   transform: rotate(90deg);
+//   transition: 0.38s;
+
+//   transform-origin 50% 50% {
+//     &.is-active {
+//       transform: rotate(0deg);
+//     }
+//   }
+// }
 </style>
