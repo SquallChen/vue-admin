@@ -1,7 +1,6 @@
 #app {
   // 主体区域
   .main-container {
-    // height: 78.9%;
     transition: margin-left 0.28s;
     margin-left: 180px;
     overflow: hidden;
@@ -10,7 +9,7 @@
   .sidebar-container {
     transition: width 0.28s;
     width: 180px!important;
-    height: 78.9%;
+    // height: 78.9%;
     position: fixed;
     top: 0;
     bottom: 0;
