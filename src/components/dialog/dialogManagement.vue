@@ -2,10 +2,11 @@
   <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
     <el-form :inline="true" :model="formInline" class="demo-form-inline management">
       <el-form-item label="基站名">
-        <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+        <el-input v-model="formInline.user" placeholder=""></el-input>
       </el-form-item>
       <el-form-item label="连接类型">
-        <el-select v-model="value" placeholder="" disabled>
+        <!-- :disabled="test === true" -->
+        <el-select v-model="value" placeholder="">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -17,7 +18,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="ID">
-        <el-input v-model="formInline.user" placeholder="TEST"></el-input>
+        <el-input v-model="formInline.user" placeholder=""></el-input>
       </el-form-item>
       <div class="middle-content">
         <div class="middle-left">
@@ -160,6 +161,7 @@ export default {
   },
   data() {
     return {
+      test: true,
       dialogManagement: false,
       value: '',
       formInline: {
