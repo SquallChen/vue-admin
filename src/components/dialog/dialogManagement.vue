@@ -7,7 +7,7 @@
       <el-form-item label="连接类型">
         <!-- :disabled="test === true" -->
         <el-select v-model="value" placeholder="">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+          <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
@@ -186,6 +186,36 @@ export default {
         {
           value: 'Novatel',
           label: 'Novatel'
+        }
+      ],
+      connectionType: [
+        {
+          value: 'serialport',
+          label: '串口'
+        },
+        {
+          value: 'webserver',
+          label: '网络服务端'
+        },
+        {
+          value: 'webclient',
+          label: '网络客户端'
+        },
+        {
+          value: 'ntripclient',
+          label: 'Ntrip客户端'
+        },
+        {
+          value: 'ipv6server',
+          label: 'IPV6服务端'
+        },
+        {
+          value: 'ntripserver',
+          label: 'Ntrip Server'
+        },
+        {
+          value: 'topcontelnet',
+          label: 'Topcon Telnet'
         }
       ],
       formLabelWidth: '120px'
