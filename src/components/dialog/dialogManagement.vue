@@ -2,11 +2,10 @@
   <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
     <el-form :inline="true" :model="formInline" class="demo-form-inline management">
       <el-form-item label="基站名">
-        <el-input v-model="formInline.user" placeholder=""></el-input>
+        <el-input v-model="formInline.user" placeholder="" :disabled="status !== 0"></el-input>
       </el-form-item>
       <el-form-item label="连接类型">
-        <!-- :disabled="test === true" -->
-        <el-select v-model="connectionTypevalue" placeholder="">
+        <el-select v-model="connectionTypevalue" placeholder="" :disabled="status !== 0">
           <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -18,7 +17,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="ID">
-        <el-input v-model="formInline.user" placeholder="" type="number"></el-input>
+        <el-input v-model="formInline.user" placeholder="" type="number" :disabled="status !== 0"></el-input>
       </el-form-item>
       <div class="middle-content">
         <div class="middle-left">
@@ -96,31 +95,31 @@
       <div class="bottom-footer">
         <div class="footer-top">
           <el-form-item label="X(m)">
-            <el-input v-model="formInline.x" placeholder="" :disabled="radio !== 1"></el-input>
+            <el-input v-model="formInline.x" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
           </el-form-item>
           <el-form-item label="B(DD.MMSS)">
             <el-input v-model="formInline.b" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="NORTH(m)">
-            <el-input v-model="formInline.north" placeholder="" disabled></el-input>
+            <el-input v-model="formInline.north" placeholder="" :disabled="status !== 0"></el-input>
           </el-form-item>
           <el-form-item label="Y(m)">
-            <el-input v-model="formInline.y" placeholder="" :disabled="radio !== 1"></el-input>
+            <el-input v-model="formInline.y" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
           </el-form-item>
           <el-form-item label="L(DD.MMSS)">
             <el-input v-model="formInline.l" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="EAST(m)">
-            <el-input v-model="formInline.east" placeholder="" disabled></el-input>
+            <el-input v-model="formInline.east" placeholder="" :disabled="status !== 0"></el-input>
           </el-form-item>
           <el-form-item label="Z(m)">
-            <el-input v-model="formInline.z" placeholder="" :disabled="radio !== 1"></el-input>
+            <el-input v-model="formInline.z" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
           </el-form-item>
           <el-form-item label="H(m)">
             <el-input v-model="formInline.h" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="UP(m)">
-            <el-input v-model="formInline.up" placeholder="" disabled></el-input>
+            <el-input v-model="formInline.up" placeholder="" :disabled="status !== 0"></el-input>
           </el-form-item>
         </div>
         <div class="footer-bottom">
@@ -130,10 +129,10 @@
           </el-radio-group>
           <!-- <el-checkbox label="XYZ" name="type" checked></el-checkbox>
           <el-checkbox label="BLH" name="type" ></el-checkbox> -->
-          <el-checkbox label="基岩" name="type" disabled></el-checkbox>
-          <el-checkbox label="自动获取" name="type" disabled></el-checkbox>
-          <el-checkbox label="测试站" name="type" disabled></el-checkbox>
-          <el-checkbox label="固定基站" name="type" checked disabled></el-checkbox>
+          <el-checkbox label="基岩" name="type" :disabled="status !== 0"></el-checkbox>
+          <el-checkbox label="自动获取" name="type" :disabled="status !== 0"></el-checkbox>
+          <el-checkbox label="测试站" name="type" :disabled="status !== 0"></el-checkbox>
+          <el-checkbox label="固定基站" name="type" checked :disabled="status !== 0"></el-checkbox>
         </div>
         <span class="top-title">天线情况</span>
       </div>
@@ -143,8 +142,8 @@
       <el-button disabled>
         <<</el-button>
           <el-button disabled>>></el-button>
-          <el-button>新 增</el-button>
-          <el-button disabled>删 除</el-button>
+          <el-button @click="addstation">新 增</el-button>
+          <el-button :disabled="status !== 0">删 除</el-button>
           <el-button disabled>备 份</el-button>
           <el-button>导 入</el-button>
           <el-button>启动停止</el-button>
@@ -155,9 +154,38 @@
 
 <script>
 import bus from '@/store/eventbus';
+import { BaseInfo } from '@/api/app.js';
 export default {
   name: 'dialogManagement',
-  methods: {},
+  methods: {
+    getList() {
+      BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
+        response => {
+          // this.status = response.status;
+          this.list = response.recordList;
+          if (this.list.length > 0) {
+            this.status = 0;
+          }
+          // console.log(this.list.length);
+          // console.log(this.status);
+        },
+        reject => {
+          console.log('请求失败！');
+        }
+      );
+    },
+    addstation() {
+      if (this.status === 0) {
+        // 进行添加操作
+        console.log('开始对接');
+      } else {
+        this.status = 0;
+      }
+    }
+  },
+  created() {
+    // this.getList();
+  },
   mounted() {
     //  箭头函数作用域
     bus.$on('changeManagement', reg => {
@@ -166,15 +194,20 @@ export default {
   },
   data() {
     return {
+      data: '',
+      list: '',
+      status: '1',
       radio: 1,
       connectionTypevalue: 'serialport',
       commandtypevalue: 'Auto',
       serialportnumbervalue: '',
       communicationratevalue: '',
-      antennatypevalue: '',
-      test: true,
+      antennatypevalue: 'antnna_phase',
       dialogManagement: false,
-      value: '',
+      listQuery: {
+        page_num: 1,
+        num_per_page: 10
+      },
       formInline: {
         user: '',
         region: '',
