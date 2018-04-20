@@ -178,7 +178,6 @@ export default {
         response => {
           this.list = response.recordList;
           this.listlength = this.list.length;
-          console.log('this.listlength+' + this.listlength);
           // 如果返回的数组长度大于1，>>按钮处于可点击状态
           if (this.listlength > 1) {
             this.rightBtnStatus = 0;
@@ -194,13 +193,12 @@ export default {
         }
       );
     },
-    // 如果后面还有数据，则listIndex+1.最后是最后一项，禁用>>按钮
+    // 如果后面还有数据，则listIndex+1.如果是最后一项，禁用>>按钮
     nextstation() {
       if (this.listIndex < this.listlength - 2) {
         console.log(this.listIndex);
         this.listIndex += 1;
         this.rightBtnStatus = 0;
-        console.log(this.listIndex);
       } else if (this.listIndex === this.listlength - 2) {
         this.listIndex += 1;
         this.rightBtnStatus = 1;
@@ -241,8 +239,13 @@ export default {
         response => {
           alert('删除成功！');
           this.dialogVisible = false;
-          this.getList();
-          console.log('到底刷不刷');
+          bus.$emit('RefreshTableData', true);
+          // console.log('listIndex+' + this.listIndex);
+          // console.log('listlength+' + this.listlength);
+          // 如果当前的listIndex等于数据的长度减1（即删除了最后一项），将listIndex-1，避免undefined出现
+          if (this.listIndex === this.listlength - 1) {
+            this.listIndex -= 1;
+          }
           this.dialogManagement = false;
         },
         reject => {

@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import bus from '@/store/eventbus';
 import { BaseInfo } from '@/api/app.js';
 import dialogManagement from '@/components/dialog/dialogManagement';
 import dialogParameterSet from '@/components/dialog/dialogParameterSet';
@@ -93,169 +94,18 @@ export default {
         page_num: 1,
         num_per_page: 10
       },
-      dialogVisible: false,
-      tableData: [
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        },
-        {
-          name: '虎门',
-          epochnumber:
-            '23-100%-100%-98.74%(G10-R6-C8)23-100%-100%-98.74%(G10-R6-C8)',
-          epochtime: '09：01：56',
-          receivedata: '0(M)1862',
-          Datadelay: '52(ms)',
-          sn: 'S48F27107059144/1223015596/0024581445',
-          sw: 'T8B14208/0049300493/1.25s-1.10A-1',
-          id: 'ESHA',
-          mode: '网络客户端'
-        }
-      ]
+      dialogVisible: false
     };
   },
   created() {
     this.getList();
+  },
+  mounted() {
+    //  箭头函数作用域
+    bus.$on('RefreshTableData', reg => {
+      console.log(reg);
+      this.getList();
+    });
   },
   components: {
     dialogManagement,
