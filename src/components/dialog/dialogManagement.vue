@@ -1,11 +1,11 @@
 <template>
   <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
-    <el-form :inline="true" :model="formInline" class="demo-form-inline management">
+    <el-form :inline="true" class="demo-form-inline management">
       <el-form-item label="基站名">
-        <el-input v-model="formInline.user" placeholder="" :disabled="status !== 0"></el-input>
+        <el-input v-model="list[0].stationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
       </el-form-item>
       <el-form-item label="连接类型">
-        <el-select v-model="connectionTypevalue" placeholder="" :disabled="status !== 0">
+        <el-select v-model="connectionTypevalue" placeholder="" :disabled="disabledstate !== 0">
           <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -17,7 +17,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="ID">
-        <el-input v-model="formInline.user" placeholder="" type="number" :disabled="status !== 0"></el-input>
+        <el-input v-model="list[0].stationId" placeholder="" type="number" :disabled="disabledstate !== 0"></el-input>
       </el-form-item>
       <div class="middle-content">
         <div class="middle-left">
@@ -38,7 +38,7 @@
           </div>
           <div class="right-top">
             <el-form-item label="服务端口">
-              <el-input v-model="formInline.serviceport" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
+              <el-input v-model="list[0].serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
             </el-form-item>
             <span class="top-title">网络服务器</span>
           </div>
@@ -74,10 +74,11 @@
         </div>
         <div class="middle-right">
           <el-form-item label="IP">
-            <el-input v-model="formInline.ip" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            <!-- :disabled根据连接类型select的值判断其他输入框的状态 -->
+            <el-input v-model="list[0].clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
           </el-form-item>
           <el-form-item label="Port">
-            <el-input v-model="formInline.port" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            <el-input v-model="list[0].clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
           </el-form-item>
           <el-form-item label="Mount">
             <el-input v-model="formInline.mount" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'"></el-input>
@@ -95,31 +96,31 @@
       <div class="bottom-footer">
         <div class="footer-top">
           <el-form-item label="X(m)">
-            <el-input v-model="formInline.x" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
+            <el-input v-model="list[0].x" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
           </el-form-item>
           <el-form-item label="B(DD.MMSS)">
-            <el-input v-model="formInline.b" placeholder="" :disabled="radio === 1"></el-input>
+            <el-input v-model="list[0].b" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="NORTH(m)">
-            <el-input v-model="formInline.north" placeholder="" :disabled="status !== 0"></el-input>
+            <el-input v-model="formInline.north" placeholder="" :disabled="disabledstate !== 0"></el-input>
           </el-form-item>
           <el-form-item label="Y(m)">
-            <el-input v-model="formInline.y" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
+            <el-input v-model="list[0].y" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
           </el-form-item>
           <el-form-item label="L(DD.MMSS)">
-            <el-input v-model="formInline.l" placeholder="" :disabled="radio === 1"></el-input>
+            <el-input v-model="list[0].l" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="EAST(m)">
-            <el-input v-model="formInline.east" placeholder="" :disabled="status !== 0"></el-input>
+            <el-input v-model="formInline.east" placeholder="" :disabled="disabledstate !== 0"></el-input>
           </el-form-item>
           <el-form-item label="Z(m)">
-            <el-input v-model="formInline.z" placeholder="" :disabled="radio !== 1||status!==0"></el-input>
+            <el-input v-model="list[0].z" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
           </el-form-item>
           <el-form-item label="H(m)">
-            <el-input v-model="formInline.h" placeholder="" :disabled="radio === 1"></el-input>
+            <el-input v-model="list[0].h" placeholder="" :disabled="radio === 1"></el-input>
           </el-form-item>
           <el-form-item label="UP(m)">
-            <el-input v-model="formInline.up" placeholder="" :disabled="status !== 0"></el-input>
+            <el-input v-model="formInline.up" placeholder="" :disabled="disabledstate !== 0"></el-input>
           </el-form-item>
         </div>
         <div class="footer-bottom">
@@ -127,12 +128,10 @@
             <el-radio :label="1">XYZ</el-radio>
             <el-radio :label="2">BLH</el-radio>
           </el-radio-group>
-          <!-- <el-checkbox label="XYZ" name="type" checked></el-checkbox>
-          <el-checkbox label="BLH" name="type" ></el-checkbox> -->
-          <el-checkbox label="基岩" name="type" :disabled="status !== 0"></el-checkbox>
-          <el-checkbox label="自动获取" name="type" :disabled="status !== 0"></el-checkbox>
-          <el-checkbox label="测试站" name="type" :disabled="status !== 0"></el-checkbox>
-          <el-checkbox label="固定基站" name="type" checked :disabled="status !== 0"></el-checkbox>
+          <el-checkbox label="基岩" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+          <el-checkbox label="自动获取" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+          <el-checkbox label="测试站" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+          <el-checkbox label="固定基站" name="type" checked :disabled="disabledstate !== 0"></el-checkbox>
         </div>
         <span class="top-title">天线情况</span>
       </div>
@@ -144,7 +143,7 @@
           <el-button disabled>>></el-button>
           <el-button @click="addstation">新 增</el-button>
           <el-button :disabled="status !== 0">删 除</el-button>
-          <el-button disabled>备 份</el-button>
+          <el-button :disabled="status !== 0">备 份</el-button>
           <el-button>导 入</el-button>
           <el-button>启动停止</el-button>
           <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
@@ -158,16 +157,15 @@ import { BaseInfo } from '@/api/app.js';
 export default {
   name: 'dialogManagement',
   methods: {
+    // 获取接口数据
     getList() {
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
-          // this.status = response.status;
           this.list = response.recordList;
-          if (this.list.length > 0) {
+          if (this.list.length > 0) { // 已经存在基站数据并成功获取
             this.status = 0;
+            this.disabledstate = 0;
           }
-          // console.log(this.list.length);
-          // console.log(this.status);
         },
         reject => {
           console.log('请求失败！');
@@ -175,28 +173,34 @@ export default {
       );
     },
     addstation() {
-      if (this.status === 0) {
+      // 如果按钮
+      if (this.disabledstate !== 0) {
+        this.disabledstate = 0;
+        return;
+      }
+      if (this.disabledstate === 0) {
         // 进行添加操作
         console.log('开始对接');
-      } else {
-        this.status = 0;
       }
     }
   },
   created() {
-    // this.getList();
+    // 创建实例时请求数据
+    this.getList();
   },
   mounted() {
     //  箭头函数作用域
     bus.$on('changeManagement', reg => {
       this.dialogManagement = reg;
+      this.$nextTick(this.getList());
     });
   },
   data() {
     return {
       data: '',
-      list: '',
-      status: '1',
+      list: [{}],
+      status: 1,
+      disabledstate: 1,
       radio: 1,
       connectionTypevalue: 'serialport',
       commandtypevalue: 'Auto',

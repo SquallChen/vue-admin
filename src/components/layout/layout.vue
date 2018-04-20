@@ -26,7 +26,7 @@ export default {
   name: 'layout',
   data() {
     return {
-      height: '200px',
+      height: '21.1%',
       isActive: false
     };
   },
@@ -74,6 +74,7 @@ export default {
     height: 100%;
   }
   .el-footer {
+    padding:0;
     width: 100%;
     border: 1px solid #ddd;
     position: fixed;
