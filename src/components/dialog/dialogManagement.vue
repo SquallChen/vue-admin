@@ -1,168 +1,190 @@
 <template>
-  <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
-    <el-form :inline="true" class="demo-form-inline management">
-      <el-form-item label="基站名">
-        <el-input v-model="list[0].stationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
-      </el-form-item>
-      <el-form-item label="连接类型">
-        <el-select v-model="connectionTypevalue" placeholder="" :disabled="disabledstate !== 0">
-          <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="命令类型">
-        <el-select v-model="commandtypevalue" placeholder="">
-          <el-option v-for="item in commandType" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="ID">
-        <el-input v-model="list[0].stationId" placeholder="" type="number" :disabled="disabledstate !== 0"></el-input>
-      </el-form-item>
-      <div class="middle-content">
-        <div class="middle-left">
-          <div class="left-top">
-            <el-form-item label="串口号">
-              <el-select v-model="serialportnumbervalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
-                <el-option v-for="item in serialportNumber" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="通讯率">
-              <el-select v-model="communicationratevalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
-                <el-option v-for="item in communicationRate" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <span class="top-title">串口</span>
-          </div>
-          <div class="right-top">
-            <el-form-item label="服务端口">
-              <el-input v-model="list[0].serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
-            </el-form-item>
-            <span class="top-title">网络服务器</span>
-          </div>
-          <div class="left-bottom">
-            <el-form-item label="天线类型">
-              <el-select v-model="antennatypevalue" placeholder="" class="resetselect">
-                <el-option v-for="item in antennaType" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <div class="l1l2">
-              <el-form-item label="L1(mm)">
-                <el-input v-model="formInline.l11" placeholder="" disabled></el-input>
+  <div>
+    <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
+      <el-form :inline="true" class="demo-form-inline management">
+        <el-form-item label="基站名">
+          <el-input v-model="list[listIndex].stationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
+        </el-form-item>
+        <el-form-item label="连接类型">
+          <el-select v-model="connectionTypevalue" placeholder="" :disabled="disabledstate !== 0">
+            <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="命令类型">
+          <el-select v-model="commandtypevalue" placeholder="">
+            <el-option v-for="item in commandType" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="ID">
+          <el-input v-model="list[listIndex].stationId" placeholder="" :disabled="disabledstate !== 0"></el-input>
+        </el-form-item>
+        <div class="middle-content">
+          <div class="middle-left">
+            <div class="left-top">
+              <el-form-item label="串口号">
+                <el-select v-model="serialportnumbervalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
+                  <el-option v-for="item in serialportNumber" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
               </el-form-item>
-              <el-form-item label="">
-                <el-input v-model="formInline.l12" placeholder="" disabled></el-input>
+              <el-form-item label="通讯率">
+                <el-select v-model="communicationratevalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
+                  <el-option v-for="item in communicationRate" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
               </el-form-item>
-              <el-form-item label="">
-                <el-input v-model="formInline.l13" placeholder="" disabled></el-input>
-              </el-form-item>
-              <el-form-item label="L2(mm)">
-                <el-input v-model="formInline.l21" placeholder="" disabled></el-input>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input v-model="formInline.l22" placeholder="" disabled></el-input>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input v-model="formInline.l23" placeholder="" disabled></el-input>
-              </el-form-item>
+              <span class="top-title">串口</span>
             </div>
+            <div class="right-top">
+              <el-form-item label="服务端口">
+                <el-input v-model="list[listIndex].serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
+              </el-form-item>
+              <span class="top-title">网络服务器</span>
+            </div>
+            <div class="left-bottom">
+              <el-form-item label="天线类型">
+                <el-select v-model="antennatypevalue" placeholder="" class="resetselect">
+                  <el-option v-for="item in antennaType" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <div class="l1l2">
+                <el-form-item label="L1(mm)">
+                  <el-input v-model="formInline.l11" placeholder="" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                  <el-input v-model="formInline.l12" placeholder="" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                  <el-input v-model="formInline.l13" placeholder="" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="L2(mm)">
+                  <el-input v-model="formInline.l21" placeholder="" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                  <el-input v-model="formInline.l22" placeholder="" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                  <el-input v-model="formInline.l23" placeholder="" disabled></el-input>
+                </el-form-item>
+              </div>
 
+            </div>
+          </div>
+          <div class="middle-right">
+            <el-form-item label="IP">
+              <!-- :disabled根据连接类型select的值判断其他输入框的状态 -->
+              <el-input v-model="list[listIndex].clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            </el-form-item>
+            <el-form-item label="Port">
+              <el-input v-model="list[listIndex].clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            </el-form-item>
+            <el-form-item label="Mount">
+              <el-input v-model="formInline.mount" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'"></el-input>
+            </el-form-item>
+            <el-form-item label="Login Name">
+              <el-input v-model="formInline.loginname" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            </el-form-item>
+            <el-form-item label="Password">
+              <el-input v-model="formInline.password" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+            </el-form-item>
+            <el-checkbox label="Send GGA" name="type" checked :disabled="connectionTypevalue !== 'ntripclient'"></el-checkbox>
+            <span class="top-title">网络客户端</span>
           </div>
         </div>
-        <div class="middle-right">
-          <el-form-item label="IP">
-            <!-- :disabled根据连接类型select的值判断其他输入框的状态 -->
-            <el-input v-model="list[0].clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
-          </el-form-item>
-          <el-form-item label="Port">
-            <el-input v-model="list[0].clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
-          </el-form-item>
-          <el-form-item label="Mount">
-            <el-input v-model="formInline.mount" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'"></el-input>
-          </el-form-item>
-          <el-form-item label="Login Name">
-            <el-input v-model="formInline.loginname" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'topcontelnet'"></el-input>
-          </el-form-item>
-          <el-form-item label="Password">
-            <el-input v-model="formInline.password" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
-          </el-form-item>
-          <el-checkbox label="Send GGA" name="type" checked :disabled="connectionTypevalue !== 'ntripclient'"></el-checkbox>
-          <span class="top-title">网络客户端</span>
+        <div class="bottom-footer">
+          <div class="footer-top">
+            <el-form-item label="X(m)">
+              <el-input v-model="list[listIndex].x" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+            </el-form-item>
+            <el-form-item label="B(DD.MMSS)">
+              <el-input v-model="list[listIndex].b" placeholder="" :disabled="radio === 1"></el-input>
+            </el-form-item>
+            <el-form-item label="NORTH(m)">
+              <el-input v-model="formInline.north" placeholder="" :disabled="disabledstate !== 0"></el-input>
+            </el-form-item>
+            <el-form-item label="Y(m)">
+              <el-input v-model="list[listIndex].y" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+            </el-form-item>
+            <el-form-item label="L(DD.MMSS)">
+              <el-input v-model="list[listIndex].l" placeholder="" :disabled="radio === 1"></el-input>
+            </el-form-item>
+            <el-form-item label="EAST(m)">
+              <el-input v-model="formInline.east" placeholder="" :disabled="disabledstate !== 0"></el-input>
+            </el-form-item>
+            <el-form-item label="Z(m)">
+              <el-input v-model="list[listIndex].z" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+            </el-form-item>
+            <el-form-item label="H(m)">
+              <el-input v-model="list[listIndex].h" placeholder="" :disabled="radio === 1"></el-input>
+            </el-form-item>
+            <el-form-item label="UP(m)">
+              <el-input v-model="formInline.up" placeholder="" :disabled="disabledstate !== 0"></el-input>
+            </el-form-item>
+          </div>
+          <div class="footer-bottom">
+            <el-radio-group v-model="radio">
+              <el-radio :label="1">XYZ</el-radio>
+              <el-radio :label="2">BLH</el-radio>
+            </el-radio-group>
+            <el-checkbox label="基岩" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+            <el-checkbox label="自动获取" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+            <el-checkbox label="测试站" name="type" :disabled="disabledstate !== 0"></el-checkbox>
+            <el-checkbox label="固定基站" name="type" checked :disabled="disabledstate !== 0"></el-checkbox>
+          </div>
+          <span class="top-title">天线情况</span>
         </div>
-      </div>
-      <div class="bottom-footer">
-        <div class="footer-top">
-          <el-form-item label="X(m)">
-            <el-input v-model="list[0].x" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
-          </el-form-item>
-          <el-form-item label="B(DD.MMSS)">
-            <el-input v-model="list[0].b" placeholder="" :disabled="radio === 1"></el-input>
-          </el-form-item>
-          <el-form-item label="NORTH(m)">
-            <el-input v-model="formInline.north" placeholder="" :disabled="disabledstate !== 0"></el-input>
-          </el-form-item>
-          <el-form-item label="Y(m)">
-            <el-input v-model="list[0].y" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
-          </el-form-item>
-          <el-form-item label="L(DD.MMSS)">
-            <el-input v-model="list[0].l" placeholder="" :disabled="radio === 1"></el-input>
-          </el-form-item>
-          <el-form-item label="EAST(m)">
-            <el-input v-model="formInline.east" placeholder="" :disabled="disabledstate !== 0"></el-input>
-          </el-form-item>
-          <el-form-item label="Z(m)">
-            <el-input v-model="list[0].z" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
-          </el-form-item>
-          <el-form-item label="H(m)">
-            <el-input v-model="list[0].h" placeholder="" :disabled="radio === 1"></el-input>
-          </el-form-item>
-          <el-form-item label="UP(m)">
-            <el-input v-model="formInline.up" placeholder="" :disabled="disabledstate !== 0"></el-input>
-          </el-form-item>
-        </div>
-        <div class="footer-bottom">
-          <el-radio-group v-model="radio">
-            <el-radio :label="1">XYZ</el-radio>
-            <el-radio :label="2">BLH</el-radio>
-          </el-radio-group>
-          <el-checkbox label="基岩" name="type" :disabled="disabledstate !== 0"></el-checkbox>
-          <el-checkbox label="自动获取" name="type" :disabled="disabledstate !== 0"></el-checkbox>
-          <el-checkbox label="测试站" name="type" :disabled="disabledstate !== 0"></el-checkbox>
-          <el-checkbox label="固定基站" name="type" checked :disabled="disabledstate !== 0"></el-checkbox>
-        </div>
-        <span class="top-title">天线情况</span>
-      </div>
-    </el-form>
+      </el-form>
 
-    <div slot="footer" class="dialog-footer" style="text-align:center">
-      <el-button disabled>
-        <<</el-button>
-          <el-button disabled>>></el-button>
-          <el-button @click="addstation">新 增</el-button>
-          <el-button :disabled="status !== 0">删 除</el-button>
-          <el-button :disabled="status !== 0">备 份</el-button>
-          <el-button>导 入</el-button>
-          <el-button>启动停止</el-button>
-          <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
-    </div>
-  </el-dialog>
+      <div slot="footer" class="dialog-footer" style="text-align:center">
+        <!-- 如果当前listIndex大于0，上一页按钮可点击 -->
+        <el-button :disabled="listIndex <= 0" @click="previousstation">
+          <<</el-button>
+            <!-- 如果返回数据大于1（按钮可点击）并且当前listIndex不大于listlength - 2，下一页按钮可点击 -->
+            <el-button :disabled="rightBtnStatus !== 0&&listIndex >listlength - 2" @click="nextstation">>></el-button>
+            <el-button @click="addOperation">新 增</el-button>
+            <el-button :disabled="status !== 0" @click="dialogVisible = true">删 除</el-button>
+            <el-button :disabled="status !== 0">备 份</el-button>
+            <el-button>导 入</el-button>
+            <el-button>启动停止</el-button>
+            <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
+      </div>
+
+    </el-dialog>
+    <!-- 确认删除弹窗 -->
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+      <span>确定删除该基站？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="deleteOperation(list[listIndex].id)">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+
 </template>
 
 <script>
 import bus from '@/store/eventbus';
-import { BaseInfo } from '@/api/app.js';
+import { BaseInfo, AddBaseStation, DeleteBaseStation } from '@/api/app.js';
 export default {
   name: 'dialogManagement',
   methods: {
     // 获取接口数据
     getList() {
+      // console.log(this.listlength);
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
-          if (this.list.length > 0) { // 已经存在基站数据并成功获取
+          this.listlength = this.list.length;
+          console.log('this.listlength+' + this.listlength);
+          // 如果返回的数组长度大于1，>>按钮处于可点击状态
+          if (this.listlength > 1) {
+            this.rightBtnStatus = 0;
+          }
+          // 已经存在基站数据并成功获取,更改表单元素的状态
+          if (this.listlength > 0) {
             this.status = 0;
             this.disabledstate = 0;
           }
@@ -172,8 +194,28 @@ export default {
         }
       );
     },
-    addstation() {
-      // 如果按钮
+    // 如果后面还有数据，则listIndex+1.最后是最后一项，禁用>>按钮
+    nextstation() {
+      if (this.listIndex < this.listlength - 2) {
+        console.log(this.listIndex);
+        this.listIndex += 1;
+        this.rightBtnStatus = 0;
+        console.log(this.listIndex);
+      } else if (this.listIndex === this.listlength - 2) {
+        this.listIndex += 1;
+        this.rightBtnStatus = 1;
+      } else {
+        this.rightBtnStatus = 1;
+      }
+    },
+    previousstation() {
+      if (this.listIndex > 0) {
+        console.log(this.listIndex);
+        this.listIndex -= 1;
+      }
+    },
+    // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
+    addOperation() {
       if (this.disabledstate !== 0) {
         this.disabledstate = 0;
         return;
@@ -181,7 +223,32 @@ export default {
       if (this.disabledstate === 0) {
         // 进行添加操作
         console.log('开始对接');
+        // 添加基站请求
+        // AddBaseStation(this.testlist.station_name, this.testlist.station_id, this.testlist.x, this.testlist.y, this.testlist.z, this.testlist.client_ip, this.testlist.client_port, this.testlist.server_port, this.testlist.b, this.testlist.b, this.testlist.l, this.testlist.h, this.testlist.status, this.testlist.net_id, this.testlist.mode).then(
+        //   response => {
+        //     alert('操作完成');
+        //   },
+        //   reject => {
+        //     console.log('请求失败！');
+        //   }
+        // );
       }
+    },
+    deleteOperation(id) {
+      // DeleteBaseStation(this.list[this.listIndex].id).then(
+      console.log(id);
+      DeleteBaseStation(id).then(
+        response => {
+          alert('删除成功！');
+          this.dialogVisible = false;
+          this.getList();
+          console.log('到底刷不刷');
+          this.dialogManagement = false;
+        },
+        reject => {
+          console.log('删除失败！');
+        }
+      );
     }
   },
   created() {
@@ -192,6 +259,7 @@ export default {
     //  箭头函数作用域
     bus.$on('changeManagement', reg => {
       this.dialogManagement = reg;
+      // 在页面更新完成后再请求一次数据，避免双向绑定数据误修改本地数据与远程数据产生差别
       this.$nextTick(this.getList());
     });
   },
@@ -199,8 +267,13 @@ export default {
     return {
       data: '',
       list: [{}],
+      listIndex: 0,
+      listlength: '12',
+      rightBtnStatus: 1,
+      leftBtnStatus: 1,
       status: 1,
       disabledstate: 1,
+      dialogVisible: false,
       radio: 1,
       connectionTypevalue: 'serialport',
       commandtypevalue: 'Auto',
@@ -208,6 +281,23 @@ export default {
       communicationratevalue: '',
       antennatypevalue: 'antnna_phase',
       dialogManagement: false,
+      testlist: {
+        delectid: 'f25d3187383f40e0bc34439594e7dace',
+        station_name: 'testone',
+        station_id: 9527,
+        x: 123456,
+        y: 78910,
+        z: 11121314,
+        client_ip: '127.0.0.1',
+        client_port: 10086,
+        server_port: 889900,
+        b: 444444,
+        l: 555555,
+        h: 666666,
+        status: 0,
+        net_id: 769394,
+        mode: 0
+      },
       listQuery: {
         page_num: 1,
         num_per_page: 10
