@@ -48,6 +48,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true;
+      // 设置获取数据的页数和每一页展示的数据量
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
@@ -68,8 +69,7 @@ export default {
       listQuery: {
         page_num: 1,
         num_per_page: 10
-      },
-      dialogVisible: false
+      }
     };
   },
   created() {
@@ -77,8 +77,11 @@ export default {
   },
   mounted() {
     // 当删除基站操作完成后，重新请求刷新表格数据
-    bus.$on('RefreshTableData', reg => {
-      console.log(reg);
+    bus.$on('RefreshAfterDeletion', reg => {
+      this.getList();
+    });
+    // 当新增基站操作完成后，重新请求刷新表格数据
+    bus.$on('RefreshAfterAdd', reg => {
       this.getList();
     });
   }

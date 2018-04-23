@@ -2,7 +2,7 @@
  * Created: 2018-03-07 03:07:47
  * Author: Hallo_c
  * -----
- * Modified: 2018-04-20 11:46:06
+ * Modified: 2018-04-23 02:57:12
  * Modified By: Hallo_c
  * -----
  */
@@ -74,7 +74,7 @@ function BaseInfo(page_num, num_per_page) {
 }
 
 // 新增基站
-function AddBaseStation(station_name, station_id, x, y, z, client_ip, client_port, server_port, b, l, h, status, net_id, mode) {
+function AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
   return request({
     url: 'cors_station/create_index',
     method: 'post',

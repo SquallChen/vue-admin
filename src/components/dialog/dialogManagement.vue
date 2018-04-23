@@ -6,8 +6,8 @@
           <el-input v-model="baseStationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
         </el-form-item>
         <el-form-item label="连接类型">
-          <el-select v-model="connectionTypevalue" placeholder="" :disabled="disabledstate !== 0">
-            <el-option v-for="item in connectionType" :key="item.value" :label="item.label" :value="item.value">
+          <el-select v-model="mode" placeholder="" :disabled="disabledstate !== 0">
+            <el-option v-for="item in modeType" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
@@ -30,13 +30,13 @@
           <div class="middle-left">
             <div class="left-top">
               <el-form-item label="串口号">
-                <el-select v-model="serialportnumbervalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
+                <el-select v-model="serialportnumbervalue" placeholder="" :disabled="mode !== 0">
                   <el-option v-for="item in serialportNumber" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="通讯率">
-                <el-select v-model="communicationratevalue" placeholder="" :disabled="connectionTypevalue !== 'serialport'">
+                <el-select v-model="communicationratevalue" placeholder="" :disabled="mode !== 0">
                   <el-option v-for="item in communicationRate" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -45,7 +45,7 @@
             </div>
             <div class="right-top">
               <el-form-item label="服务端口">
-                <el-input v-model="serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
+                <el-input v-model="serverPort" placeholder="0" type="number" :disabled="mode !== 1 && mode !== 4"></el-input>
               </el-form-item>
               <span class="top-title">网络服务器</span>
             </div>
@@ -82,21 +82,21 @@
           <div class="middle-right">
             <el-form-item label="IP">
               <!-- :disabled根据连接类型select的值判断其他输入框的状态 -->
-              <el-input v-model="clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="clientIp" placeholder="" :disabled="mode !== 2&&mode !== 3&&mode !== 5&&mode !== 6"></el-input>
             </el-form-item>
             <el-form-item label="Port">
-              <el-input v-model="clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="clientPort" placeholder="" :disabled="mode !== 2&&mode !== 3&&mode !== 5&&mode !== 6"></el-input>
             </el-form-item>
             <el-form-item label="Mount">
-              <el-input v-model="formInline.mount" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'"></el-input>
+              <el-input v-model="formInline.mount" placeholder="" :disabled="mode !== 3&&mode !== 5"></el-input>
             </el-form-item>
             <el-form-item label="Login Name">
-              <el-input v-model="formInline.loginname" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="formInline.loginname" placeholder="" :disabled="mode !== 3&&mode !== 6"></el-input>
             </el-form-item>
             <el-form-item label="Password">
-              <el-input v-model="formInline.password" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="formInline.password" placeholder="" :disabled="mode !== 3&&mode !== 5&&mode !== 6"></el-input>
             </el-form-item>
-            <el-checkbox label="Send GGA" name="type" checked :disabled="connectionTypevalue !== 'ntripclient'"></el-checkbox>
+            <el-checkbox label="Send GGA" name="type" checked :disabled="mode !== 3"></el-checkbox>
             <span class="top-title">网络客户端</span>
           </div>
         </div>
@@ -150,9 +150,9 @@
           <<</el-button>
             <!-- 如果返回数据大于1（按钮可点击）并且当前listIndex不大于listlength - 2，下一页按钮可点击 -->
             <el-button :disabled="rightBtnStatus !== 0&&listIndex >listlength - 2" @click="nextstation">>></el-button>
-            <el-button @click="addOperation">新 增</el-button>
-            <el-button :disabled="status !== 0" @click="dialogVisible = true">删 除</el-button>
-            <el-button :disabled="status !== 0">备 份</el-button>
+            <el-button @click="adddialogVisible = true">新 增</el-button>
+            <el-button :disabled="elementstatus !== 0" @click="delectdialogVisible = true">删 除</el-button>
+            <el-button :disabled="elementstatus !== 0">备 份</el-button>
             <el-button>导 入</el-button>
             <el-button>启动停止</el-button>
             <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
@@ -160,11 +160,19 @@
 
     </el-dialog>
     <!-- 再次确认删除弹窗 -->
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="提示" :visible.sync="delectdialogVisible" width="30%">
       <span>确定删除该基站？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="delectdialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="deleteOperation(Id)">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 再次确认新增弹窗 -->
+    <el-dialog title="提示" :visible.sync="adddialogVisible" width="30%">
+      <span>确定新增该基站？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="adddialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addOperation(baseStationName, stationId, serverPort, x, y, z, clientIp, clientPort, b, l, h, status, netId, mode)">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -191,7 +199,7 @@ export default {
           }
           // 已经存在基站数据并成功获取,更改表单元素的状态
           if (this.listlength > 0) {
-            this.status = 0;
+            this.elementstatus = 0;
             this.disabledstate = 0;
           }
         },
@@ -214,6 +222,7 @@ export default {
       this.b = this.list[this.listIndex].b;
       this.l = this.list[this.listIndex].l;
       this.h = this.list[this.listIndex].h;
+      this.mode = this.list[this.listIndex].mode;
     },
     // 如果后面还有数据，则listIndex+1.如果是最后一项，禁用>>按钮
     nextstation() {
@@ -227,13 +236,11 @@ export default {
         // listIndex点击更改后，赋予表单元素新的默认参数
         this.$options.methods.assignment.bind(this)();
         this.rightBtnStatus = 1;
-        this.baseStationName = this.list[this.listIndex].stationName;
       } else {
         this.rightBtnStatus = 1;
       }
     },
     previousstation() {
-      this.baseStationName = this.list[this.listIndex].stationName;
       if (this.listIndex > 0) {
         this.listIndex -= 1;
         // listIndex点击更改后，赋予表单元素新的默认参数
@@ -241,7 +248,7 @@ export default {
       }
     },
     // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
-    addOperation() {
+    addOperation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
       if (this.disabledstate !== 0) {
         this.disabledstate = 0;
         return;
@@ -249,15 +256,19 @@ export default {
       if (this.disabledstate === 0) {
         // 进行添加操作
         console.log('开始对接');
-        // 添加基站请求
-        // AddBaseStation(this.testlist.station_name, this.testlist.station_id, this.testlist.x, this.testlist.y, this.testlist.z, this.testlist.client_ip, this.testlist.client_port, this.testlist.server_port, this.testlist.b, this.testlist.b, this.testlist.l, this.testlist.h, this.testlist.status, this.testlist.net_id, this.testlist.mode).then(
-        //   response => {
-        //     alert('操作完成');
-        //   },
-        //   reject => {
-        //     console.log('请求失败！');
-        //   }
-        // );
+        // 调用添加基站的请求方法
+        AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode).then(
+          response => {
+            alert('新增基站成功！');
+            bus.$emit('RefreshAfterAdd', true);
+            // 删除后隐藏弹窗
+            this.adddialogVisible = false;
+            this.dialogManagement = false;
+          },
+          reject => {
+            console.log('请求失败！');
+          }
+        );
       }
     },
 
@@ -266,13 +277,13 @@ export default {
       DeleteBaseStation(id).then(
         response => {
           alert('删除成功！');
-          bus.$emit('RefreshTableData', true);
-          // 如果当前的listIndex等于数据的长度减1（即刚刚删除了最后一项），将listIndex-1，避免undefined出现
+          bus.$emit('RefreshAfterDeletion', true);
+          // 如果当前的listIndex等于数据的长度减1（即刚刚删除了最后一项），将listIndex重置，避免undefined出现
           if (this.listIndex === this.listlength - 1) {
-            this.listIndex -= 1;
+            this.listIndex = 0;
           }
           // 删除后隐藏弹窗
-          this.dialogVisible = false;
+          this.delectdialogVisible = false;
           this.dialogManagement = false;
         },
         reject => {
@@ -306,17 +317,20 @@ export default {
       b: '',
       l: '',
       h: '',
+      status: 0,
+      mode: 0,
+      netId: 9527,
       data: '',
       list: [{}],
       listIndex: 0,
       listlength: '',
       rightBtnStatus: 1,
       leftBtnStatus: 1,
-      status: 1,
+      elementstatus: 1,
       disabledstate: 1,
-      dialogVisible: false,
+      delectdialogVisible: false,
+      adddialogVisible: false,
       radio: 1,
-      connectionTypevalue: 'serialport',
       commandtypevalue: 'Auto',
       SubnetIDvalue: 'Auto',
       serialportnumbervalue: '',
@@ -324,20 +338,19 @@ export default {
       antennatypevalue: 'antnna_phase',
       dialogManagement: false,
       testlist: {
-        delectid: 'f25d3187383f40e0bc34439594e7dace',
-        station_name: 'testone',
-        station_id: 9527,
+        stationName: 'testone',
+        stationId: 9527,
         x: 123456,
         y: 78910,
         z: 11121314,
-        client_ip: '127.0.0.1',
-        client_port: 10086,
-        server_port: 889900,
+        clientIp: '127.0.0.1',
+        clientPort: 10086,
+        serverPort: 889900,
         b: 444444,
         l: 555555,
         h: 666666,
         status: 0,
-        net_id: 769394,
+        netId: 769394,
         mode: 0
       },
       listQuery: {
@@ -369,33 +382,33 @@ export default {
         l22: 0,
         l23: 0
       },
-      connectionType: [
+      modeType: [
         {
-          value: 'serialport',
+          value: 0,
           label: '串口'
         },
         {
-          value: 'webserver',
+          value: 1,
           label: '网络服务端'
         },
         {
-          value: 'webclient',
+          value: 2,
           label: '网络客户端'
         },
         {
-          value: 'ntripclient',
+          value: 3,
           label: 'Ntrip客户端'
         },
         {
-          value: 'ipv6server',
+          value: 4,
           label: 'IPV6服务端'
         },
         {
-          value: 'ntripserver',
+          value: 5,
           label: 'Ntrip Server'
         },
         {
-          value: 'topcontelnet',
+          value: 6,
           label: 'Topcon Telnet'
         }
       ],
