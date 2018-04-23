@@ -1,8 +1,5 @@
-<template>
-  <div class="TableContent">
-    <el-tabs v-model="activeName" type="card" :tab-position="tabPosition">
-      <el-tab-pane label="基站情况" name="first">
-        <!-- <el-table :data="list" border style="width: 100%" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中...">
+<template class="station-table-content">
+<el-table :data="list" border style="width: 100%" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中...">
           <el-table-column fixed prop="stationName" label="基站名" min-width="70" show-overflow-tooltip>
           </el-table-column>
           <el-table-column prop="stationId" label="基站ID" min-width="80" show-overflow-tooltip>
@@ -40,38 +37,14 @@
               <el-button type="text" size="small">管理</el-button>
             </template>
           </el-table-column>
-        </el-table> -->
-        <basesituation></basesituation>
-      </el-tab-pane>
-      <el-tab-pane label="卫星列表" name="second">
-        <satelliteList></satelliteList>
-      </el-tab-pane>
-      <el-tab-pane label="误差汇总" name="third">误差汇总</el-tab-pane>
-      <el-tab-pane label="卫星信号" name="fourth">
-        <satelliteSignal></satelliteSignal>
-      </el-tab-pane>
-      <el-tab-pane label="接收机状态" name="fifth">
-        <receiverStatus></receiverStatus>
-      </el-tab-pane>
-    </el-tabs>
-
-    <dialogManagement></dialogManagement>
-    <dialogParameterSet></dialogParameterSet>
-  </div>
-
+        </el-table>
 </template>
 
 <script>
 import bus from '@/store/eventbus';
 import { BaseInfo } from '@/api/app.js';
-import dialogManagement from '@/components/dialog/dialogManagement';
-import dialogParameterSet from '@/components/dialog/dialogParameterSet';
-import satelliteList from '@/components/baseStation/satelliteList';
-import satelliteSignal from '@/components/baseStation/satelliteSignal';
-import receiverStatus from '@/components/baseStation/receiverStatus';
-import basesituation from '@/components/baseStation/basesituation';
 export default {
-  name: 'situation',
+  name: 'basesituation',
   methods: {
     getList() {
       this.listLoading = true;
@@ -108,34 +81,9 @@ export default {
       console.log(reg);
       this.getList();
     });
-  },
-  components: {
-    dialogManagement,
-    dialogParameterSet,
-    satelliteList,
-    satelliteSignal,
-    receiverStatus,
-    basesituation
   }
 };
 </script>
+<style lang="scss" scoped>
 
-<style>
-.TableContent {
-  height: 100%;
-  overflow: auto;
-}
-.el-dialog__body {
-  padding: 20px 20px;
-}
-.el-tabs,
-.el-tabs__content {
-  height: 100%;
-}
-.el-tabs {
-  padding-bottom: 52px;
-}
-.el-tab-pane {
-  height: 100%;
-}
 </style>

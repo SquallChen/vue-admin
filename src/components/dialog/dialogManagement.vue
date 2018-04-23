@@ -3,7 +3,7 @@
     <el-dialog title="基站管理" :visible.sync="dialogManagement" width="960px" top="10vh">
       <el-form :inline="true" class="demo-form-inline management">
         <el-form-item label="基站名">
-          <el-input v-model="list[listIndex].stationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
+          <el-input v-model="baseStationName" placeholder="" :disabled="disabledstate !== 0"></el-input>
         </el-form-item>
         <el-form-item label="连接类型">
           <el-select v-model="connectionTypevalue" placeholder="" :disabled="disabledstate !== 0">
@@ -18,7 +18,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="ID">
-          <el-input v-model="list[listIndex].stationId" placeholder="" :disabled="disabledstate !== 0"></el-input>
+          <el-input v-model="stationId" placeholder="" :disabled="disabledstate !== 0"></el-input>
+        </el-form-item>
+        <el-form-item label="子网ID">
+          <el-select v-model="SubnetIDvalue" placeholder="" :disabled="disabledstate !== 0">
+            <el-option v-for="item in SubnetID" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <div class="middle-content">
           <div class="middle-left">
@@ -39,7 +45,7 @@
             </div>
             <div class="right-top">
               <el-form-item label="服务端口">
-                <el-input v-model="list[listIndex].serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
+                <el-input v-model="serverPort" placeholder="0" type="number" :disabled="connectionTypevalue !== 'webserver' && connectionTypevalue !== 'ipv6server'"></el-input>
               </el-form-item>
               <span class="top-title">网络服务器</span>
             </div>
@@ -76,10 +82,10 @@
           <div class="middle-right">
             <el-form-item label="IP">
               <!-- :disabled根据连接类型select的值判断其他输入框的状态 -->
-              <el-input v-model="list[listIndex].clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="clientIp" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
             </el-form-item>
             <el-form-item label="Port">
-              <el-input v-model="list[listIndex].clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
+              <el-input v-model="clientPort" placeholder="" :disabled="connectionTypevalue !== 'webclient'&&connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'&&connectionTypevalue !== 'topcontelnet'"></el-input>
             </el-form-item>
             <el-form-item label="Mount">
               <el-input v-model="formInline.mount" placeholder="" :disabled="connectionTypevalue !== 'ntripclient'&&connectionTypevalue !== 'ntripserver'"></el-input>
@@ -97,28 +103,28 @@
         <div class="bottom-footer">
           <div class="footer-top">
             <el-form-item label="X(m)">
-              <el-input v-model="list[listIndex].x" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+              <el-input v-model="x" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
             </el-form-item>
             <el-form-item label="B(DD.MMSS)">
-              <el-input v-model="list[listIndex].b" placeholder="" :disabled="radio === 1"></el-input>
+              <el-input v-model="b" placeholder="" :disabled="radio === 1"></el-input>
             </el-form-item>
             <el-form-item label="NORTH(m)">
               <el-input v-model="formInline.north" placeholder="" :disabled="disabledstate !== 0"></el-input>
             </el-form-item>
             <el-form-item label="Y(m)">
-              <el-input v-model="list[listIndex].y" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+              <el-input v-model="y" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
             </el-form-item>
             <el-form-item label="L(DD.MMSS)">
-              <el-input v-model="list[listIndex].l" placeholder="" :disabled="radio === 1"></el-input>
+              <el-input v-model="l" placeholder="" :disabled="radio === 1"></el-input>
             </el-form-item>
             <el-form-item label="EAST(m)">
               <el-input v-model="formInline.east" placeholder="" :disabled="disabledstate !== 0"></el-input>
             </el-form-item>
             <el-form-item label="Z(m)">
-              <el-input v-model="list[listIndex].z" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
+              <el-input v-model="z" placeholder="" :disabled="radio !== 1||disabledstate!==0"></el-input>
             </el-form-item>
             <el-form-item label="H(m)">
-              <el-input v-model="list[listIndex].h" placeholder="" :disabled="radio === 1"></el-input>
+              <el-input v-model="h" placeholder="" :disabled="radio === 1"></el-input>
             </el-form-item>
             <el-form-item label="UP(m)">
               <el-input v-model="formInline.up" placeholder="" :disabled="disabledstate !== 0"></el-input>
@@ -153,12 +159,12 @@
       </div>
 
     </el-dialog>
-    <!-- 确认删除弹窗 -->
+    <!-- 再次确认删除弹窗 -->
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
       <span>确定删除该基站？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="deleteOperation(list[listIndex].id)">确 定</el-button>
+        <el-button type="primary" @click="deleteOperation(Id)">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -173,11 +179,23 @@ export default {
   methods: {
     // 获取接口数据
     getList() {
-      // console.log(this.listlength);
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
           this.listlength = this.list.length;
+          // 获取数据后，赋予表单元素默认参数
+          this.baseStationName = this.list[this.listIndex].stationName;
+          this.Id = this.list[this.listIndex].id;
+          this.stationId = this.list[this.listIndex].stationId;
+          this.serverPort = this.list[this.listIndex].serverPort;
+          this.clientIp = this.list[this.listIndex].clientIp;
+          this.clientPort = this.list[this.listIndex].clientPort;
+          this.x = this.list[this.listIndex].x;
+          this.y = this.list[this.listIndex].y;
+          this.z = this.list[this.listIndex].z;
+          this.b = this.list[this.listIndex].b;
+          this.l = this.list[this.listIndex].l;
+          this.h = this.list[this.listIndex].h;
           // 如果返回的数组长度大于1，>>按钮处于可点击状态
           if (this.listlength > 1) {
             this.rightBtnStatus = 0;
@@ -195,21 +213,63 @@ export default {
     },
     // 如果后面还有数据，则listIndex+1.如果是最后一项，禁用>>按钮
     nextstation() {
+      // console.log(this.listIndex);
       if (this.listIndex < this.listlength - 2) {
-        console.log(this.listIndex);
         this.listIndex += 1;
         this.rightBtnStatus = 0;
+        // listIndex点击更改后，赋予表单元素新的默认参数
+        this.baseStationName = this.list[this.listIndex].stationName;
+        this.Id = this.list[this.listIndex].id;
+        this.stationId = this.list[this.listIndex].stationId;
+        this.serverPort = this.list[this.listIndex].serverPort;
+        this.clientIp = this.list[this.listIndex].clientIp;
+        this.clientPort = this.list[this.listIndex].clientPort;
+        this.x = this.list[this.listIndex].x;
+        this.y = this.list[this.listIndex].y;
+        this.z = this.list[this.listIndex].z;
+        this.b = this.list[this.listIndex].b;
+        this.l = this.list[this.listIndex].l;
+        this.h = this.list[this.listIndex].h;
+        console.log('现在+' + this.Id);
       } else if (this.listIndex === this.listlength - 2) {
         this.listIndex += 1;
+        // listIndex点击更改后，赋予表单元素新的默认参数
+        this.baseStationName = this.list[this.listIndex].stationName;
+        this.Id = this.list[this.listIndex].id;
+        this.stationId = this.list[this.listIndex].stationId;
+        this.serverPort = this.list[this.listIndex].serverPort;
+        this.clientIp = this.list[this.listIndex].clientIp;
+        this.clientPort = this.list[this.listIndex].clientPort;
+        this.x = this.list[this.listIndex].x;
+        this.y = this.list[this.listIndex].y;
+        this.z = this.list[this.listIndex].z;
+        this.b = this.list[this.listIndex].b;
+        this.l = this.list[this.listIndex].l;
+        this.h = this.list[this.listIndex].h;
+        console.log('然后+' + this.Id);
         this.rightBtnStatus = 1;
+        this.baseStationName = this.list[this.listIndex].stationName;
       } else {
         this.rightBtnStatus = 1;
       }
     },
     previousstation() {
+      this.baseStationName = this.list[this.listIndex].stationName;
       if (this.listIndex > 0) {
-        console.log(this.listIndex);
         this.listIndex -= 1;
+        // listIndex点击更改后，赋予表单元素新的默认参数
+        this.baseStationName = this.list[this.listIndex].stationName;
+        this.Id = this.list[this.listIndex].id;
+        this.stationId = this.list[this.listIndex].stationId;
+        this.serverPort = this.list[this.listIndex].serverPort;
+        this.clientIp = this.list[this.listIndex].clientIp;
+        this.clientPort = this.list[this.listIndex].clientPort;
+        this.x = this.list[this.listIndex].x;
+        this.y = this.list[this.listIndex].y;
+        this.z = this.list[this.listIndex].z;
+        this.b = this.list[this.listIndex].b;
+        this.l = this.list[this.listIndex].l;
+        this.h = this.list[this.listIndex].h;
       }
     },
     // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
@@ -232,20 +292,19 @@ export default {
         // );
       }
     },
+
+    // 删除基站操作
     deleteOperation(id) {
-      // DeleteBaseStation(this.list[this.listIndex].id).then(
-      console.log(id);
       DeleteBaseStation(id).then(
         response => {
           alert('删除成功！');
-          this.dialogVisible = false;
           bus.$emit('RefreshTableData', true);
-          // console.log('listIndex+' + this.listIndex);
-          // console.log('listlength+' + this.listlength);
-          // 如果当前的listIndex等于数据的长度减1（即删除了最后一项），将listIndex-1，避免undefined出现
+          // 如果当前的listIndex等于数据的长度减1（即刚刚删除了最后一项），将listIndex-1，避免undefined出现
           if (this.listIndex === this.listlength - 1) {
             this.listIndex -= 1;
           }
+          // 删除后隐藏弹窗
+          this.dialogVisible = false;
           this.dialogManagement = false;
         },
         reject => {
@@ -259,7 +318,6 @@ export default {
     this.getList();
   },
   mounted() {
-    //  箭头函数作用域
     bus.$on('changeManagement', reg => {
       this.dialogManagement = reg;
       // 在页面更新完成后再请求一次数据，避免双向绑定数据误修改本地数据与远程数据产生差别
@@ -268,10 +326,22 @@ export default {
   },
   data() {
     return {
+      baseStationName: '',
+      Id: '',
+      stationId: '',
+      serverPort: '',
+      clientIp: '',
+      clientPort: '',
+      x: '',
+      y: '',
+      z: '',
+      b: '',
+      l: '',
+      h: '',
       data: '',
       list: [{}],
       listIndex: 0,
-      listlength: '12',
+      listlength: '',
       rightBtnStatus: 1,
       leftBtnStatus: 1,
       status: 1,
@@ -280,6 +350,7 @@ export default {
       radio: 1,
       connectionTypevalue: 'serialport',
       commandtypevalue: 'Auto',
+      SubnetIDvalue: 'Auto',
       serialportnumbervalue: '',
       communicationratevalue: '',
       antennatypevalue: 'antnna_phase',
@@ -330,26 +401,6 @@ export default {
         l22: 0,
         l23: 0
       },
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      options: [
-        {
-          value: 'auto',
-          label: 'auto'
-        },
-        {
-          value: 'Novatel',
-          label: 'Novatel'
-        }
-      ],
       connectionType: [
         {
           value: 'serialport',
@@ -381,6 +432,44 @@ export default {
         }
       ],
       commandType: [
+        {
+          value: 'auto',
+          label: 'Auto'
+        },
+        {
+          value: 'trimblert27',
+          label: 'Trimble RT27'
+        },
+        {
+          value: 'novatel',
+          label: 'Novatel'
+        },
+        {
+          value: 'comnav',
+          label: 'ComNav'
+        },
+        {
+          value: 'unicore',
+          label: 'UNICORE'
+        },
+        {
+          value: 'topcon',
+          label: 'TOPCON(Java)'
+        },
+        {
+          value: 'hemisphere',
+          label: 'Hemisphere'
+        },
+        {
+          value: 'rtcm3.x',
+          label: 'RTCM 3.X'
+        },
+        {
+          value: 'southdataexchange',
+          label: 'SOUTH DATA EXCHANGE'
+        }
+      ],
+      SubnetID: [
         {
           value: 'auto',
           label: 'Auto'
