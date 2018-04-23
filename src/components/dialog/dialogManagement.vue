@@ -183,19 +183,8 @@ export default {
         response => {
           this.list = response.recordList;
           this.listlength = this.list.length;
-          // 获取数据后，赋予表单元素默认参数
-          this.baseStationName = this.list[this.listIndex].stationName;
-          this.Id = this.list[this.listIndex].id;
-          this.stationId = this.list[this.listIndex].stationId;
-          this.serverPort = this.list[this.listIndex].serverPort;
-          this.clientIp = this.list[this.listIndex].clientIp;
-          this.clientPort = this.list[this.listIndex].clientPort;
-          this.x = this.list[this.listIndex].x;
-          this.y = this.list[this.listIndex].y;
-          this.z = this.list[this.listIndex].z;
-          this.b = this.list[this.listIndex].b;
-          this.l = this.list[this.listIndex].l;
-          this.h = this.list[this.listIndex].h;
+          // 获取数据后，调用方法赋予表单元素默认参数，绑定this避免调用的方法内部this的undefind
+          this.$options.methods.assignment.bind(this)();
           // 如果返回的数组长度大于1，>>按钮处于可点击状态
           if (this.listlength > 1) {
             this.rightBtnStatus = 0;
@@ -211,42 +200,32 @@ export default {
         }
       );
     },
+    // 表单元素赋予默认值方法
+    assignment() {
+      this.baseStationName = this.list[this.listIndex].stationName;
+      this.Id = this.list[this.listIndex].id;
+      this.stationId = this.list[this.listIndex].stationId;
+      this.serverPort = this.list[this.listIndex].serverPort;
+      this.clientIp = this.list[this.listIndex].clientIp;
+      this.clientPort = this.list[this.listIndex].clientPort;
+      this.x = this.list[this.listIndex].x;
+      this.y = this.list[this.listIndex].y;
+      this.z = this.list[this.listIndex].z;
+      this.b = this.list[this.listIndex].b;
+      this.l = this.list[this.listIndex].l;
+      this.h = this.list[this.listIndex].h;
+    },
     // 如果后面还有数据，则listIndex+1.如果是最后一项，禁用>>按钮
     nextstation() {
-      // console.log(this.listIndex);
       if (this.listIndex < this.listlength - 2) {
         this.listIndex += 1;
         this.rightBtnStatus = 0;
         // listIndex点击更改后，赋予表单元素新的默认参数
-        this.baseStationName = this.list[this.listIndex].stationName;
-        this.Id = this.list[this.listIndex].id;
-        this.stationId = this.list[this.listIndex].stationId;
-        this.serverPort = this.list[this.listIndex].serverPort;
-        this.clientIp = this.list[this.listIndex].clientIp;
-        this.clientPort = this.list[this.listIndex].clientPort;
-        this.x = this.list[this.listIndex].x;
-        this.y = this.list[this.listIndex].y;
-        this.z = this.list[this.listIndex].z;
-        this.b = this.list[this.listIndex].b;
-        this.l = this.list[this.listIndex].l;
-        this.h = this.list[this.listIndex].h;
-        console.log('现在+' + this.Id);
+        this.$options.methods.assignment.bind(this)();
       } else if (this.listIndex === this.listlength - 2) {
         this.listIndex += 1;
         // listIndex点击更改后，赋予表单元素新的默认参数
-        this.baseStationName = this.list[this.listIndex].stationName;
-        this.Id = this.list[this.listIndex].id;
-        this.stationId = this.list[this.listIndex].stationId;
-        this.serverPort = this.list[this.listIndex].serverPort;
-        this.clientIp = this.list[this.listIndex].clientIp;
-        this.clientPort = this.list[this.listIndex].clientPort;
-        this.x = this.list[this.listIndex].x;
-        this.y = this.list[this.listIndex].y;
-        this.z = this.list[this.listIndex].z;
-        this.b = this.list[this.listIndex].b;
-        this.l = this.list[this.listIndex].l;
-        this.h = this.list[this.listIndex].h;
-        console.log('然后+' + this.Id);
+        this.$options.methods.assignment.bind(this)();
         this.rightBtnStatus = 1;
         this.baseStationName = this.list[this.listIndex].stationName;
       } else {
@@ -258,18 +237,7 @@ export default {
       if (this.listIndex > 0) {
         this.listIndex -= 1;
         // listIndex点击更改后，赋予表单元素新的默认参数
-        this.baseStationName = this.list[this.listIndex].stationName;
-        this.Id = this.list[this.listIndex].id;
-        this.stationId = this.list[this.listIndex].stationId;
-        this.serverPort = this.list[this.listIndex].serverPort;
-        this.clientIp = this.list[this.listIndex].clientIp;
-        this.clientPort = this.list[this.listIndex].clientPort;
-        this.x = this.list[this.listIndex].x;
-        this.y = this.list[this.listIndex].y;
-        this.z = this.list[this.listIndex].z;
-        this.b = this.list[this.listIndex].b;
-        this.l = this.list[this.listIndex].l;
-        this.h = this.list[this.listIndex].h;
+        this.$options.methods.assignment.bind(this)();
       }
     },
     // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
