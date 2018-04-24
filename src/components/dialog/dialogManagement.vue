@@ -18,7 +18,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="ID">
-          <el-input v-model="stationId" placeholder="" :disabled="disabledstate !== 0"></el-input>
+          <!-- 正则限制中文输入，只能输入字母和数字 -->
+          <el-input v-model="stationId" placeholder="" :disabled="disabledstate !== 0" maxlength="4" type="string" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"></el-input>
         </el-form-item>
         <el-form-item label="子网ID">
           <el-select v-model="SubnetIDvalue" placeholder="" :disabled="disabledstate !== 0">
@@ -150,14 +151,13 @@
           <<</el-button>
             <!-- 如果返回数据大于1（按钮可点击）并且当前listIndex不大于listlength - 2，下一页按钮可点击 -->
             <el-button :disabled="rightBtnStatus !== 0&&listIndex >listlength - 2" @click="nextstation">>></el-button>
-            <el-button @click="adddialogVisible = true">新 增</el-button>
+            <el-button @click="isDisabled">新 增</el-button>
             <el-button :disabled="elementstatus !== 0" @click="delectdialogVisible = true">删 除</el-button>
             <el-button :disabled="elementstatus !== 0">备 份</el-button>
             <el-button>导 入</el-button>
             <el-button>启动停止</el-button>
-            <el-button type="primary" @click="dialogManagement=false">确 定</el-button>
+            <el-button type="primary" @click="isUpdated">确 定</el-button>
       </div>
-
     </el-dialog>
     <!-- 再次确认删除弹窗 -->
     <el-dialog title="提示" :visible.sync="delectdialogVisible" width="30%">
@@ -167,6 +167,7 @@
         <el-button type="primary" @click="deleteOperation(Id)">确 定</el-button>
       </span>
     </el-dialog>
+
     <!-- 再次确认新增弹窗 -->
     <el-dialog title="提示" :visible.sync="adddialogVisible" width="30%">
       <span>确定新增该基站？</span>
@@ -175,27 +176,40 @@
         <el-button type="primary" @click="addOperation(baseStationName, stationId, serverPort, x, y, z, clientIp, clientPort, b, l, h, status, netId, mode)">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 再次确认更新弹窗 -->
+    <el-dialog title="提示" :visible.sync="UpdateddialogVisible" width="30%">
+      <span>确定修改基站信息？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="UpdateddialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="UpdatedOperation(baseStationName, Id,stationId, serverPort, x, y, z, clientIp, clientPort, b, l, h, netId, mode)">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
 import bus from '@/store/eventbus';
-import { BaseInfo, AddBaseStation, DeleteBaseStation } from '@/api/app.js';
+import { BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation } from '@/api/app.js';
 export default {
   name: 'dialogManagement',
   methods: {
-    // 获取接口数据
+    // 发出请求获取接口数据
     getList() {
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
           this.listlength = this.list.length;
           // 获取数据后，调用方法赋予表单元素默认参数，绑定this避免调用的方法内部this的undefind
-          this.$options.methods.assignment.bind(this)();
+          // this.$options.methods.assignment.bind(this)();
           // 如果返回的数组长度大于1，>>按钮处于可点击状态
-          if (this.listlength > 1) {
+          if (this.listlength >= 1) {
+            this.$options.methods.assignment.bind(this)();
             this.rightBtnStatus = 0;
+          } else if (this.listlength <= 0) {
+            this.$options.methods.clearElement.bind(this)();
+            this.rightBtnStatus = 1;
+            this.disabledstate = 1;
           }
           // 已经存在基站数据并成功获取,更改表单元素的状态
           if (this.listlength > 0) {
@@ -224,7 +238,23 @@ export default {
       this.h = this.list[this.listIndex].h;
       this.mode = this.list[this.listIndex].mode;
     },
-    // 如果后面还有数据，则listIndex+1.如果是最后一项，禁用>>按钮
+    // 如果listlength为0，清空表单元素
+    clearElement() {
+      this.baseStationName = '';
+      this.Id = '';
+      this.stationId = '';
+      this.serverPort = '';
+      this.clientIp = '';
+      this.clientPort = '';
+      this.x = '';
+      this.y = '';
+      this.z = '';
+      this.b = '';
+      this.l = '';
+      this.h = '';
+      this.mode = '';
+    },
+    // “>>按钮” ：如果后面还有数据，则listIndex+1.如果是最后一项，则禁用>>按钮； rightBtnStatus判断该按钮是否处于可用状态
     nextstation() {
       if (this.listIndex < this.listlength - 2) {
         this.listIndex += 1;
@@ -240,6 +270,7 @@ export default {
         this.rightBtnStatus = 1;
       }
     },
+    // “<<按钮”：如果当前listIndex>0,可点击；
     previousstation() {
       if (this.listIndex > 0) {
         this.listIndex -= 1;
@@ -247,41 +278,145 @@ export default {
         this.$options.methods.assignment.bind(this)();
       }
     },
-    // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
-    addOperation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
+    // 如果之前不存在基站数据，首次点击‘新增’按钮将元素改为可用状态；再次点击调用表单验证方法，验证全通过弹出再次确认窗口
+    isDisabled() {
       if (this.disabledstate !== 0) {
         this.disabledstate = 0;
-        return;
-      }
-      if (this.disabledstate === 0) {
-        // 进行添加操作
-        console.log('开始对接');
-        // 调用添加基站的请求方法
-        AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode).then(
-          response => {
-            alert('新增基站成功！');
-            bus.$emit('RefreshAfterAdd', true);
-            // 删除后隐藏弹窗
-            this.adddialogVisible = false;
-            this.dialogManagement = false;
-          },
-          reject => {
-            console.log('请求失败！');
-          }
-        );
+      } else {
+        // this.adddialogVisible = true;
+        this.$options.methods.verification.bind(this)();
       }
     },
+    // 表单验证方法
+    verification() {
+      for (var i = 0; i < this.list.length; i++) {
+        if (this.stationId === this.list[i].stationId) {
+          alert('ID重复，请重新输入！');
+          this.adddialogVisible = false;
+          return;
+        }
+      }
+      if (this.stationId.length !== 4) {
+        alert('ID长度必须为4！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.baseStationName === '') {
+        alert('基站名不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.serverPort === '') {
+        alert('服务端口不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.clientIp === '') {
+        alert('网络客户端IP不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.clientPort === '') {
+        alert('网络客户端Port不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.x === '') {
+        alert('空间坐标x不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.y === '') {
+        alert('空间坐标y不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.z === '') {
+        alert('空间坐标z不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.xb === '') {
+        alert('基站纬度b不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.l === '') {
+        alert('基站经度l不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      if (this.h === '') {
+        alert('基站高度h不能为空！');
+        this.adddialogVisible = false;
+        return;
+      }
+      // 验证全通过后，弹出再次确认窗口
+      this.adddialogVisible = true;
+    },
+    // 如果按钮处于禁用状态（因为没有获取到远程数据；1为禁用，0为可用；），首次点击‘新增’将其改为可用状态，再次点击进行新增基站操作
+    addOperation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
+      // 调用添加基站的请求方法
+      AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode).then(
+        response => {
+          alert('新增基站成功！');
+          bus.$emit('RefreshAfterAdd', true);
+          this.listIndex = 0;
+          // 删除后隐藏弹窗
+          this.adddialogVisible = false;
+          this.dialogManagement = false;
+        },
+        reject => {
+          console.log('请求失败！');
+        }
+      );
+    },
 
+    UpdatedOperation(station_name, id, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, net_id, mode) {
+      UpdatedBaseStation(station_name, id, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, net_id, mode).then(
+        response => {
+          alert('更新基站成功！');
+          bus.$emit('RefreshAfterUpdated', true);
+          this.listIndex = 0;
+          // 删除后隐藏弹窗
+          this.UpdateddialogVisible = false;
+          this.dialogManagement = false;
+        },
+        reject => {
+          console.log('请求失败！');
+        }
+      );
+    },
+    // 判断内容是否有所修改，并弹出确定框
+    isUpdated() {
+      if (this.baseStationName === this.list[this.listIndex].stationName &&
+      this.Id === this.list[this.listIndex].id &&
+      this.stationId === this.list[this.listIndex].stationId &&
+      this.serverPort === this.list[this.listIndex].serverPort &&
+      this.clientIp === this.list[this.listIndex].clientIp &&
+      this.clientPort === this.list[this.listIndex].clientPort &&
+      this.x === this.list[this.listIndex].x &&
+      this.y === this.list[this.listIndex].y &&
+      this.z === this.list[this.listIndex].z &&
+      this.b === this.list[this.listIndex].b &&
+      this.l === this.list[this.listIndex].l &&
+      this.h === this.list[this.listIndex].h &&
+      this.mode === this.list[this.listIndex].mode) {
+        // 如果内容没有更新，点击‘确定’直接关闭窗口
+        this.dialogManagement = false;
+      } else {
+        // 如果内容更新，点击‘确定’弹出再次确认修改窗口
+        this.UpdateddialogVisible = true;
+      }
+    },
     // 删除基站操作
     deleteOperation(id) {
       DeleteBaseStation(id).then(
         response => {
           alert('删除成功！');
           bus.$emit('RefreshAfterDeletion', true);
-          // 如果当前的listIndex等于数据的长度减1（即刚刚删除了最后一项），将listIndex重置，避免undefined出现
-          if (this.listIndex === this.listlength - 1) {
-            this.listIndex = 0;
-          }
+          // 将listIndex重置，避免删除最后一项时造成undefined出现
+          this.listIndex = 0;
           // 删除后隐藏弹窗
           this.delectdialogVisible = false;
           this.dialogManagement = false;
@@ -330,6 +465,7 @@ export default {
       disabledstate: 1,
       delectdialogVisible: false,
       adddialogVisible: false,
+      UpdateddialogVisible: false,
       radio: 1,
       commandtypevalue: 'Auto',
       SubnetIDvalue: 'Auto',
@@ -337,22 +473,6 @@ export default {
       communicationratevalue: '',
       antennatypevalue: 'antnna_phase',
       dialogManagement: false,
-      testlist: {
-        stationName: 'testone',
-        stationId: 9527,
-        x: 123456,
-        y: 78910,
-        z: 11121314,
-        clientIp: '127.0.0.1',
-        clientPort: 10086,
-        serverPort: 889900,
-        b: 444444,
-        l: 555555,
-        h: 666666,
-        status: 0,
-        netId: 769394,
-        mode: 0
-      },
       listQuery: {
         page_num: 1,
         num_per_page: 10

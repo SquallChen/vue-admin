@@ -84,6 +84,9 @@ export default {
     bus.$on('RefreshAfterAdd', reg => {
       this.getList();
     });
+    bus.$on('RefreshAfterUpdated', reg => {
+      this.getList();
+    });
   }
 };
 </script>

@@ -40,10 +40,8 @@ export default {
     };
   },
   created() {
-    // this.getList();
   },
   mounted() {
-
   },
   components: {
     dialogManagement,
