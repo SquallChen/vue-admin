@@ -7,8 +7,7 @@
         <el-input v-model="loginForm.userName" placeholder="用户名" prefix-icon="el-icon-search"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input type="password" v-model="loginForm.pw" placeholder="密码" prefix-icon="el-icon-search"></el-input>
-      </el-form-item>
+        <el-input type="password" v-model="loginForm.pw" placeholder="密码" prefix-icon="el-icon-search"></el-input> </el-form-item>
       <el-button type="primary" :loading="loading" @click="login" class="btn-block">登 录</el-button>
       <!-- <el-button type="primary" @click="showStore">store</el-button> -->
     </el-form>
@@ -19,6 +18,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import Cookies from 'js-cookie';
 export default {
   name: 'login',
   data() {
@@ -36,9 +36,10 @@ export default {
   filters: {},
   methods: {
     login() {
-      this.$router.push({ path: '/' });
       /* var test = $('#test').html();
       console.log(test);*/
+      Cookies.set('status', '0');
+      this.$router.push({ path: '/' });
       return false;
       // this.loading = true;
       // this.$store
@@ -51,7 +52,9 @@ export default {
       //     this.loading = false;
       //   });
     }
+
   }
+
 };
 </script>
 

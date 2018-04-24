@@ -23,4 +23,11 @@ function login(name, pw) {
   });
 }
 
-export { login };
+// function logout() {
+//   return request({
+//     url: '/user_app/logout',
+//     method: 'post'
+//   });
+// }
+
+export { login, logout };

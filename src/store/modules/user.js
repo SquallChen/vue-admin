@@ -48,6 +48,19 @@ const user = {
       });
     },
 
+    // 登出
+    // LogOut({ commit, state }) {
+    //   return new Promise((resolve, reject) => {
+    //     logout(state.token).then(() => {
+    //       commit('SET_TOKEN', '');
+    //       commit('SET_ROLES', []);
+    //       removeToken();
+    //       resolve();
+    //     }).catch(error => {
+    //       reject(error);
+    //     });
+    //   });
+    // },
     toggleSideBar({ commit }) {
       commit('TOGGLE_SIDEBAR');
     },

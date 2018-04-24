@@ -20,8 +20,11 @@
               Homepage
             </el-dropdown-item>
           </router-link>
-          <el-dropdown-item divided>
+         <el-dropdown-item divided>
             <span @click="logout" style="display:block;">logOut</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -33,8 +36,13 @@
 import { mapGetters } from 'vuex';
 import Hamburger from './hamburger';
 import Screenfull from './Screenfull';
-
+import Cookies from 'js-cookie';
 export default {
+  data() {
+    return {
+      name1: 'user'
+    };
+  },
   components: {
     Hamburger,
     Screenfull
@@ -47,10 +55,16 @@ export default {
       this.$store.dispatch('toggleSideBar');
     },
     logout() {
-      /* this.$store.dispatch('LogOut').then(() => {
-        location.reload();// In order to re-instantiate the vue-router object to avoid bugs
-      }); */
+      // Cookies.get();
+      console.log(Cookies.get('status'));
+      // this.$router.push({ path: '/login' });
+      // console.log(document.cookie);
+      // expires;
+      // this.$store.dispatch('LogOut').then(() => {
+      //   location.reload();// In order to re-instantiate the vue-router object to avoid bugs
+      // });
     }
+
   }
 };
 </script>

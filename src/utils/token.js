@@ -17,8 +17,8 @@ function getToken() {
   return Cookies.get(tokenKey);
 }
 
-function setToken(token) {
-  return Cookies.set(tokenKey, token);
+function setToken(token, expires) {
+  return Cookies.set(tokenKey, token, { expires });
 }
 
 function removeToken() {
@@ -48,5 +48,7 @@ function setAppinfo(value) {
 function removeAppinfo() {
   return Cookies.remove(appKey);
 }
-
-export { getToken, setToken, removeToken, getName, setName, removeName, getAppinfo, setAppinfo, removeAppinfo };
+function getCookie(name) {
+  return Cookies.get(name);
+}
+export { getToken, setToken, removeToken, getName, setName, removeName, getAppinfo, setAppinfo, removeAppinfo, getCookie };

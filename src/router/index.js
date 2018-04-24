@@ -30,7 +30,7 @@ export default new Router({
       path: '',
       ownpath: 'satelliteList',
       component: layout,
-      redirect: 'satelliteList',
+      redirect: 'olmap',
       name: 'baseStationView',
       meta: {
         title: '基站视图',
@@ -38,16 +38,16 @@ export default new Router({
       },
       children: [
         {
-          path: 'satelliteList',
-          component: satelliteList,
-          name: 'satelliteList',
-          meta: { title: '卫星列表', noCache: true }
-        },
-        {
           path: 'olmap',
           component: olmap,
           name: 'olmap',
           meta: { title: 'openlayers地图', noCache: true }
+        },
+        {
+          path: 'satelliteList',
+          component: satelliteList,
+          name: 'satelliteList',
+          meta: { title: '卫星列表', noCache: true }
         }
       ]
     },
