@@ -61,7 +61,6 @@ export default {
           break;
         case 'parameterSet':
           bus.$emit('changeParameterSet', true);
-          console.log(this.dialogParameterSet);
           break;
         case 'emailSet':
           bus.$emit('changeEmailSet', true);

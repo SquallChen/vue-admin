@@ -34,7 +34,7 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" min-width="50" show-overflow-tooltip>
             <template slot-scope="scope">
-              <el-button type="text" size="small">管理</el-button>
+              <el-button type="text" size="small" @click="management(scope.$index)">管理</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -46,6 +46,11 @@ import { BaseInfo } from '@/api/app.js';
 export default {
   name: 'basesituation',
   methods: {
+    // 点击时打开dialog，并传递当前点击的基站index值
+    management(index) {
+      bus.$emit('changeManagement', true);
+      bus.$emit('management', index);
+    },
     getList() {
       this.listLoading = true;
       // 设置获取数据的页数和每一页展示的数据量

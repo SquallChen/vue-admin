@@ -432,10 +432,15 @@ export default {
     this.getList();
   },
   mounted() {
+    // 根据sidebaritem或basesituation传过来的值更改当前dialog展示状态
     bus.$on('changeManagement', reg => {
       this.dialogManagement = reg;
       // 在页面更新完成后再请求一次数据，避免双向绑定数据误修改本地数据与远程数据产生差别
       this.$nextTick(this.getList());
+    });
+    // 如果从‘管理’按钮打开dialog,更改当前listIndex为被点击的基站index
+    bus.$on('management', reg => {
+      this.listIndex = reg;
     });
   },
   data() {
