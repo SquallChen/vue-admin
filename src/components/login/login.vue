@@ -18,7 +18,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Cookies from 'js-cookie';
+import { setCookie } from '@/utils/token';
 export default {
   name: 'login',
   data() {
@@ -36,9 +36,8 @@ export default {
   filters: {},
   methods: {
     login() {
-      /* var test = $('#test').html();
-      console.log(test);*/
-      Cookies.set('status', '0');
+      // 登陆时设置cookie用于判断
+      setCookie('status', '0');
       this.$router.push({ path: '/' });
       return false;
       // this.loading = true;

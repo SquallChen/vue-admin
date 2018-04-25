@@ -51,4 +51,7 @@ function removeAppinfo() {
 function getCookie(name) {
   return Cookies.get(name);
 }
-export { getToken, setToken, removeToken, getName, setName, removeName, getAppinfo, setAppinfo, removeAppinfo, getCookie };
+function setCookie(key, value) {
+  return Cookies.set(key, value);
+}
+export { getToken, setToken, removeToken, getName, setName, removeName, getAppinfo, setAppinfo, removeAppinfo, getCookie, setCookie };

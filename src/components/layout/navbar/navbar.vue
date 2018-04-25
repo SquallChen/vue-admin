@@ -36,7 +36,7 @@
 import { mapGetters } from 'vuex';
 import Hamburger from './hamburger';
 import Screenfull from './Screenfull';
-import Cookies from 'js-cookie';
+import { getCookie } from '@/utils/token';
 export default {
   data() {
     return {
@@ -56,7 +56,7 @@ export default {
     },
     logout() {
       // Cookies.get();
-      console.log(Cookies.get('status'));
+      console.log(getCookie('status'));
       // this.$router.push({ path: '/login' });
       // console.log(document.cookie);
       // expires;
