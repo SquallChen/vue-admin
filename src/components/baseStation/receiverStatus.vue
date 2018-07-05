@@ -5,20 +5,20 @@
     </div>
     <div class="bottomside">
       <ul>
-        <li>Station:</li>
-        <li>Station:</li>
-        <li>Lincense .</li>
+        <li>Station : {{receiverData.baseStationId}}</li>
+        <!-- <li>{{receiverData.baseStationId}}</li> -->
+        <li>Lincense : {{receiverData.lincenseDate}}</li>
         <li>
           <el-checkbox label="Invaild Lincense" name="type"></el-checkbox>
         </li>
       </ul>
       <div class="bottom-ui">
         <ul>
-          <li>OEM Temp.[RED]&nbsp;&nbsp;&nbsp;&nbsp;.</li>
-          <li>Receive Temp.[YELLOW]&nbsp;&nbsp;&nbsp;&nbsp;.</li>
-          <li>OutSide Temp .[WHITE]&nbsp;&nbsp;&nbsp;&nbsp;.</li>
-          <li>Battery Voltage&nbsp;&nbsp;&nbsp;&nbsp;.</li>
-          <li>External Power Voltage&nbsp;&nbsp;&nbsp;&nbsp;.</li>
+          <li>OEM Temp.[RED] :&nbsp;&nbsp;&nbsp;&nbsp;{{receiverData.oemTemp}}</li>
+          <li>Receive Temp.[YELLOW] :&nbsp;&nbsp;&nbsp;&nbsp;{{receiverData.receiverTemp}}</li>
+          <li>OutSide Temp .[WHITE] :&nbsp;&nbsp;&nbsp;&nbsp;{{receiverData.outsideTemp}}</li>
+          <li>Battery Voltage :&nbsp;&nbsp;&nbsp;&nbsp;{{receiverData.bataryVol}}</li>
+          <li>External Power Voltage :&nbsp;&nbsp;&nbsp;&nbsp;{{receiverData.externalPowerVol}}</li>
         </ul>
         <ul>
           <li>
@@ -57,6 +57,8 @@
 import XChart from '@/components/highcharts/chart.vue';
 // 导入chart组件模拟数据
 import options from '@/components/highcharts/chart-options/options';
+import bus from '@/store/eventbus';
+import { getReceiverStatus } from '@/api/app.js';
 export default {
   name: 'receiverStatus',
   data() {
@@ -65,6 +67,15 @@ export default {
       value: '',
       id: 'test',
       option: option,
+      stationId:'',
+      receiverData:'',
+      outsideTemp:'',
+      externalPowerVol:'',
+      receiverTemp:'',
+      bataryVol:'',
+      baseStationId:'',
+      lincenseDate:'',
+      oemTemp:'',
       options: [
         {
           value: '选项1',
@@ -88,6 +99,30 @@ export default {
         }
       ]
     };
+  },
+  created() {
+
+  },
+  mounted() {
+    // 获取当前点击的基站ID信息
+    bus.$on('currentBaseStationsId', reg => {
+      this.stationId = reg;
+       this.receiverStatus();
+    });
+  },
+   methods: {
+    receiverStatus() {
+      getReceiverStatus(this.stationId).then(
+        response => {
+           if(response.status===0&&response.receiverStatus.length!==0){
+             this.receiverData = response.receiverStatus;
+           }
+        },
+        reject => {
+          console.log('请求失败！');
+        }
+      );
+    }
   },
   components: {
     XChart

@@ -1,512 +1,141 @@
 <template>
   <div id="SatelliteList">
     <div class="list">
-      <canvas ref="snrPic" id="snrPic" width="522" height="522">
+      <canvas ref="skyPic" id="skyPic" width="522" height="522">
         <p>浏览器不支持canvas</p>
         <img id="scream" src="@/assets/img/bg.png" alt="The Scream" width="675" height="442">
       </canvas>
     </div>
 
-    <div class="data">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"  height="100%">
-          <el-table-column
-            prop="Nunber"
-            label="卫星号"
-             show-overflow-tooltip fixed>
-          </el-table-column>
-          <el-table-column
-            prop="DirectionAngle"
-            label="方向角"
-             show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="HeightAngle"
-            label="高度角" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="L1"
-            label="L1/B1/E1 SNR" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="L2"
-            label="L2/B2/E7 SNR" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="L5"
-            label="L5/B3/E6E" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="Track"
-            label="TRACK" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="ResiDuals"
-            label="Resi duals" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="Valid"
-            label="Valid" show-overflow-tooltip>
-          </el-table-column>
-        </el-table>
+    <div class="data" id="tableContent">
+      <el-table :data="baseStationData" border style="width: 100%" height="100%">
+        <el-table-column prop="sateliteId" label="卫星号" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+        <el-table-column prop="azimuth" label="方向角" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+        <el-table-column prop="elevation" label="高度角" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+        <el-table-column prop="snr1" label="SNR1" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+        <el-table-column prop="snr2" label="SNR2" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+        <el-table-column prop="snr3" label="SNR3" show-overflow-tooltip :min-width=widthvalue>
+        </el-table-column>
+      </el-table>
+      <!-- <div class="pagination-container">
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page_num" :page-sizes="[5,10,15,20]" :page-size="listQuery.num_per_page" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import '@/assets/js/jquery-3.3.1.js';
+import bus from '@/store/eventbus';
+import { getSatelliteData } from '@/api/app.js';
 export default {
   data() {
     return {
-      tableData: [
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        },
-        {
-          Nunber: 'G10',
-          DirectionAngle: '137.77',
-          HeightAngle: '72.63',
-          L1: '52.80',
-          L2: '46.00',
-          L5: '58.30',
-          Track: '1C 2W',
-          ResiDuals: '-1.371',
-          Valid: '15288'
-        }
-      ]
+      total: 20,
+      stationId: '',
+      baseStationData: [],
+      widthvalue: '',
+      listQuery: {
+        page_num: 1,
+        num_per_page: 5
+      }
     };
   },
   created() {
     this.$nextTick(() => {
       // 将回调延迟到下次 DOM 更新循环之后执行,否则js将先于html加载而无法获取canvas节点
-      var c = this.$refs.snrPic;
-      var ctx = c.getContext('2d');
-      var img = document.getElementById('scream');
-      // 绘制背景
-      img.onload = function () {
-        ctx.drawImage(img, -160, 30);
-      };
+      // var c = this.$refs.skyPic;
+      // var ctx = c.getContext('2d');
+      // var img = document.getElementById('scream');
+      // // 绘制背景
+      // img.onload = function() {
+      //   ctx.drawImage(img, -160, 30);
+      // };
+    });
+  },
+  mounted() {
+    // 获取当前点击的基站ID信息
+    bus.$on('currentBaseStationsId', reg => {
+      this.stationId = reg;
+      this.SatelliteData();
     });
   },
   methods: {
-
+    SatelliteData() {
+      getSatelliteData(this.stationId).then(
+        response => {
+          if (response.gnssInfo !== null) {
+            this.baseStationData = response.gnssInfo.sateInfoList;
+            //计算容器宽度，设置自适应的最小列宽（还需增加页面resize时的方法）
+            this.widthvalue =
+              (document.querySelector('.navbar').offsetWidth - 522) / 6 + 'px';
+            drawSkyPosition(this.baseStationData);
+          } else {
+            console.log('没有数据');
+          }
+        },
+        reject => {
+          console.log('请求失败！');
+        }
+      );
+    },
+    handleSizeChange(val) {
+      if (this.listQuery.limit === val) {
+        return;
+      }
+      this.listQuery.num_per_page = val;
+    },
+    handleCurrentChange(val) {
+      if (this.listQuery.page_num === val) {
+        return;
+      }
+      this.listQuery.page_num = val;
+    }
   }
-
-  // $(document).ready(function() {
-  //      console.log( "ready!" );
-  //    var baseData = [];
-  //    var xhr; //ajax对象
-  //   $.getJSON("static/data.json", function(json){
-  //   baseData = JSON.stringify(json.obj.detail.gnssSateInfoList.sateInfoList);
-  //   console.log(baseData)
-  //   console.log(111111)
-  //   drawBaseSky();
-  //       var c = document.getElementById("snrPic");
-  //       var ctx = c.getContext("2d");
-  //       var img=document.getElementById("scream");
-  //       // 绘制背景
-  //       img.onload = function () {
-  //       ctx.drawImage(img, -160, 30);
-  //        drawSkyPosition(baseData);
-  //         }
-  // });
-  // 绘制天空图背景
-  // function drawBaseSky() {
-  //    var c = document.getElementById("snrPic");
-  //     var ctx = c.getContext("2d");
-  //     var img=document.getElementById("scream");
-  //     // 绘制背景
-  //     img.onload = function () {
-  //     ctx.drawImage(img, -160, 30);
-  //      drawSkyPosition(baseData);
-  //       }
-  // }
-  // $.ajax({
-  //   type:"get",
-  //    url:"http://lbs.southgnss.com/rtkonlineMachineController.do?doRtkDetail&identifyCode=SG607A117233721",
-  //   success:function(response,stasus,xhr){
-  //      console.log("aaaaa"+response);
-  //   }
-  // })
-  // })
-
-  // 绘制天空图数据分布
-  // function drawSkyPosition(drawData) {
-  //     console.log(22222)
-  //     var color = {
-  //       "SATSYS_GPS": "rgb(173,152,12)",
-  //       "SATSYS_GLONASS": "rgb(75,164,259)",
-  //       "SATSYS_BD": "rgb(226,120,228)",
-  //       "3": "rgb(117,173,61)",
-  //       "4": "rgb(230,139,55)",
-  //       "5": "rgb(61,168,161)"
-  //     }
-  //     var cxt = document.getElementById('snrPic').getContext("2d");
-  //     var radius = 180;
-  //     var cosLen, x, y;
-
-  //     cxt.save();
-
-  //     cxt.translate(radius, radius);
-
-  //     cxt.font = "14px Arial";
-  //     cxt.textAlign = "center";
-  //     cxt.textBaseline = "middle";
-  //     for (var i = 0, dataLen = drawData.length; i < dataLen; i++) {
-
-  //       cxt.beginPath();
-  //       cxt.fillStyle = color[drawData[i].type];
-
-  //       var cosLen = Math.cos(drawData[i].elevation * Math.PI / 180) * radius;
-  //       y = Math.cos(drawData[i].azimuth * Math.PI / 180) * cosLen - 42;
-  //       x = Math.sin(drawData[i].azimuth * Math.PI / 180) * cosLen + 251;
-
-  //       cxt.arc(x, -y, 14, 0, Math.PI * 2, false);
-  //       cxt.fill();
-
-  //       cxt.beginPath();
-  //       cxt.fillStyle = 'white';
-  //       cxt.fillText(drawData[i].prn, x, -y);
-  //       cxt.closePath();
-
-  //       if (drawData[i].status != 'SATSTA_RESOLVE') {
-  //         cxt.beginPath();
-  //         cxt.lineWidth = 2;
-  //         cxt.arc(x, -y, 14.5, 0, Math.PI * 2, false);
-  //         cxt.strokeStyle = "red";
-  //         cxt.stroke();
-  //         cxt.closePath();
-
-  //         cxt.beginPath();
-  //         cxt.moveTo(x + 10.5, -y + 10.5);
-  //         cxt.lineTo(x - 10.5, -y - 10.5);
-  //         cxt.stroke();
-  //         cxt.closePath();
-
-  //       }
-  //     }
-  //     cxt.restore();
-  //     console.log(33333)
-  //   }
 };
+//绘制天空图数据分布
+function drawSkyPosition(data) {
+  var c = document.getElementById('skyPic');
+  var ctx = c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  var img = document.getElementById('scream');
+  ctx.drawImage(img, -160, 30);
+  var radius = 180;
+  var cosLen, x, y;
+  ctx.save();
+
+  ctx.translate(radius, radius);
+
+  ctx.font = '14px Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  for (var i = 0, dataLen = data.length; i < dataLen; i++) {
+    ctx.beginPath();
+    if (data[i].sateliteId <= 32) {
+      ctx.fillStyle = 'rgb(173,152,12)';
+    } else if (data[i].sateliteId >= 38 && data[i].sateliteId <= 61) {
+      ctx.fillStyle = 'rgb(75,164,259)';
+    } else {
+      ctx.fillStyle = 'rgb(117,173,61)';
+    }
+    var cosLen = (90 - data[i].elevation * 180 / Math.PI) / 90 * radius;
+    y = Math.cos(data[i].azimuth * 180 / Math.PI) * cosLen - 70;
+    x = Math.sin(data[i].azimuth * 180 / Math.PI) * cosLen + 90;
+    ctx.arc(x, -y, 14, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.fillText(data[i].sateliteId, x, -y);
+  }
+  ctx.restore();
+}
 </script>
 
 <style>
@@ -516,8 +145,14 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.el-table {
+#SatelliteList .el-table {
   height: 100%;
+  /* overflow: auto; */
+}
+.el-table__body,
+.el-table__footer,
+.el-table__header {
+  width: 100%;
 }
 .list {
   width: 522px;
@@ -526,13 +161,26 @@ export default {
 }
 .data {
   height: 100%;
+  width: 100%;
   flex: 1;
+  width: 600px;
   overflow: auto;
   margin-top: -2px;
+  padding-bottom: 48px;
+  position: relative;
 }
-
+.pagination-container {
+  position: absolute;
+  bottom: 6px;
+  margin-top: 0;
+  right: 50px;
+}
 #SatelliteList .el-table td,
 #SatelliteList .el-table th {
   padding: 10;
+}
+.el-table__body-wrapper {
+  height: 100%;
+  overflow: auto;
 }
 </style>

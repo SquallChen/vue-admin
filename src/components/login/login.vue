@@ -24,6 +24,8 @@ export default {
   data() {
     return {
       loginForm: {
+        // userName: 'admin',
+        // pw: 'admin123'
         userName: 'southcloudapp',
         pw: '123456'
       },

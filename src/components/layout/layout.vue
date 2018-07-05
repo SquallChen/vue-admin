@@ -6,9 +6,6 @@
       <tags-view></tags-view>
       <app-main></app-main>
     </div>
-    <!-- <div class="footers">
-      <footerContent></footerContent>
-    </div> -->
     <el-footer :height='height' :class="{ active: isActive  }">
       <footerContent></footerContent>
     </el-footer>

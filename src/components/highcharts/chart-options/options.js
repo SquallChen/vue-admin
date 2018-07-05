@@ -321,5 +321,124 @@ module.exports = {
       'text': '',
       'href': ''
     }
+  },
+  satelliteSignalInfo: {
+    credits: {
+      enabled: false
+    }, // 去掉地址
+    "xAxis": [
+      {
+        "type": "category",
+        "categories": [
+          "一月",
+          "二月",
+          "三月",
+          "四月",
+          "五月",
+          "六月",
+          "七月",
+          "八月",
+          "九月",
+          "十月",
+          "十一月",
+          "十二月"
+        ],
+        "index": 0,
+        "isX": true
+      }
+    ],
+    "series": [
+      {
+        "name": "东京",
+        "data": [
+          49.9,
+          71.5,
+          106.4,
+          129.2,
+          144,
+          176,
+          135.6,
+          148.5,
+          216.4,
+          194.1,
+          95.6,
+          54.4
+        ],
+        "_colorIndex": 0
+      },
+      {
+        "name": "纽约",
+        "data": [
+          83.6,
+          78.8,
+          98.5,
+          93.4,
+          106,
+          84.5,
+          105,
+          104.3,
+          91.2,
+          83.5,
+          106.6,
+          92.3
+        ],
+        "_colorIndex": 1
+      },
+      {
+        "name": "伦敦",
+        "data": [
+          48.9,
+          38.8,
+          39.3,
+          41.4,
+          47,
+          48.3,
+          59,
+          59.6,
+          52.4,
+          65.2,
+          59.3,
+          51.2
+        ],
+        "_colorIndex": 2
+      }
+    ],
+    "yAxis": [
+      {
+        "title": {
+          "text": ""
+        },
+        "index": 0
+      }
+    ],
+    "chart": {
+      'height': '460px',
+      "style": {
+        "fontFamily": "\"微软雅黑\", Arial, Helvetica, sans-serif",
+        "color": "#333",
+        "fontSize": "12px",
+        "fontWeight": "normal",
+        "fontStyle": "normal"
+      },
+      "type": "column"
+    },
+    "title": {
+      "text": ""
+    },
+    "subtitle": {
+      "text": ""
+    },
+    "tooltip": {
+      "headerFormat": "<span style=\"font-size:10px\">{point.key}</span><table>",
+      "pointFormat": "<tr><td style=\"color:{series.color};padding:0\">{series.name}：</td><td style=\"padding:0\"><b>{point.y:.1f} mm</b></td></tr>",
+      "footerFormat": "</table>",
+      "useHTML": true,
+      "shared": true
+    },
+    "plotOptions": {
+      "series": {
+        "animation": false
+      }
+    }
   }
 };

@@ -1,7 +1,12 @@
 <template class="station-table-content">
   <div style="height:100%; position: relative; padding-bottom:40px">
-    <el-table :data="list" border style="width: 100%;" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中...">
-      <el-table-column fixed prop="stationName" label="基站名" min-width="70" show-overflow-tooltip>
+    <el-table :data="list" highlight-current-row @current-change="handleCurrentChange2" border style="width: 100%;" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中..." @row-click="showRow">
+      <el-table-column width="50">
+        <template slot-scope="scope">
+          <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
+        </template>
+      </el-table-column>
+      <el-table-column prop="stationName" label="基站名" min-width="70" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="stationId" label="基站ID" min-width="80" show-overflow-tooltip>
       </el-table-column>
@@ -13,11 +18,7 @@
       </el-table-column>
       <el-table-column prop="h" label="基站高程" min-width="77" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="id" label="ID" min-width="295" show-overflow-tooltip>
-      </el-table-column>
       <el-table-column prop="l" label="基站经度" min-width="148" show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column prop="location" label="Location" min-width="250" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="mode" label="Mode" min-width="60" show-overflow-tooltip>
       </el-table-column>
@@ -64,8 +65,7 @@ export default {
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
-          console.log(this.list.length);
-          // this.total = this.list.length;
+          this.total = response.totalCount;
           this.listLoading = false;
         },
         reject => {
@@ -86,16 +86,25 @@ export default {
       }
       this.listQuery.page_num = val;
       this.getList();
+    },
+    showRow(row) {
+      //赋值给radio
+      this.radio = this.list.indexOf(row);
+    },
+    handleCurrentChange2(currentRow, oldCurrentRow) {
+      this.currentRow = currentRow;
+       //传递当前点击基站数据到中间件
+       bus.$emit('currentBaseStationsId', currentRow.stationId);
     }
   },
   data() {
     return {
-      // 后台需返回总数据长度total，15是写死的模拟值
-      total: 15,
+      total: null,
       tabPosition: 'bottom',
       activeName: 'first',
       list: null,
       listLoading: true,
+      radio: '',
       listQuery: {
         page_num: 1,
         num_per_page: 5
@@ -121,10 +130,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.pagination-container{
+.pagination-container {
   position: absolute;
-  bottom:0;
-  width:100%;
-  padding-left: 10px;
+  bottom: 0;
+  width: 100%;
+  padding-left: 100px;
 }
 </style>

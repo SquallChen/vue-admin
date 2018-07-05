@@ -148,9 +148,9 @@
       <div slot="footer" class="dialog-footer" style="text-align:center">
         <!-- 如果当前listIndex大于0，上一页按钮可点击 -->
         <el-button :disabled="listIndex <= 0" @click="previousstation">
-          <<</el-button>
+          &#60;&#60;</el-button>
             <!-- 如果返回数据大于1（按钮可点击）并且当前listIndex不大于listlength - 2，下一页按钮可点击 -->
-            <el-button :disabled="rightBtnStatus !== 0&&listIndex >listlength - 2" @click="nextstation">>></el-button>
+            <el-button :disabled="rightBtnStatus !== 0&&listIndex >listlength - 2" @click="nextstation">&#62;&#62;</el-button>
             <el-button @click="isDisabled">新 增</el-button>
             <el-button :disabled="elementstatus !== 0" @click="delectdialogVisible = true">删 除</el-button>
             <el-button :disabled="elementstatus !== 0">备 份</el-button>

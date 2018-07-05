@@ -42,13 +42,13 @@ export default new Router({
           component: olmap,
           name: 'olmap',
           meta: { title: 'openlayers地图', noCache: true }
-        },
-        {
-          path: 'satelliteList',
-          component: satelliteList,
-          name: 'satelliteList',
-          meta: { title: '卫星列表', noCache: true }
         }
+        // {
+        //   path: 'satelliteList',
+        //   component: satelliteList,
+        //   name: 'satelliteList',
+        //   meta: { title: '卫星列表', noCache: true }
+        // }
       ]
     },
     {

@@ -3,7 +3,7 @@
  * Author: Hallo_c
  * -----
  * Modified: 2018-04-24 09:08:56
- * Modified By: Hallo_c
+ * Modified By: chenzway
  * -----
  */
 
@@ -72,7 +72,26 @@ function BaseInfo(page_num, num_per_page) {
     }
   });
 }
-
+//获取卫星列表数据
+function getSatelliteData(station_id) {
+  return request({
+    url: 'cors_station/get_gnss_info/',
+    method: 'post',
+    data: {
+      station_id
+    }
+  });
+}
+//获取基站接收机状态
+function getReceiverStatus(station_id){
+  return request({
+    url: 'cors_station/get_receiver_status/',
+    method: 'post',
+    data: {
+      station_id
+    }
+  });
+}
 // 新增基站
 function AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
   return request({
@@ -129,4 +148,4 @@ function DeleteBaseStation(id) {
     }
   });
 }
-export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation };
+export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation,getSatelliteData,getReceiverStatus};

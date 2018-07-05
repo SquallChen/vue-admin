@@ -86,7 +86,7 @@ ul {
   }
   .active {
     transform: rotate(180deg);
-    top: -20px;
+    top: -18px;
   }
   span:nth-child(1) {
     margin-right: 10px;

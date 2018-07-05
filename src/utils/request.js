@@ -16,7 +16,7 @@ import { removeToken, removeName } from '@/utils/token';
 
 // 创建一个 axios 实例
 const service = axios.create({
-  baseURL: 'http://172.16.10.118:8010/', // 设置开发与线上不同环境的 url
+  baseURL: 'http://172.16.10.118:8011/', // 设置开发与线上不同环境的 url
   timeout: 10000, // 设置超时时间
   // 设置请求头为常规的form-data形式
   headers: {
@@ -44,10 +44,12 @@ service.interceptors.request.use(
     config.headers['X-Token'] = 'test'; // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
   } */
     if (config.url !== '/user_app/login') {
-      if (store.getters.token && store.getters.name) {
-        config.data['token'] = store.getters.token;
+      config.data['token'] = 'test';
+      config.data['user_name'] = 'test';
+      /* if (store.getters.token && store.getters.name) {
+        config.data['token'] = 'test';
         config.data['user_name'] = store.getters.name;
-      }
+      } */
     }
     return config;
   },
