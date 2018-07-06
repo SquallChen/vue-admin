@@ -1,123 +1,142 @@
 <template>
-  <el-dialog title="Mount Setting" :visible.sync="dialogMountSet" width="750px">
-    <el-form :model="form">
-      <div class="mountSet-content">
-        <div class="mountSet-top">
-          <el-form-item label="Mount Name" :label-width="formLabelWidth">
-            <el-input v-model="mountName" auto-complete="off" step="5"></el-input>
-          </el-form-item>
-          <el-checkbox label="使用" name="isUse" v-model="isUsed"></el-checkbox>
-          <el-select v-model="mountTypeValue" placeholder="">
-            <el-option v-for="item in mountType" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-        <div class="mountSet-bottom">
-          <div class="left-bottom">
-            <div class="first-div">
-              <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type1">TYPE1</el-checkbox>
-              <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type3" >TYPE3</el-checkbox>
-              <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type1819" >TYPE1819</el-checkbox>
-              <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type31">TYPE31</el-checkbox>
-              <span class="top-title">RTCM23</span>
+  <div>
+    <el-dialog title="Mount Setting" :visible.sync="dialogMountSet" width="750px">
+      <el-form :model="form">
+        <div class="mountSet-content">
+          <div class="mountSet-top">
+            <el-form-item label="Mount Name" :label-width="formLabelWidth">
+              <el-input v-model="mountName" auto-complete="off" step="5"></el-input>
+            </el-form-item>
+            <el-checkbox label="使用" name="isUse" v-model="isUsed"></el-checkbox>
+            <el-select v-model="mountTypeValue" placeholder="">
+              <el-option v-for="item in mountType" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div class="mountSet-bottom">
+            <div class="left-bottom">
+              <div class="first-div">
+                <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type1">TYPE1</el-checkbox>
+                <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type3">TYPE3</el-checkbox>
+                <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type1819">TYPE1819</el-checkbox>
+                <el-checkbox name="rtcm23Type" :disabled="mountTypeValue!=0" v-model="RTCM23type31">TYPE31</el-checkbox>
+                <span class="top-title">RTCM23</span>
+              </div>
+              <div class="second-div">
+                <el-checkbox name="mountType" :disabled="mountTypeValue!=2" v-model="CMR0">CMR0</el-checkbox>
+                <el-checkbox name="mountType" :disabled="mountTypeValue!=2" v-model="CMR1">CMR1</el-checkbox>
+                <span class="top-title">CMR</span>
+              </div>
             </div>
-            <div class="second-div">
-              <el-checkbox  name="mountType" :disabled="mountTypeValue!=2" v-model="CMR0">CMR0</el-checkbox>
-              <el-checkbox  name="mountType" :disabled="mountTypeValue!=2" v-model="CMR1">CMR1</el-checkbox>
-              <span class="top-title">CMR</span>
+            <div class="right-bottom">
+              <span class="top-title">RTCM32</span>
+              <div class="first-div">
+                <div class="first-div-leftside">
+                  <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321005">1005</el-checkbox>
+                  <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321004">GPS(1004)</el-checkbox>
+                  <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321007">1007</el-checkbox>
+                  <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321012">GLO(1012)</el-checkbox>
+                  <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321033">1033</el-checkbox>
+                </div>
+                <div class="first-div-rightside">
+                  <div>
+                    <el-checkbox label="GPS MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Gps"></el-checkbox>
+                    <el-select v-model="GPSvalue" placeholder="" :disabled="mountTypeValue!=1">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div>
+                    <el-checkbox label="GLO MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Glo"></el-checkbox>
+                    <el-select v-model="GLOvalue" placeholder="" :disabled="mountTypeValue!=1">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div>
+                    <el-checkbox label="BDS MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Bds"></el-checkbox>
+                    <el-select v-model="BDSvalue" placeholder="" :disabled="mountTypeValue!=1">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div>
+                    <el-checkbox label="GAL MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Gal"></el-checkbox>
+                    <el-select v-model="GALvalue" placeholder="" :disabled="mountTypeValue!=1">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                </div>
+              </div>
+              <div class="second-div">
+                <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed" :file-list="fileList">
+                  <el-button size="small" type="primary" disabled>点击上传</el-button>
+                </el-upload>
+              </div>
+              <div class="third-div">
+                <div>
+                  <el-checkbox name="type" disabled v-model="RTCM32Tranformation">RTCM 3.X Tranformation Parameter Information</el-checkbox>
+                  <el-checkbox name="type" disabled v-model="RTCM32Paramter">Paramter Variation</el-checkbox>
+                  <el-select v-model="value2" placeholder="" disabled>
+                    <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+                <div class="inp-content">
+                  <div>
+                    <el-checkbox name="type" disabled v-model="RTCM321021">1021</el-checkbox>
+                    <el-input v-model="RTCM321021Second" auto-complete="off" step="5" disabled></el-input>
+                    <span>S</span>
+                  </div>
+                  <div>
+                    <el-checkbox name="type" disabled v-model="RTCM32102510261027">1025/1026/1027</el-checkbox>
+                    <el-input v-model="RTCM321025Second" auto-complete="off" step="5" disabled></el-input>
+                    <span>S</span>
+                  </div>
+                  <div>
+                    <el-checkbox name="type" disabled v-model="RTCM321023">1023</el-checkbox>
+                    <el-input v-model="RTCM321023Second" auto-complete="off" step="5" disabled></el-input>
+                    <span>S</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="right-bottom">
-            <span class="top-title">RTCM32</span>
-            <div class="first-div">
-              <div class="first-div-leftside">
-                <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321005">1005</el-checkbox>
-                <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321004">GPS(1004)</el-checkbox>
-                <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321007">1007</el-checkbox>
-                <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321012">GLO(1012)</el-checkbox>
-                <el-checkbox name="rtcm32" :disabled="mountTypeValue!=1" v-model="RTCM321033">1033</el-checkbox>
-              </div>
-              <div class="first-div-rightside">
-                <div>
-                  <el-checkbox label="GPS MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Gps"></el-checkbox>
-                  <el-select v-model="GPSvalue" placeholder="" :disabled="mountTypeValue!=1">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-                <div>
-                  <el-checkbox label="GLO MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Glo"></el-checkbox>
-                  <el-select v-model="GLOvalue" placeholder="" :disabled="mountTypeValue!=1">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-                <div>
-                  <el-checkbox label="BDS MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Bds"></el-checkbox>
-                  <el-select v-model="BDSvalue" placeholder="" :disabled="mountTypeValue!=1">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-                <div>
-                  <el-checkbox label="GAL MSM" name="type" :disabled="mountTypeValue!=1" v-model="RTCM32Gal"></el-checkbox>
-                  <el-select v-model="GALvalue" placeholder="" :disabled="mountTypeValue!=1">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-              </div>
-            </div>
-            <div class="second-div">
-              <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed" :file-list="fileList">
-                <el-button size="small" type="primary" disabled>点击上传</el-button>
-              </el-upload>
-            </div>
-            <div class="third-div">
-              <div>
-                <el-checkbox name="type" disabled v-model="RTCM32Tranformation">RTCM 3.X Tranformation Parameter Information</el-checkbox>
-                <el-checkbox name="type" disabled v-model="RTCM32Paramter">Paramter Variation</el-checkbox>
-                <el-select v-model="value2" placeholder="" disabled>
-                  <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-              <div class="inp-content">
-                <div>
-                  <el-checkbox name="type" disabled v-model="RTCM321021">1021</el-checkbox>
-                  <el-input v-model="RTCM321021Second" auto-complete="off" step="5" disabled></el-input>
-                  <span>S</span>
-                </div>
-                <div>
-                  <el-checkbox name="type" disabled v-model="RTCM32102510261027">1025/1026/1027</el-checkbox>
-                  <el-input v-model="RTCM321025Second" auto-complete="off" step="5" disabled></el-input>
-                  <span>S</span>
-                </div>
-                <div>
-                  <el-checkbox name="type" disabled v-model="RTCM321023">1023</el-checkbox>
-                  <el-input v-model="RTCM321023Second" auto-complete="off" step="5" disabled></el-input>
-                  <span>S</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align:center">
+        <el-button :disabled="listIndex===0" @click="minusListIndex">&#60;&#60;</el-button>
+        <el-button :disabled="listIndex>=mountListLength-1" @click="addListIndex">&#62;&#62;</el-button>
+        <el-button @click="adddialogVisible=true">新 增</el-button>
+        <el-button :disabled="mountListLength===0" @click="delectdialogVisible=true">删 除</el-button>
+        <el-button @click="dialogMountSet = false">取 消</el-button>
+        <el-button type="primary" @click="mountUpdate">确定</el-button>
       </div>
-    </el-form>
-    <div slot="footer" class="dialog-footer" style="text-align:center">
-      <el-button :disabled="listIndex===0" @click="minusListIndex">&#60;&#60;</el-button>
-      <el-button :disabled="listIndex>=mountListLength-1" @click="addListIndex">&#62;&#62;</el-button>
-      <el-button >新 增</el-button>
-      <el-button disabled>删 除</el-button>
-      <el-button @click="dialogMountSet = false">取 消</el-button>
-      <el-button type="primary" @click="mountUpdate">确定</el-button>
-    </div>
-  </el-dialog>
+    </el-dialog>
+
+    <!-- 再次确认删除弹窗 -->
+    <el-dialog title="提示" :visible.sync="delectdialogVisible" width="30%">
+      <span>确定删除？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delectdialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="deleteMountData">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 再次确认新增弹窗 -->
+    <el-dialog title="提示" :visible.sync="adddialogVisible" width="30%">
+      <span>确定新增？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="adddialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addMountData">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 import bus from '@/store/eventbus';
-import { getMountList,UpdateMount } from '@/api/app.js';
+import { getMountList, UpdateMount, deleteMount, addMount } from '@/api/app.js';
 export default {
   name: 'dialogMountSet',
   data() {
@@ -125,6 +144,8 @@ export default {
       dialogMountSet: false,
       dialogTableVisible: false,
       dialogFormVisible: false,
+      delectdialogVisible: false,
+      adddialogVisible: false,
       value: 'RTCM2.3',
       value2: '每次连接',
       form: {
@@ -140,22 +161,22 @@ export default {
         num: '7'
       },
       fileList: [],
-      id:'',
-      mountListData:'',
-      mountListLength:'',
-      listIndex:0,
-      mountName:'',
-      mountType:'',
-      mountTypeValue:'',
-      GPSvalue:0,
-      GLOvalue:1,
-      BDSvalue:2,
-      GALvalue:3,
+      id: '',
+      mountListData: '',
+      mountListLength: '',
+      listIndex: 0,
+      mountName: '',
+      mountType: '',
+      mountTypeValue: '',
+      GPSvalue: 0,
+      GLOvalue: 1,
+      BDSvalue: 2,
+      GALvalue: 3,
       listQuery: {
         page_num: 1,
         num_per_page: 10
       },
-      mountType:[
+      mountType: [
         {
           value: 0,
           label: 'RTCM23'
@@ -214,94 +235,243 @@ export default {
         }
       ],
       formLabelWidth: '96px',
-      isUsed:'',
-      CMR0:'',
-      CMR1:'',
-      RTCM23type1:'',
-      RTCM23type3:'',
-      RTCM23type31:'',
-      RTCM23type1819:'',
-      RTCM321005:'',
-      RTCM321004:'',
-      RTCM321007:'',
-      RTCM321012:'',
-      RTCM321021:'',
-      RTCM321023:'',
-      RTCM321033:'',
-      RTCM32102510261027:'',
-      RTCM32Gps:'',
-      RTCM32Glo:'',
-      RTCM32Bds:'',
-      RTCM32Gal:'',
-      RTCM32Tranformation:'',
-      RTCM32Paramter:'',
-      RTCM321021Second:'',
-      RTCM321023Second:'',
-      RTCM321025Second:'',
+      isUsed: '',
+      CMR0: '',
+      CMR1: '',
+      RTCM23type1: '',
+      RTCM23type3: '',
+      RTCM23type31: '',
+      RTCM23type1819: '',
+      RTCM321005: '',
+      RTCM321004: '',
+      RTCM321007: '',
+      RTCM321012: '',
+      RTCM321021: '',
+      RTCM321023: '',
+      RTCM321033: '',
+      RTCM32102510261027: '',
+      RTCM32Gps: '',
+      RTCM32Glo: '',
+      RTCM32Bds: '',
+      RTCM32Gal: '',
+      RTCM32Tranformation: '',
+      RTCM32Paramter: '',
+      RTCM321021Second: '',
+      RTCM321023Second: '',
+      RTCM321025Second: ''
     };
   },
   methods: {
-    mouthList(){
-      getMountList(this.listQuery.page_num,this.listQuery.num_per_page).then(
-        response=>{
-          if(response.status===0 && response.totalCount!==0){
+    mouthList() {
+      getMountList(this.listQuery.page_num, this.listQuery.num_per_page).then(
+        response => {
+          if (response.status === 0 && response.totalCount !== 0) {
             this.mountListData = response.recordList;
             this.mountListLength = response.totalCount;
             this.$options.methods.assignment.bind(this)();
           }
         },
-        reject=>{
-          console.log('请求失败！');
+        reject => {
+          this.$options.methods.isFalse.bind(this)('Mount数据请求');
         }
-      )
+      );
     },
-    addListIndex(){
-      this.listIndex+=1;
-       this.$options.methods.assignment.bind(this)();
-    },
-    minusListIndex(){
-      this.listIndex-=1;
+    addListIndex() {
+      this.listIndex += 1;
       this.$options.methods.assignment.bind(this)();
     },
-    //如果页面内容无变化，点击关闭；否则请求更新内容
-    mountUpdate(){
-      if(this.mountName===this.mountListData[this.listIndex].mountName&&this.mountTypeValue===this.mountListData[this.listIndex].mountType && transform(this.CMR0)===this.mountListData[this.listIndex].cmr0 && transform(this.CMR1)===this.mountListData[this.listIndex].cmr1 && transform(this.isUsed)===this.mountListData[this.listIndex].isUsed && transform(this.RTCM23type1)===this.mountListData[this.listIndex].rtcm23Type1 && transform(this.RTCM23type3)===this.mountListData[this.listIndex].rtcm23Type3 && transform(this.RTCM23type31)===this.mountListData[this.listIndex].rtcm23Type31 && transform(this.RTCM23type1819)===this.mountListData[this.listIndex].rtcm23Type1819 && transform(this.RTCM321005)===this.mountListData[this.listIndex].rtcm321005 && transform(this.RTCM321004)===this.mountListData[this.listIndex].rtcm321004 && transform(this.RTCM321007)===this.mountListData[this.listIndex].rtcm321007 && transform(this.RTCM321012)===this.mountListData[this.listIndex].rtcm321012 && transform(this.RTCM321021)===this.mountListData[this.listIndex].rtcm321021 && transform(this.RTCM321023)===this.mountListData[this.listIndex].rtcm321023 && transform(this.RTCM321033)===this.mountListData[this.listIndex].rtcm321033 && transform(this.RTCM32102510261027)===this.mountListData[this.listIndex].rtcm32102510261027 && transform(this.RTCM32Gps)===this.mountListData[this.listIndex].rtcm32Gps && transform(this.RTCM32Glo)===this.mountListData[this.listIndex].rtcm32Glo && transform(this.RTCM32Bds)===this.mountListData[this.listIndex].rtcm32Bds && transform(this.RTCM32Gal)===this.mountListData[this.listIndex].rtcm32Gal && transform(this.RTCM32Paramter)===this.mountListData[this.listIndex].rtcm32Paramter && transform(this.RTCM32Tranformation)===this.mountListData[this.listIndex].rtcm32Tranformation){
-        this.dialogMountSet = false;
-      }else{
-        UpdateMount(this.id,this.mountName,transform(this.isUsed),this.mountTypeValue,transform(this.CMR0),transform(this.CMR1),transform(this.RTCM23type1),transform(this.RTCM23type3),transform(this.RTCM23type1819),transform(this.RTCM23type31),transform(this.RTCM321005),transform(this.RTCM321007),transform(this.RTCM321033),transform(this.RTCM321004),transform(this.RTCM321012),transform(this.RTCM32Gps),transform(this.RTCM32Glo),transform(this.RTCM32Bds),transform(this.RTCM32Gal),transform(this.GPSvalue),transform(this.GLOvalue),transform(this.BDSvalue),transform(this.GALvalue)).then(
-        response => {
-          console.log(JSON.stringify(response));
+    minusListIndex() {
+      this.listIndex -= 1;
+      this.$options.methods.assignment.bind(this)();
+    },
+    deleteMountData() {
+      this.delectdialogVisible = false;
+      deleteMount(this.id).then(
+        reponse => {
+          if (reponse.status === 0) {
+            this.$options.methods.isSuccess.bind(this)('删除');
+          } else {
+            this.$options.methods.isFalse.bind(this)('删除');
+          }
           this.dialogMountSet = false;
         },
         reject => {
-          console.log('Mount更新失败！');
+          this.dialogMountSet = false;
+          this.$options.methods.isFalse.bind(this)('删除');
         }
       );
+    },
+    addMountData() {
+      this.adddialogVisible = false;
+      if (this.mountName === '') {
+        this.$options.methods.isMeg.bind(this)('mountName不能为空!');
+        return;
+      }
+      addMount(
+        this.mountName,
+        transform(this.isUsed),
+        this.mountTypeValue,
+        transform(this.CMR0),
+        transform(this.CMR1),
+        transform(this.RTCM23type1),
+        transform(this.RTCM23type3),
+        transform(this.RTCM23type1819),
+        transform(this.RTCM23type31),
+        transform(this.RTCM321005),
+        transform(this.RTCM321007),
+        transform(this.RTCM321033),
+        transform(this.RTCM321004),
+        transform(this.RTCM321012),
+        transform(this.RTCM32Gps),
+        transform(this.RTCM32Glo),
+        transform(this.RTCM32Bds),
+        transform(this.RTCM32Gal),
+        transform(this.GPSvalue),
+        transform(this.GLOvalue),
+        transform(this.BDSvalue),
+        transform(this.GALvalue)
+      ).then(
+        reponse => {
+          if (reponse.status === 0) {
+            this.$options.methods.isSuccess.bind(this)('新增');
+          } else {
+            this.$options.methods.isFalse.bind(this)('新增');
+          }
+          this.dialogMountSet = false;
+        },
+        reject => {
+          this.dialogMountSet = false;
+          this.$options.methods.isFalse.bind(this)('新增');
+        }
+      );
+    },
+    //如果页面内容无变化，点击关闭；否则请求更新内容
+    mountUpdate() {
+      if (this.mountName === '') {
+        this.$options.methods.isMeg.bind(this)('mountName不能为空!');
+        return;
+      }
+      if (
+        this.mountName === this.mountListData[this.listIndex].mountName &&
+        this.mountTypeValue === this.mountListData[this.listIndex].mountType &&
+        transform(this.CMR0) === this.mountListData[this.listIndex].cmr0 &&
+        transform(this.CMR1) === this.mountListData[this.listIndex].cmr1 &&
+        transform(this.isUsed) === this.mountListData[this.listIndex].isUsed &&
+        transform(this.RTCM23type1) ===
+          this.mountListData[this.listIndex].rtcm23Type1 &&
+        transform(this.RTCM23type3) ===
+          this.mountListData[this.listIndex].rtcm23Type3 &&
+        transform(this.RTCM23type31) ===
+          this.mountListData[this.listIndex].rtcm23Type31 &&
+        transform(this.RTCM23type1819) ===
+          this.mountListData[this.listIndex].rtcm23Type1819 &&
+        transform(this.RTCM321005) ===
+          this.mountListData[this.listIndex].rtcm321005 &&
+        transform(this.RTCM321004) ===
+          this.mountListData[this.listIndex].rtcm321004 &&
+        transform(this.RTCM321007) ===
+          this.mountListData[this.listIndex].rtcm321007 &&
+        transform(this.RTCM321012) ===
+          this.mountListData[this.listIndex].rtcm321012 &&
+        transform(this.RTCM321033) ===
+          this.mountListData[this.listIndex].rtcm321033 &&
+        transform(this.RTCM32Gps) ===
+          this.mountListData[this.listIndex].rtcm32Gps &&
+        transform(this.RTCM32Glo) ===
+          this.mountListData[this.listIndex].rtcm32Glo &&
+        transform(this.RTCM32Bds) ===
+          this.mountListData[this.listIndex].rtcm32Bds &&
+        transform(this.RTCM32Gal) ===
+          this.mountListData[this.listIndex].rtcm32Gal
+      ) {
+        this.dialogMountSet = false;
+      } else {
+        UpdateMount(
+          this.id,
+          this.mountName,
+          transform(this.isUsed),
+          this.mountTypeValue,
+          transform(this.CMR0),
+          transform(this.CMR1),
+          transform(this.RTCM23type1),
+          transform(this.RTCM23type3),
+          transform(this.RTCM23type1819),
+          transform(this.RTCM23type31),
+          transform(this.RTCM321005),
+          transform(this.RTCM321007),
+          transform(this.RTCM321033),
+          transform(this.RTCM321004),
+          transform(this.RTCM321012),
+          transform(this.RTCM32Gps),
+          transform(this.RTCM32Glo),
+          transform(this.RTCM32Bds),
+          transform(this.RTCM32Gal),
+          transform(this.GPSvalue),
+          transform(this.GLOvalue),
+          transform(this.BDSvalue),
+          transform(this.GALvalue)
+        ).then(
+          response => {
+            if (response.status === 0) {
+              this.$options.methods.isSuccess.bind(this)('更新');
+            } else {
+              this.$options.methods.isFalse.bind(this)('更新');
+            }
+            this.dialogMountSet = false;
+          },
+          reject => {
+            this.dialogMountSet = false;
+            this.$options.methods.isFalse.bind(this)('更新');
+          }
+        );
       }
     },
     // 表单元素赋予默认值方法
     assignment() {
-      this.CMR0= this.mountListData[this.listIndex].cmr0===1 ? true : false;
-      this.CMR1= this.mountListData[this.listIndex].cmr1===1 ? true : false;
-      this.isUsed= this.mountListData[this.listIndex].isUsed===1 ? true : false;
-      this.RTCM23type1= this.mountListData[this.listIndex].rtcm23Type1===1 ? true : false;
-      this.RTCM23type3= this.mountListData[this.listIndex].rtcm23Type3===1 ? true : false;
-      this.RTCM23type31= this.mountListData[this.listIndex].rtcm23Type31===1 ? true : false;
-      this.RTCM23type1819= this.mountListData[this.listIndex].rtcm23Type1819===1 ? true : false;
-      this.RTCM321005= this.mountListData[this.listIndex].rtcm321005===1 ? true : false;
-      this.RTCM321004= this.mountListData[this.listIndex].rtcm321004===1 ? true : false;
-      this.RTCM321007= this.mountListData[this.listIndex].rtcm321007===1 ? true : false;
-      this.RTCM321012= this.mountListData[this.listIndex].rtcm321012===1 ? true : false;
-      this.RTCM321021= this.mountListData[this.listIndex].rtcm321021===1 ? true : false;
-      this.RTCM321023= this.mountListData[this.listIndex].rtcm321023===1 ? true : false;
-      this.RTCM321033= this.mountListData[this.listIndex].rtcm321033===1 ? true : false;
-      this.RTCM32102510261027= this.mountListData[this.listIndex].rtcm32102510261027===1 ? true : false;
-      this.RTCM32Gps= this.mountListData[this.listIndex].rtcm32Gps===1 ? true : false;
-      this.RTCM32Glo= this.mountListData[this.listIndex].rtcm32Glo===1 ? true : false;
-      this.RTCM32Bds= this.mountListData[this.listIndex].rtcm32Bds===1 ? true : false;
-      this.RTCM32Gal= this.mountListData[this.listIndex].rtcm32Gal===1 ? true : false;
-      this.RTCM32Paramter= this.mountListData[this.listIndex].rtcm32Paramter===1 ? true : false;
-      this.RTCM32Tranformation= this.mountListData[this.listIndex].rtcm32Tranformation===1 ? true : false;
+      this.CMR0 = this.mountListData[this.listIndex].cmr0 === 1 ? true : false;
+      this.CMR1 = this.mountListData[this.listIndex].cmr1 === 1 ? true : false;
+      this.isUsed =
+        this.mountListData[this.listIndex].isUsed === 1 ? true : false;
+      this.RTCM23type1 =
+        this.mountListData[this.listIndex].rtcm23Type1 === 1 ? true : false;
+      this.RTCM23type3 =
+        this.mountListData[this.listIndex].rtcm23Type3 === 1 ? true : false;
+      this.RTCM23type31 =
+        this.mountListData[this.listIndex].rtcm23Type31 === 1 ? true : false;
+      this.RTCM23type1819 =
+        this.mountListData[this.listIndex].rtcm23Type1819 === 1 ? true : false;
+      this.RTCM321005 =
+        this.mountListData[this.listIndex].rtcm321005 === 1 ? true : false;
+      this.RTCM321004 =
+        this.mountListData[this.listIndex].rtcm321004 === 1 ? true : false;
+      this.RTCM321007 =
+        this.mountListData[this.listIndex].rtcm321007 === 1 ? true : false;
+      this.RTCM321012 =
+        this.mountListData[this.listIndex].rtcm321012 === 1 ? true : false;
+      this.RTCM321021 =
+        this.mountListData[this.listIndex].rtcm321021 === 1 ? true : false;
+      this.RTCM321023 =
+        this.mountListData[this.listIndex].rtcm321023 === 1 ? true : false;
+      this.RTCM321033 =
+        this.mountListData[this.listIndex].rtcm321033 === 1 ? true : false;
+      this.RTCM32102510261027 =
+        this.mountListData[this.listIndex].rtcm32102510261027 === 1
+          ? true
+          : false;
+      this.RTCM32Gps =
+        this.mountListData[this.listIndex].rtcm32Gps === 1 ? true : false;
+      this.RTCM32Glo =
+        this.mountListData[this.listIndex].rtcm32Glo === 1 ? true : false;
+      this.RTCM32Bds =
+        this.mountListData[this.listIndex].rtcm32Bds === 1 ? true : false;
+      this.RTCM32Gal =
+        this.mountListData[this.listIndex].rtcm32Gal === 1 ? true : false;
+      this.RTCM32Paramter =
+        this.mountListData[this.listIndex].rtcm32Paramter === 1 ? true : false;
+      this.RTCM32Tranformation =
+        this.mountListData[this.listIndex].rtcm32Tranformation === 1
+          ? true
+          : false;
       this.id = this.mountListData[this.listIndex].id;
       this.mountName = this.mountListData[this.listIndex].mountName;
       this.mountTypeValue = this.mountListData[this.listIndex].mountType;
@@ -309,10 +479,39 @@ export default {
       this.GLOvalue = this.mountListData[this.listIndex].rtcm32GloMsm;
       this.BDSvalue = this.mountListData[this.listIndex].rtcm32BdsMsm;
       this.GALvalue = this.mountListData[this.listIndex].rtcm32GalMsm;
-      this.RTCM321021Second = this.mountListData[this.listIndex].rtcm321021Second;
-      this.RTCM321023Second = this.mountListData[this.listIndex].rtcm321023Second;
-      this.RTCM321025Second = this.mountListData[this.listIndex].rtcm321025Second;
-
+      this.RTCM321021Second = this.mountListData[
+        this.listIndex
+      ].rtcm321021Second;
+      this.RTCM321023Second = this.mountListData[
+        this.listIndex
+      ].rtcm321023Second;
+      this.RTCM321025Second = this.mountListData[
+        this.listIndex
+      ].rtcm321025Second;
+    },
+    isSuccess(v) {
+      this.$message({
+        showClose: true,
+        message: v + '成功!',
+        type: 'success',
+        duration: 2000
+      });
+    },
+    isFalse(v) {
+      this.$message({
+        showClose: true,
+        message: v + '失败!',
+        type: 'error',
+        duration: 2000
+      });
+    },
+    isMeg(v) {
+      this.$message({
+        showClose: true,
+        message: v,
+        type: 'error',
+        duration: 2000
+      });
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -333,22 +532,23 @@ export default {
   },
   created() {
     // 创建实例时请求数据
-     //this.mouthList();
+    //this.mouthList();
   },
   mounted() {
     //  箭头函数作用域
     bus.$on('changeMountSet', reg => {
       this.dialogMountSet = reg;
+      this.listIndex = 0;
       this.mouthList();
     });
   }
 };
 //布尔值转换
-function transform(v){
-  if(v===true){
-   return v=1;
-  }else{
-   return v=0;
+function transform(v) {
+  if (v === true) {
+    return (v = 1);
+  } else {
+    return (v = 0);
   }
 }
 </script>
@@ -482,8 +682,8 @@ function transform(v){
         }
         .inp-content {
           display: flex;
-          div{
-            width:240px;
+          div {
+            width: 240px;
             margin-bottom: 5px;
           }
         }

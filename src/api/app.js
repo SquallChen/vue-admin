@@ -104,7 +104,47 @@ function getMountList(page_num, num_per_page) {
     }
   });
 }
-
+//删除Mount挂载点
+function deleteMount(id) {
+  return request({
+    url: '/mountsetting/delete_index',
+    method: 'post',
+    data: {
+      id
+    }
+  });
+}
+//新增Mount挂载点
+function addMount( mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23Type3, rtcm23Type1819, rtcm23Type31, rtcm321005, rtcm321007, rtcm321033, rtcm321004, rtcm321012, rtcm32Gps, rtcm32Glo, rtcm32Bds, rtcm32Gal, rtcm32GpsMsm, rtcm32GloMsm, rtcm32BdsMsm, rtcm32GalMsm ) {
+  return request({
+    url: 'mountsetting/create_index',
+    method: 'post',
+    data: {
+      mountName,
+      isUsed,
+      mountType,
+      cmr0,
+      cmr1,
+      rtcm23Type1,
+      rtcm23Type3,
+      rtcm23Type1819,
+      rtcm23Type31,
+      rtcm321005,
+      rtcm321007,
+      rtcm321033,
+      rtcm321004,
+      rtcm321012,
+      rtcm32Gps,
+      rtcm32Glo,
+      rtcm32Bds,
+      rtcm32Gal,
+      rtcm32GpsMsm,
+      rtcm32GloMsm,
+      rtcm32BdsMsm,
+      rtcm32GalMsm
+    }
+  });
+}
 //更新Mount挂载点
 function UpdateMount( id, mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23Type3, rtcm23Type1819, rtcm23Type31, rtcm321005, rtcm321007, rtcm321033, rtcm321004, rtcm321012, rtcm32Gps, rtcm32Glo, rtcm32Bds, rtcm32Gal, rtcm32GpsMsm, rtcm32GloMsm, rtcm32BdsMsm, rtcm32GalMsm ) {
   return request({
@@ -137,6 +177,7 @@ function UpdateMount( id, mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1,
     }
   });
 }
+
 // 新增基站
 function AddBaseStation(
   station_name,
@@ -223,4 +264,4 @@ function DeleteBaseStation(id) {
     }
   });
 }
-export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation, getSatelliteData, getReceiverStatus, getMountList, UpdateMount };
+export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation, getSatelliteData, getReceiverStatus, getMountList, UpdateMount,deleteMount,addMount };
