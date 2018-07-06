@@ -115,7 +115,30 @@ function deleteMount(id) {
   });
 }
 //新增Mount挂载点
-function addMount( mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23Type3, rtcm23Type1819, rtcm23Type31, rtcm321005, rtcm321007, rtcm321033, rtcm321004, rtcm321012, rtcm32Gps, rtcm32Glo, rtcm32Bds, rtcm32Gal, rtcm32GpsMsm, rtcm32GloMsm, rtcm32BdsMsm, rtcm32GalMsm ) {
+function addMount(
+  mountName,
+  isUsed,
+  mountType,
+  cmr0,
+  cmr1,
+  rtcm23Type1,
+  rtcm23Type3,
+  rtcm23Type1819,
+  rtcm23Type31,
+  rtcm321005,
+  rtcm321007,
+  rtcm321033,
+  rtcm321004,
+  rtcm321012,
+  rtcm32Gps,
+  rtcm32Glo,
+  rtcm32Bds,
+  rtcm32Gal,
+  rtcm32GpsMsm,
+  rtcm32GloMsm,
+  rtcm32BdsMsm,
+  rtcm32GalMsm
+) {
   return request({
     url: 'mountsetting/create_index',
     method: 'post',
@@ -146,7 +169,31 @@ function addMount( mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23
   });
 }
 //更新Mount挂载点
-function UpdateMount( id, mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23Type3, rtcm23Type1819, rtcm23Type31, rtcm321005, rtcm321007, rtcm321033, rtcm321004, rtcm321012, rtcm32Gps, rtcm32Glo, rtcm32Bds, rtcm32Gal, rtcm32GpsMsm, rtcm32GloMsm, rtcm32BdsMsm, rtcm32GalMsm ) {
+function UpdateMount(
+  id,
+  mountName,
+  isUsed,
+  mountType,
+  cmr0,
+  cmr1,
+  rtcm23Type1,
+  rtcm23Type3,
+  rtcm23Type1819,
+  rtcm23Type31,
+  rtcm321005,
+  rtcm321007,
+  rtcm321033,
+  rtcm321004,
+  rtcm321012,
+  rtcm32Gps,
+  rtcm32Glo,
+  rtcm32Bds,
+  rtcm32Gal,
+  rtcm32GpsMsm,
+  rtcm32GloMsm,
+  rtcm32BdsMsm,
+  rtcm32GalMsm
+) {
   return request({
     url: 'mountsetting/update',
     method: 'post',
@@ -174,6 +221,50 @@ function UpdateMount( id, mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1,
       rtcm32GloMsm,
       rtcm32BdsMsm,
       rtcm32GalMsm
+    }
+  });
+}
+
+//获取NRS参数
+function getNRSData() {
+  return request({
+    url: 'paramsetting/get_param_setting',
+    method: 'post',
+    data: {}
+  });
+}
+
+//更新NRS参数
+function updateNRSData(
+  nrsMaxDistance,
+  nrsMinDistance,
+  deepMaxDistance,
+  deepMinDistance,
+  inRealStationDistance,
+  outRealStationDistance,
+  translationDistance,
+  ionosphereMode,
+  troposphericMode,
+  stationAbnormalSecond,
+  isIntelligenceContruct,
+  intelligenceContructParam
+) {
+  return request({
+    url: 'paramsetting/update',
+    method: 'post',
+    data: {
+      nrsMaxDistance,
+      nrsMinDistance,
+      deepMaxDistance,
+      deepMinDistance,
+      inRealStationDistance,
+      outRealStationDistance,
+      translationDistance,
+      ionosphereMode,
+      troposphericMode,
+      stationAbnormalSecond,
+      isIntelligenceContruct,
+      intelligenceContructParam
     }
   });
 }
@@ -264,4 +355,22 @@ function DeleteBaseStation(id) {
     }
   });
 }
-export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation, getSatelliteData, getReceiverStatus, getMountList, UpdateMount,deleteMount,addMount };
+export {
+  appList,
+  addApp,
+  delApp,
+  updateList,
+  dumpList,
+  BaseInfo,
+  AddBaseStation,
+  DeleteBaseStation,
+  UpdatedBaseStation,
+  getSatelliteData,
+  getReceiverStatus,
+  getMountList,
+  UpdateMount,
+  deleteMount,
+  addMount,
+  getNRSData,
+  updateNRSData
+};

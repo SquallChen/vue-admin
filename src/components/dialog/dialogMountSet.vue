@@ -263,6 +263,7 @@ export default {
   },
   methods: {
     mouthList() {
+      //请求页面数据
       getMountList(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           if (response.status === 0 && response.totalCount !== 0) {
@@ -276,6 +277,7 @@ export default {
         }
       );
     },
+    //上下翻页
     addListIndex() {
       this.listIndex += 1;
       this.$options.methods.assignment.bind(this)();
@@ -284,6 +286,7 @@ export default {
       this.listIndex -= 1;
       this.$options.methods.assignment.bind(this)();
     },
+    //删除Mount挂载点
     deleteMountData() {
       this.delectdialogVisible = false;
       deleteMount(this.id).then(

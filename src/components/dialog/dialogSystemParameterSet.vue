@@ -7,7 +7,7 @@
             <div class="NRSSet-top">
               <div>
                 <el-form-item label="NRS边最大距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.nrsMaxDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
@@ -19,31 +19,31 @@
               </div>
               <div>
                 <el-form-item label="NRS边最小距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.nrsMinDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
               <div>
                 <el-form-item label="网外物理基站距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.inRealStationDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
               <div>
                 <el-form-item label="DEEP-NRS边最大距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.deepMaxDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
               <div>
                 <el-form-item label="平移距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.translationDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
               <div>
                 <el-form-item label="DEEP-NRS边最小距离" :label-width="formLabelWidth">
-                  <el-input v-model="form.distance1" auto-complete="off" step="5"></el-input>
+                  <el-input v-model="paramSetting.deepMinDistance" auto-complete="off" step="5"></el-input>
                 </el-form-item>
                 <span>Km</span>
               </div>
@@ -52,25 +52,25 @@
             <div class="NRSSet-middle">
               <div>
                 <span>测站异常</span>
-                <el-input-number v-model="num8" controls-position="right" @change="handleChange" :min="1" :max="20"></el-input-number>
+                <el-input-number v-model="stationAbnormalSecond" controls-position="right" @change="handleChange" :min="0" :max="20"></el-input-number>
                 <span>秒</span>
                 <span class="top-title">重构网</span>
               </div>
               <div>
-                <el-checkbox label="启用" name="type" disabled></el-checkbox>
-                <el-input v-model="form.smtp" auto-complete="off" step="5" disabled></el-input>
+                <el-checkbox label="启用" name="type" disabled v-model="isIntelligenceContruct"></el-checkbox>
+                <el-input auto-complete="off" step="5" disabled v-model="paramSetting.intelligenceContructParam"></el-input>
                 <span class="top-title">智能组网</span>
               </div>
             </div>
             <div class="NRSSet-bottom">
               <el-form-item label="电离层模型">
-                <el-select v-model="value1" placeholder="">
+                <el-select v-model="paramSetting.ionosphereMode" placeholder="">
                   <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="对流模型">
-                <el-select v-model="value1" placeholder="">
+                <el-select v-model="paramSetting.troposphericMode" placeholder="">
                   <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -114,13 +114,14 @@
       </el-tabs>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogSystemParameterSet = false">确 定</el-button>
+      <el-button type="primary" @click="updateNRS">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 import bus from '@/store/eventbus';
+import { getNRSData,updateNRSData } from '@/api/app.js';
 export default {
   name: 'dialogSystemParameterSet',
   data() {
@@ -143,40 +144,85 @@ export default {
       },
       options1: [
         {
-          value: '选项1',
+          value: 0,
           label: 'Auto'
         },
         {
-          value: '选项2',
+          value: 1,
           label: 'Klobuchar'
         },
         {
-          value: '选项3',
+          value: 2,
           label: 'Neil'
         },
         {
-          value: '选项4',
+          value: 3,
           label: 'Advance IONO'
         }
       ],
       options2: [
         {
-          value: '选项1',
+          value: 0,
           label: 'Auto'
         },
         {
-          value: '选项2',
+          value: 1,
           label: 'Saastamoine'
         },
         {
-          value: '选项3',
+          value: 2,
           label: 'Hopfield'
         }
       ],
-      formLabelWidth: '160px'
+      formLabelWidth: '160px',
+      paramSetting:'',
+      isIntelligenceContruct:'',
+      stationAbnormalSecond:'',
     };
   },
   methods: {
+    NRSdata(){
+      getNRSData().then(response=>{
+        if(response.status===0){
+          this.paramSetting = response.paramSetting;
+          this.isIntelligenceContruct = this.paramSetting.isIntelligenceContruct === 1 ? true : false;
+          this.stationAbnormalSecond = this.paramSetting.stationAbnormalSecond;
+        }
+      },
+      reject=>{
+        console.log(reject);
+      })
+    },
+    updateNRS(){
+      updateNRSData(this.paramSetting.nrsMaxDistance,this.paramSetting.nrsMinDistance,this.paramSetting.deepMaxDistance,this.paramSetting.deepMinDistance,this.paramSetting.inRealStationDistance,this.paramSetting.outRealStationDistance,this.paramSetting.translationDistance,this.paramSetting.ionosphereMode,this.paramSetting.troposphericMode,this.stationAbnormalSecond,transform(this.isIntelligenceContruct),this.paramSetting.intelligenceContructParam,).then(
+        response=>{
+          if(response.status===0){
+            this.dialogSystemParameterSet= false;
+            this.isSuccess('更新');
+          }
+        },
+        relect=>{
+           this.dialogSystemParameterSet= false;
+           this.isFalse('更新');
+        }
+      )
+    },
+    isSuccess(v) {
+      this.$message({
+        showClose: true,
+        message: v + '成功!',
+        type: 'success',
+        duration: 2000
+      });
+    },
+    isFalse(v) {
+      this.$message({
+        showClose: true,
+        message: v + '失败!',
+        type: 'error',
+        duration: 2000
+      });
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -188,9 +234,14 @@ export default {
     //  箭头函数作用域
     bus.$on('changeSystemParameterSet', reg => {
       this.dialogSystemParameterSet = reg;
+      this.NRSdata();
     });
   }
 };
+//布尔值转换
+function transform(v) {
+  return v ? 1 : 0;
+}
 </script>
 <style lang="scss" scoped>
 .NRSSet {
