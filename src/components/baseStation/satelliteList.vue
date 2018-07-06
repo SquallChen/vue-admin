@@ -22,10 +22,6 @@
         <el-table-column prop="snr3" label="SNR3" show-overflow-tooltip :min-width=widthvalue>
         </el-table-column>
       </el-table>
-      <!-- <div class="pagination-container">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page_num" :page-sizes="[5,10,15,20]" :page-size="listQuery.num_per_page" layout="total, sizes, prev, pager, next, jumper" :total="total">
-        </el-pagination>
-      </div> -->
     </div>
   </div>
 </template>
@@ -63,10 +59,17 @@ export default {
     // 获取当前点击的基站ID信息
     bus.$on('currentBaseStationsId', reg => {
       this.stationId = reg;
+      //先调用执行一次，5秒后计时器自动执行
       this.SatelliteData();
+      this.timeClock();
     });
   },
   methods: {
+    timeClock() {
+      setInterval(() => {
+        this.SatelliteData();
+      }, 5000);
+    },
     SatelliteData() {
       getSatelliteData(this.stationId).then(
         response => {
@@ -103,7 +106,7 @@ export default {
 function drawSkyPosition(data) {
   var c = document.getElementById('skyPic');
   var ctx = c.getContext('2d');
-  ctx.clearRect(0,0,c.width,c.height);
+  ctx.clearRect(0, 0, c.width, c.height);
   var img = document.getElementById('scream');
   ctx.drawImage(img, -160, 30);
   var radius = 180;

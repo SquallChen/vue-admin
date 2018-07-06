@@ -108,9 +108,15 @@ export default {
     bus.$on('currentBaseStationsId', reg => {
       this.stationId = reg;
       this.SatelliteData();
+      this.timeClock();
     });
   },
   methods: {
+    timeClock() {
+      setInterval(() => {
+        this.SatelliteData();
+      }, 5000);
+    },
     //根据radio切换处理对应数据
     stationIdChange() {
       if (this.radio === '1') {
@@ -148,7 +154,10 @@ export default {
     },
     processGpsData() {
       let dataLength = this.stationInfo.length;
-      let tempSateliteId = [], tempSNR1 = [], tempSNR2 = [], tempSNR3 = [];
+      let tempSateliteId = [],
+        tempSNR1 = [],
+        tempSNR2 = [],
+        tempSNR3 = [];
       for (let i = 0; i < dataLength; i++) {
         if (this.stationInfo[i].sateliteId <= 32) {
           tempSateliteId.push(this.stationInfo[i].sateliteId);
@@ -165,10 +174,14 @@ export default {
     },
     processGlonassData() {
       let dataLength = this.stationInfo.length;
-      let tempSateliteId = [], tempSNR1 = [], tempSNR2 = [], tempSNR3 = [];
+      let tempSateliteId = [],
+        tempSNR1 = [],
+        tempSNR2 = [],
+        tempSNR3 = [];
       for (let i = 0; i < dataLength; i++) {
         if (
-          this.stationInfo[i].sateliteId >= 38 && this.stationInfo[i].sateliteId <= 61
+          this.stationInfo[i].sateliteId >= 38 &&
+          this.stationInfo[i].sateliteId <= 61
         ) {
           tempSateliteId.push(this.stationInfo[i].sateliteId);
           tempSNR1.push(this.stationInfo[i].snr1);
@@ -184,10 +197,14 @@ export default {
     },
     processBeidouData() {
       let dataLength = this.stationInfo.length;
-      let tempSateliteId = [], tempSNR1 = [], tempSNR2 = [], tempSNR3 = [];
+      let tempSateliteId = [],
+        tempSNR1 = [],
+        tempSNR2 = [],
+        tempSNR3 = [];
       for (let i = 0; i < dataLength; i++) {
         if (
-          this.stationInfo[i].sateliteId >= 161 && this.stationInfo[i].sateliteId <= 197
+          this.stationInfo[i].sateliteId >= 161 &&
+          this.stationInfo[i].sateliteId <= 197
         ) {
           tempSateliteId.push(this.stationInfo[i].sateliteId);
           tempSNR1.push(this.stationInfo[i].snr1);

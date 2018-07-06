@@ -83,7 +83,7 @@ function getSatelliteData(station_id) {
   });
 }
 //获取基站接收机状态
-function getReceiverStatus(station_id){
+function getReceiverStatus(station_id) {
   return request({
     url: 'cors_station/get_receiver_status/',
     method: 'post',
@@ -92,8 +92,68 @@ function getReceiverStatus(station_id){
     }
   });
 }
+
+//Mount挂载点列表
+function getMountList(page_num, num_per_page) {
+  return request({
+    url: 'mountsetting/list_page',
+    method: 'post',
+    data: {
+      page_num,
+      num_per_page
+    }
+  });
+}
+
+//更新Mount挂载点
+function UpdateMount( id, mountName, isUsed, mountType, cmr0, cmr1, rtcm23Type1, rtcm23Type3, rtcm23Type1819, rtcm23Type31, rtcm321005, rtcm321007, rtcm321033, rtcm321004, rtcm321012, rtcm32Gps, rtcm32Glo, rtcm32Bds, rtcm32Gal, rtcm32GpsMsm, rtcm32GloMsm, rtcm32BdsMsm, rtcm32GalMsm ) {
+  return request({
+    url: 'mountsetting/update',
+    method: 'post',
+    data: {
+      id,
+      mountName,
+      isUsed,
+      mountType,
+      cmr0,
+      cmr1,
+      rtcm23Type1,
+      rtcm23Type3,
+      rtcm23Type1819,
+      rtcm23Type31,
+      rtcm321005,
+      rtcm321007,
+      rtcm321033,
+      rtcm321004,
+      rtcm321012,
+      rtcm32Gps,
+      rtcm32Glo,
+      rtcm32Bds,
+      rtcm32Gal,
+      rtcm32GpsMsm,
+      rtcm32GloMsm,
+      rtcm32BdsMsm,
+      rtcm32GalMsm
+    }
+  });
+}
 // 新增基站
-function AddBaseStation(station_name, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, status, net_id, mode) {
+function AddBaseStation(
+  station_name,
+  station_id,
+  server_port,
+  x,
+  y,
+  z,
+  client_ip,
+  client_port,
+  b,
+  l,
+  h,
+  status,
+  net_id,
+  mode
+) {
   return request({
     url: 'cors_station/create_index',
     method: 'post',
@@ -116,7 +176,22 @@ function AddBaseStation(station_name, station_id, server_port, x, y, z, client_i
   });
 }
 // 更新基站
-function UpdatedBaseStation(station_name, id, station_id, server_port, x, y, z, client_ip, client_port, b, l, h, net_id, mode) {
+function UpdatedBaseStation(
+  station_name,
+  id,
+  station_id,
+  server_port,
+  x,
+  y,
+  z,
+  client_ip,
+  client_port,
+  b,
+  l,
+  h,
+  net_id,
+  mode
+) {
   return request({
     url: 'cors_station/update',
     method: 'post',
@@ -148,4 +223,4 @@ function DeleteBaseStation(id) {
     }
   });
 }
-export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation,getSatelliteData,getReceiverStatus};
+export { appList, addApp, delApp, updateList, dumpList, BaseInfo, AddBaseStation, DeleteBaseStation, UpdatedBaseStation, getSatelliteData, getReceiverStatus, getMountList, UpdateMount };
