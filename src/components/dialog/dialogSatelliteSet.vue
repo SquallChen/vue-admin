@@ -5,254 +5,67 @@
         <div class="leftside">
           <div>
             <div class="checkbox-content">
-              <el-checkbox label="1" name="type" checked></el-checkbox>
-              <el-checkbox label="2" name="type" checked></el-checkbox>
-              <el-checkbox label="3" name="type" checked></el-checkbox>
-              <el-checkbox label="4" name="type" checked></el-checkbox>
-              <el-checkbox label="5" name="type" checked></el-checkbox>
-              <el-checkbox label="6" name="type" checked></el-checkbox>
-              <el-checkbox label="7" name="type" checked></el-checkbox>
-              <el-checkbox label="8" name="type" checked></el-checkbox>
-              <el-checkbox label="9" name="type" checked></el-checkbox>
-              <el-checkbox label="10" name="type" checked></el-checkbox>
-              <el-checkbox label="11" name="type" checked></el-checkbox>
-              <el-checkbox label="12" name="type" checked></el-checkbox>
-              <el-checkbox label="13" name="type" checked></el-checkbox>
-              <el-checkbox label="14" name="type" checked></el-checkbox>
-              <el-checkbox label="15" name="type" checked></el-checkbox>
-              <el-checkbox label="16" name="type" checked></el-checkbox>
-              <el-checkbox label="17" name="type" checked></el-checkbox>
-              <el-checkbox label="18" name="type" checked></el-checkbox>
-              <el-checkbox label="19" name="type" checked></el-checkbox>
-              <el-checkbox label="20" name="type" checked></el-checkbox>
-              <el-checkbox label="21" name="type" checked></el-checkbox>
-              <el-checkbox label="22" name="type" checked></el-checkbox>
-              <el-checkbox label="23" name="type" checked></el-checkbox>
-              <el-checkbox label="24" name="type" checked></el-checkbox>
-              <el-checkbox label="25" name="type" checked></el-checkbox>
-              <el-checkbox label="26" name="type" checked></el-checkbox>
-              <el-checkbox label="27" name="type" checked></el-checkbox>
-              <el-checkbox label="28" name="type" checked></el-checkbox>
-              <el-checkbox label="29" name="type" checked></el-checkbox>
-              <el-checkbox label="30" name="type" checked></el-checkbox>
-              <el-checkbox label="31" name="type" checked></el-checkbox>
-              <el-checkbox label="32" name="type" checked></el-checkbox>
+              <el-checkbox name="type" v-for="(item,index) in GpsSet" :key="index" v-model="item.value">{{item.name}}</el-checkbox>
             </div>
             <div class="button-content">
-              <el-button>USE ALL</el-button>
-              <el-button>Forbid ALL</el-button>
+              <el-button @click="selectAll('GpsSet')">USE ALL</el-button>
+              <el-button @click="unselectAll('GpsSet')">Forbid ALL</el-button>
             </div>
             <span class="top-title">GPS</span>
           </div>
           <div>
             <div class="checkbox-content">
-              <el-checkbox label="1" name="type" checked></el-checkbox>
-              <el-checkbox label="2" name="type" checked></el-checkbox>
-              <el-checkbox label="3" name="type" checked></el-checkbox>
-              <el-checkbox label="4" name="type" checked></el-checkbox>
-              <el-checkbox label="5" name="type" checked></el-checkbox>
-              <el-checkbox label="6" name="type" checked></el-checkbox>
-              <el-checkbox label="7" name="type" checked></el-checkbox>
-              <el-checkbox label="8" name="type" checked></el-checkbox>
-              <el-checkbox label="9" name="type" checked></el-checkbox>
-              <el-checkbox label="10" name="type" checked></el-checkbox>
-              <el-checkbox label="11" name="type" checked></el-checkbox>
-              <el-checkbox label="12" name="type" checked></el-checkbox>
-              <el-checkbox label="13" name="type" checked></el-checkbox>
-              <el-checkbox label="14" name="type" checked></el-checkbox>
-              <el-checkbox label="15" name="type" checked></el-checkbox>
-              <el-checkbox label="16" name="type" checked></el-checkbox>
-              <el-checkbox label="17" name="type" checked></el-checkbox>
-              <el-checkbox label="18" name="type" checked></el-checkbox>
-              <el-checkbox label="19" name="type" checked></el-checkbox>
-              <el-checkbox label="20" name="type" checked></el-checkbox>
-              <el-checkbox label="21" name="type" checked></el-checkbox>
-              <el-checkbox label="22" name="type" checked></el-checkbox>
-              <el-checkbox label="23" name="type" checked></el-checkbox>
-              <el-checkbox label="24" name="type" checked></el-checkbox>
+              <el-checkbox name="type" v-for="(item,index) in GlonassSet" :key="index" v-model="item.value">{{item.name}}</el-checkbox>
             </div>
             <div class="button-content">
-              <el-button>USE ALL</el-button>
-              <el-button>Forbid ALL</el-button>
+              <el-button @click="selectAll('GlonassSet')">USE ALL</el-button>
+              <el-button @click="unselectAll('GlonassSet')">Forbid ALL</el-button>
             </div>
             <span class="top-title">GLONASS</span>
           </div>
           <div>
             <div class="checkbox-content">
-              <el-checkbox label="1" name="type" checked></el-checkbox>
-              <el-checkbox label="2" name="type" checked></el-checkbox>
-              <el-checkbox label="3" name="type" checked></el-checkbox>
-              <el-checkbox label="4" name="type" checked></el-checkbox>
-              <el-checkbox label="5" name="type" checked></el-checkbox>
-              <el-checkbox label="6" name="type" checked></el-checkbox>
-              <el-checkbox label="7" name="type" checked></el-checkbox>
-              <el-checkbox label="8" name="type" checked></el-checkbox>
-              <el-checkbox label="9" name="type" checked></el-checkbox>
-              <el-checkbox label="10" name="type" checked></el-checkbox>
-              <el-checkbox label="11" name="type" checked></el-checkbox>
-              <el-checkbox label="12" name="type" checked></el-checkbox>
-              <el-checkbox label="13" name="type" checked></el-checkbox>
-              <el-checkbox label="14" name="type" checked></el-checkbox>
-              <el-checkbox label="15" name="type" checked></el-checkbox>
-              <el-checkbox label="16" name="type" checked></el-checkbox>
-              <el-checkbox label="17" name="type" checked></el-checkbox>
-              <el-checkbox label="18" name="type" checked></el-checkbox>
-              <el-checkbox label="19" name="type" checked></el-checkbox>
-              <el-checkbox label="20" name="type" checked></el-checkbox>
-              <el-checkbox label="21" name="type" checked></el-checkbox>
-              <el-checkbox label="22" name="type" checked></el-checkbox>
-              <el-checkbox label="23" name="type" checked></el-checkbox>
-              <el-checkbox label="24" name="type" checked></el-checkbox>
-              <el-checkbox label="25" name="type" checked></el-checkbox>
-              <el-checkbox label="26" name="type" checked></el-checkbox>
-              <el-checkbox label="27" name="type" checked></el-checkbox>
-              <el-checkbox label="28" name="type" checked></el-checkbox>
-              <el-checkbox label="29" name="type" checked></el-checkbox>
-              <el-checkbox label="30" name="type" checked></el-checkbox>
-              <el-checkbox label="31" name="type" checked></el-checkbox>
-              <el-checkbox label="32" name="type" checked></el-checkbox>
-              <el-checkbox label="33" name="type" checked></el-checkbox>
-              <el-checkbox label="34" name="type" checked></el-checkbox>
-              <el-checkbox label="35" name="type" checked></el-checkbox>
-              <el-checkbox label="36" name="type" checked></el-checkbox>
-              <el-checkbox label="37" name="type" checked></el-checkbox>
+              <el-checkbox name="type" v-for="(item,index) in BdSet" :key="index" v-model="item.value">{{item.name}}</el-checkbox>
             </div>
             <div class="button-content">
-              <el-button>USE ALL</el-button>
-              <el-button>Forbid ALL</el-button>
+              <el-button @click="selectAll('BdSet')">USE ALL</el-button>
+              <el-button @click="unselectAll('BdSet')">Forbid ALL</el-button>
             </div>
-            <span class="top-title">GPS</span>
+            <span class="top-title">Beidou</span>
           </div>
           <div>
             <div class="checkbox-content">
-              <el-checkbox label="1" name="type" checked></el-checkbox>
-              <el-checkbox label="2" name="type" checked></el-checkbox>
-              <el-checkbox label="3" name="type" checked></el-checkbox>
-              <el-checkbox label="4" name="type" checked></el-checkbox>
-              <el-checkbox label="5" name="type" checked></el-checkbox>
-              <el-checkbox label="6" name="type" checked></el-checkbox>
-              <el-checkbox label="7" name="type" checked></el-checkbox>
-              <el-checkbox label="8" name="type" checked></el-checkbox>
-              <el-checkbox label="9" name="type" checked></el-checkbox>
-              <el-checkbox label="10" name="type" checked></el-checkbox>
-              <el-checkbox label="11" name="type" checked></el-checkbox>
-              <el-checkbox label="12" name="type" checked></el-checkbox>
-              <el-checkbox label="13" name="type" checked></el-checkbox>
-              <el-checkbox label="14" name="type" checked></el-checkbox>
-              <el-checkbox label="15" name="type" checked></el-checkbox>
-              <el-checkbox label="16" name="type" checked></el-checkbox>
-              <el-checkbox label="17" name="type" checked></el-checkbox>
-              <el-checkbox label="18" name="type" checked></el-checkbox>
-              <el-checkbox label="19" name="type" checked></el-checkbox>
-              <el-checkbox label="20" name="type" checked></el-checkbox>
-              <el-checkbox label="21" name="type" checked></el-checkbox>
-              <el-checkbox label="22" name="type" checked></el-checkbox>
-              <el-checkbox label="23" name="type" checked></el-checkbox>
-              <el-checkbox label="24" name="type" checked></el-checkbox>
-              <el-checkbox label="25" name="type" checked></el-checkbox>
-              <el-checkbox label="26" name="type" checked></el-checkbox>
-              <el-checkbox label="27" name="type" checked></el-checkbox>
-              <el-checkbox label="28" name="type" checked></el-checkbox>
-              <el-checkbox label="29" name="type" checked></el-checkbox>
-              <el-checkbox label="30" name="type" checked></el-checkbox>
-              <el-checkbox label="31" name="type" checked></el-checkbox>
-              <el-checkbox label="32" name="type" checked></el-checkbox>
-              <el-checkbox label="33" name="type" checked></el-checkbox>
-              <el-checkbox label="34" name="type" checked></el-checkbox>
-              <el-checkbox label="35" name="type" checked></el-checkbox>
-              <el-checkbox label="36" name="type" checked></el-checkbox>
+              <el-checkbox name="type" v-for="(item,index) in GalieoSet" :key="index" v-model="item.value">{{item.name}}</el-checkbox>
             </div>
             <div class="button-content">
-              <el-button>USE ALL</el-button>
-              <el-button>Forbid ALL</el-button>
+              <el-button @click="selectAll('GalieoSet')">USE ALL</el-button>
+              <el-button @click="unselectAll('GalieoSet')">Forbid ALL</el-button>
             </div>
-            <span class="top-title">GPS</span>
+            <span class="top-title">Galieo</span>
           </div>
         </div>
         <div class="rightside">
           <div>
-            <div>
-              <el-checkbox label="1C" name="type" checked></el-checkbox>
-              <el-checkbox label="1P" name="type" checked></el-checkbox>
-              <el-checkbox label="1W" name="type" checked></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="2C" name="type" checked></el-checkbox>
-              <el-checkbox label="2P" name="type" checked></el-checkbox>
-              <el-checkbox label="2W" name="type" checked></el-checkbox>
-              <el-checkbox label="2S" name="type" checked></el-checkbox>
-              <el-checkbox label="2L" name="type" checked></el-checkbox>
-              <el-checkbox label="2X" name="type" checked></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="5I" name="type" checked></el-checkbox>
-              <el-checkbox label="5Q" name="type" checked></el-checkbox>
-              <el-checkbox label="5X" name="type" checked></el-checkbox>
-            </div>
+            <el-checkbox name="type" v-for="(item,index) in GpsSingal" :key="index" v-model="item.value">{{item.name}}</el-checkbox><br/>
             <span class="top-title">GPS RTCM3.2 MSM Singal ID</span>
           </div>
-          <div>
-            <div>
-              <el-checkbox label="1C" name="type" checked></el-checkbox>
-              <el-checkbox label="1P" name="type"></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="2C" name="type" checked></el-checkbox>
-              <el-checkbox label="2P" name="type" checked></el-checkbox>
-            </div>
+          <div class="glonass">
+            <el-checkbox name="type" v-for="(item,index) in GlonassSingal" :key="index" v-model="item.value">{{item.name}}</el-checkbox><br/>
             <span class="top-title">GLONASS RTCM3.2 MSM Singal ID</span>
           </div>
-          <div>
-            <div>
-              <el-checkbox label="1I" name="type" checked></el-checkbox>
-              <el-checkbox label="1Q" name="type" checked></el-checkbox>
-              <el-checkbox label="1X" name="type" checked></el-checkbox>
+          <div class="bds">
+            <div class="firstdiv">
+              <el-checkbox name="type" v-for="(item,index) in BdsSingal" :key="index" v-model="item.value">{{item.name}}</el-checkbox><br/>
+            </div>
+            <div class="seconddiv">
               <span class="BDS-title">b1</span>
-            </div>
-            <div>
-              <el-checkbox label="7I" name="type" checked></el-checkbox>
-              <el-checkbox label="7Q" name="type" checked></el-checkbox>
-              <el-checkbox label="7X" name="type" checked></el-checkbox>
               <span class="BDS-title">b2</span>
-            </div>
-            <div>
-              <el-checkbox label="6I" name="type" checked></el-checkbox>
-              <el-checkbox label="6Q" name="type" checked></el-checkbox>
-              <el-checkbox label="6X" name="type" checked></el-checkbox>
               <span class="BDS-title">b3</span>
             </div>
             <span class="top-title">BDS RTCM3.2 Singal ID</span>
           </div>
-          <div>
-            <div>
-              <el-checkbox label="1C" name="type" checked></el-checkbox>
-              <el-checkbox label="1A" name="type" checked></el-checkbox>
-              <el-checkbox label="1B" name="type" checked></el-checkbox>
-              <el-checkbox label="1X" name="type" checked></el-checkbox>
-              <el-checkbox label="1Z" name="type" checked></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="6C" name="type"></el-checkbox>
-              <el-checkbox label="6A" name="type"></el-checkbox>
-              <el-checkbox label="6B" name="type"></el-checkbox>
-              <el-checkbox label="6X" name="type"></el-checkbox>
-              <el-checkbox label="6Z" name="type"></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="7I" name="type" checked></el-checkbox>
-              <el-checkbox label="7Q" name="type" checked></el-checkbox>
-              <el-checkbox label="7X" name="type" checked></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="8I" name="type" checked></el-checkbox>
-              <el-checkbox label="8Q" name="type" checked></el-checkbox>
-              <el-checkbox label="8X" name="type" checked></el-checkbox>
-            </div>
-            <div>
-              <el-checkbox label="5I" name="type"></el-checkbox>
-              <el-checkbox label="5Q" name="type"></el-checkbox>
-              <el-checkbox label="5X" name="type"></el-checkbox>
-            </div>
+          <div class="Galieo">
+            <el-checkbox name="type" v-for="(item,index) in GalieoSingal" :key="index" v-model="item.value">{{item.name}}</el-checkbox><br/>
             <span class="top-title">GAL RTCM3.2 MSM Singal ID</span>
           </div>
         </div>
@@ -264,7 +77,7 @@
     <div class="test">
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogSatelliteSet = false">CANCEL</el-button>
-        <el-button type="primary" @click="dialogSatelliteSet = false">OK</el-button>
+        <el-button type="primary" @click="update">OK</el-button>
       </div>
     </div>
 
@@ -273,6 +86,7 @@
 
 <script>
 import bus from '@/store/eventbus';
+import { getSatelliteSetting, upDateSatelliteSetting } from '@/api/app.js';
 export default {
   name: 'dialogSatelliteSet',
   data() {
@@ -290,14 +104,264 @@ export default {
         resource: '',
         desc: ''
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      GpsSet: [],
+      GlonassSet: [],
+      BdSet: [],
+      GalieoSet: [],
+      GpsSingal: [],
+      GlonassSingal: [],
+      BdsSingal: [],
+      GalieoSingal: []
     };
   },
-
+  methods: {
+    update() {
+      let gpsSetL = this.GpsSet.length;
+      let glonassSetL = this.GlonassSet.length;
+      let bdSetL = this.BdSet.length;
+      let galieoSetL = this.GalieoSet.length;
+      let gpsSingalL = this.GpsSingal.length;
+      let glonassSingalL = this.GlonassSingal.length;
+      let bdSingalL = this.BdsSingal.length;
+      let galieoSingalL = this.GalieoSingal.length;
+      let gpsSetStr = '', glonassSetStr = '', bdSetStr = '', galieoSetStr = '',gpsSingalStr = '', glonassSingalStr = '', bdSingalStr = '',galieoSingalStr = '';
+      for (let i = 0; i < gpsSetL; i++) {
+        gpsSetStr += this.GpsSet[i].name + ':' + this.backToNum(this.GpsSet[i].value) + ',';
+      }
+      gpsSetStr=gpsSetStr.substring(0,gpsSetStr.length-1);
+      for (let i = 0; i < glonassSetL; i++) {
+        glonassSetStr += this.GlonassSet[i].name + ':' + this.backToNum(this.GlonassSet[i].value) + ',';
+      }
+      glonassSetStr=glonassSetStr.substring(0,glonassSetStr.length-1);
+      for (let i = 0; i < bdSetL; i++) {
+        bdSetStr += this.BdSet[i].name + ':' + this.backToNum(this.BdSet[i].value) + ',';
+      }
+      bdSetStr=bdSetStr.substring(0,bdSetStr.length-1);
+      for (let i = 0; i < galieoSetL; i++) {
+        galieoSetStr += this.GalieoSet[i].name + ':' + this.backToNum(this.GalieoSet[i].value) + ',';
+      }
+      galieoSetStr=galieoSetStr.substring(0,galieoSetStr.length-1);
+      for (let i = 0; i < gpsSingalL; i++) {
+        gpsSingalStr += this.GpsSingal[i].name + ':' + this.backToNum(this.GpsSingal[i].value) + ',';
+      }
+      gpsSingalStr=gpsSingalStr.substring(0,gpsSingalStr.length-1);
+      for (let i = 0; i < glonassSingalL; i++) {
+        glonassSingalStr += this.GlonassSingal[i].name + ':' + this.backToNum(this.GlonassSingal[i].value) + ',';
+      }
+       glonassSingalStr=glonassSingalStr.substring(0,glonassSingalStr.length-1);
+      for (let i = 0; i < bdSingalL; i++) {
+        bdSingalStr += this.BdsSingal[i].name + ':' + this.backToNum(this.BdsSingal[i].value) + ',';
+      }
+      bdSingalStr=bdSingalStr.substring(0,bdSingalStr.length-1);
+      for (let i = 0; i < galieoSingalL; i++) {
+        galieoSingalStr += this.GalieoSingal[i].name + ':' + this.backToNum(this.GalieoSingal[i].value) + ',';
+      }
+      galieoSingalStr=galieoSingalStr.substring(0,galieoSingalStr.length-1);
+      var tempGroup = [
+        {
+          key: 'glonass_setting',
+          value: glonassSetStr
+        },
+        {
+          key: 'gps_setting',
+          value: gpsSetStr
+        },
+        {
+          key: 'bd_setting',
+          value: bdSetStr
+        },
+        {
+          key: 'galieo_setting',
+          value: galieoSetStr
+        },
+        {
+          key: 'gps_singal',
+          value: gpsSingalStr
+        },
+        {
+          key: 'glonass_singal',
+          value: glonassSingalStr
+        },
+        {
+          key: 'bd_singal',
+          value: bdSingalStr
+        },
+        {
+          key: 'galieo_singal',
+          value: galieoSingalStr
+        }
+      ];
+      var a = [
+        {
+            "key": "glonass_setting",
+            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1"
+        },
+        {
+            "key": "gps_setting",
+            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1"
+        },
+        {
+            "key": "bd_setting",
+            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1,33:1,34:1,35:1,36:1,37:1"
+        },
+        {
+            "key": "galieo_setting",
+            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1,33:1,34:1,35:1,36:1"
+        },
+        {
+            "key": "gps_singal",
+            "value": "1C:1,1P:1,1W:1,2C:1,2P:1,2W:1,2S:1,2L:1,2X:1,5I:1,5Q:1,5X:1"
+        },
+        {
+            "key": "glonass_singal",
+            "value": "1C:1,1P:1,2C:1,2P:1"
+        },
+        {
+            "key": "bd_singal",
+            "value": "1I:1,1Q:1,1X:1,7I:1,7Q:1,7X:1,6I:1,6Q:1,6X:1"
+        },
+        {
+            "key": "galieo_singal",
+            "value": "1C:0,1A:0,1B:0,1X:0,1Z:0,6C:0,6A:0,6B:0,6Z:0,7I:0,7Q:0,7X:0,8I:1,8Q:1,8X:1,5I:1,5Q:1,5X:1"
+        }
+    ]
+      upDateSatelliteSetting(JSON.stringify(tempGroup)).then(
+        response=>{
+          this.dialogSatelliteSet = false;
+          this.message('更新成功!', 'success');
+          console.log(JSON.stringify(response));
+        },
+        reject=>{
+          dialogSatelliteSet = false;
+          this.message('更新失败!', 'error');
+          console.log(JSON.stringify(reject));
+        }
+      )
+    },
+    selectAll(v) {
+      if (v === 'GpsSet') {
+        let leng = this.GpsSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.GpsSet[i].value = true;
+        }
+      } else if (v === 'GlonassSet') {
+        let leng = this.GlonassSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.GlonassSet[i].value = true;
+        }
+      } else if (v === 'BdSet') {
+        let leng = this.BdSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.BdSet[i].value = true;
+        }
+      } else {
+        let leng = this.GalieoSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.GalieoSet[i].value = true;
+        }
+      }
+    },
+    unselectAll(v) {
+      if (v === 'GpsSet') {
+        var leng = this.GpsSet.length;
+        console.log(leng);
+        for (var i = 0; i < leng; i++) {
+          this.GpsSet[i].value = false;
+        }
+      } else if (v === 'GlonassSet') {
+        let leng = this.GlonassSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.GlonassSet[i].value = false;
+        }
+      } else if (v === 'BdSet') {
+        let leng = this.BdSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.BdSet[i].value = false;
+        }
+      } else {
+        let leng = this.GalieoSet.length;
+        for (var i = 0; i < leng; i++) {
+          this.GalieoSet[i].value = false;
+        }
+      }
+    },
+    SatelliteSettingData() {
+      getSatelliteSetting().then(
+        response => {
+          let tempData = response.satelliteSetting;
+          let leng = tempData.length;
+          for (var i = 0; i < leng; i++) {
+            if (tempData[i].key === 'gps_setting') {
+              var tempGpsSet = tempData[i].value;
+            } else if (tempData[i].key === 'glonass_setting') {
+              var tempGlonassSet = tempData[i].value;
+            } else if (tempData[i].key === 'bd_setting') {
+              var tempBdSet = tempData[i].value;
+            } else if (tempData[i].key === 'galieo_setting') {
+              var tempGalieoSet = tempData[i].value;
+            } else if (tempData[i].key === 'gps_singal') {
+              var tempGpsSingal = tempData[i].value;
+            } else if (tempData[i].key === 'glonass_singal') {
+              var tempGlonassSingal = tempData[i].value;
+            } else if (tempData[i].key === 'bd_singal') {
+              var tempBdsSingal = tempData[i].value;
+            } else if (tempData[i].key === 'galieo_singal') {
+              var tempGalieoSingal = tempData[i].value;
+            }
+          }
+          this.GpsSet = this.transform(tempGpsSet);
+          this.GlonassSet = this.transform(tempGlonassSet);
+          this.BdSet = this.transform(tempBdSet);
+          this.GalieoSet = this.transform(tempGalieoSet);
+          this.GpsSingal = this.transform(tempGpsSingal);
+          this.GlonassSingal = this.transform(tempGlonassSingal);
+          this.BdsSingal = this.transform(tempBdsSingal);
+          this.GalieoSingal = this.transform(tempGalieoSingal);
+        },
+        reject => {
+          this.message('获取卫星设置数据失败!', 'error');
+        }
+      );
+    },
+    transform(v) {
+      var tempGroup = v.split(',');
+      var groupData = [];
+      let leng = tempGroup.length;
+      for (var i = 0; i < leng; i++) {
+        groupData.push(this.convertTo(tempGroup[i]));
+      }
+      return groupData;
+    },
+    convertTo(v) {
+      let leng = v.length;
+      let temp = {
+        name: v.substring(leng - 2, -2),
+        value: this.trueOfFlase(v.substring(leng - 1))
+      };
+      return (v = temp);
+    },
+    trueOfFlase(v) {
+      return v == 1 ? true : false;
+    },
+    backToNum(v) {
+      return v == true ? 1 : 0;
+    },
+    //element提示控件方法
+    message(v, type) {
+      this.$message({
+        showClose: true,
+        message: v,
+        type: type,
+        duration: 2000
+      });
+    }
+  },
   mounted() {
     //  箭头函数作用域
     bus.$on('changeSatelliteSet', reg => {
       this.dialogSatelliteSet = reg;
+      this.SatelliteSettingData();
     });
   }
 };
@@ -374,6 +438,23 @@ export default {
       .BDS-title {
         margin-left: 26px;
       }
+    }
+    .glonass {
+      padding-right: 200px;
+    }
+    .bds {
+      display: flex;
+      flex-wrap: wrap;
+      .firstdiv {
+        width: 210px;
+      }
+      .seconddiv {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .Galieo {
+      padding-right: 60px;
     }
     .el-checkbox + .el-checkbox {
       margin-left: 0;

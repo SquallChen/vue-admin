@@ -269,45 +269,41 @@ export default {
           if (response.status === 0 && response.totalCount !== 0) {
             this.mountListData = response.recordList;
             this.mountListLength = response.totalCount;
-            this.$options.methods.assignment.bind(this)();
+            this.assignment();
           }
         },
         reject => {
-          this.$options.methods.isFalse.bind(this)('Mount数据请求');
+          this.message('Mount数据请求失败!','error');
         }
       );
     },
     //上下翻页
     addListIndex() {
       this.listIndex += 1;
-      this.$options.methods.assignment.bind(this)();
+      this.assignment();
     },
     minusListIndex() {
       this.listIndex -= 1;
-      this.$options.methods.assignment.bind(this)();
+      this.assignment();
     },
     //删除Mount挂载点
     deleteMountData() {
       this.delectdialogVisible = false;
       deleteMount(this.id).then(
         reponse => {
-          if (reponse.status === 0) {
-            this.$options.methods.isSuccess.bind(this)('删除');
-          } else {
-            this.$options.methods.isFalse.bind(this)('删除');
-          }
+          this.message('删除成功!','success');
           this.dialogMountSet = false;
         },
         reject => {
           this.dialogMountSet = false;
-          this.$options.methods.isFalse.bind(this)('删除');
+          this.message('删除失败!','error');
         }
       );
     },
     addMountData() {
       this.adddialogVisible = false;
       if (this.mountName === '') {
-        this.$options.methods.isMeg.bind(this)('mountName不能为空!');
+        this.message('mountName不能为空!','error');
         return;
       }
       addMount(
@@ -335,23 +331,19 @@ export default {
         transform(this.GALvalue)
       ).then(
         reponse => {
-          if (reponse.status === 0) {
-            this.$options.methods.isSuccess.bind(this)('新增');
-          } else {
-            this.$options.methods.isFalse.bind(this)('新增');
-          }
+          this.message('新增成功!','success');
           this.dialogMountSet = false;
         },
         reject => {
           this.dialogMountSet = false;
-          this.$options.methods.isFalse.bind(this)('新增');
+          this.message('新增失败!','error');
         }
       );
     },
     //如果页面内容无变化，点击关闭；否则请求更新内容
     mountUpdate() {
       if (this.mountName === '') {
-        this.$options.methods.isMeg.bind(this)('mountName不能为空!');
+        this.message('mountName不能为空!','error');
         return;
       }
       if (
@@ -415,16 +407,12 @@ export default {
           transform(this.GALvalue)
         ).then(
           response => {
-            if (response.status === 0) {
-              this.$options.methods.isSuccess.bind(this)('更新');
-            } else {
-              this.$options.methods.isFalse.bind(this)('更新');
-            }
+            this.message('更新成功!','success');
             this.dialogMountSet = false;
           },
           reject => {
             this.dialogMountSet = false;
-            this.$options.methods.isFalse.bind(this)('更新');
+            this.message('更新失败!','error');
           }
         );
       }
@@ -492,27 +480,12 @@ export default {
         this.listIndex
       ].rtcm321025Second;
     },
-    isSuccess(v) {
-      this.$message({
-        showClose: true,
-        message: v + '成功!',
-        type: 'success',
-        duration: 2000
-      });
-    },
-    isFalse(v) {
-      this.$message({
-        showClose: true,
-        message: v + '失败!',
-        type: 'error',
-        duration: 2000
-      });
-    },
-    isMeg(v) {
+    //element提示控件方法
+    message(v,type) {
       this.$message({
         showClose: true,
         message: v,
-        type: 'error',
+        type: type,
         duration: 2000
       });
     },
@@ -534,8 +507,7 @@ export default {
     }
   },
   created() {
-    // 创建实例时请求数据
-    //this.mouthList();
+
   },
   mounted() {
     //  箭头函数作用域
@@ -548,11 +520,7 @@ export default {
 };
 //布尔值转换
 function transform(v) {
-  if (v === true) {
-    return (v = 1);
-  } else {
-    return (v = 0);
-  }
+ return v ? 1 : 0;
 }
 </script>
 <style lang="scss" scoped>

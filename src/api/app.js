@@ -269,6 +269,26 @@ function updateNRSData(
   });
 }
 
+//获取卫星参数设置
+function getSatelliteSetting() {
+  return request({
+    url: 'satellitesetting/get_satellite_setting/',
+    method: 'post',
+    data: {}
+  });
+}
+
+//更新卫星参数设置
+function upDateSatelliteSetting(setting) {
+  return request({
+    url: 'satellitesetting/update/',
+    method: 'post',
+    data: {
+      setting
+    }
+  });
+}
+
 // 新增基站
 function AddBaseStation(
   station_name,
@@ -372,5 +392,7 @@ export {
   deleteMount,
   addMount,
   getNRSData,
-  updateNRSData
+  updateNRSData,
+  getSatelliteSetting,
+  upDateSatelliteSetting
 };
