@@ -56,7 +56,7 @@ export default new Router({
       ownpath: 'situation',
       component: layout,
       redirect: 'situation',
-      name: 'situation',
+      name: 'situation1',
       meta: {
         title: '基站信息',
         icon: 'situation'
@@ -89,7 +89,7 @@ export default new Router({
       ownpath: 'alarmSet',
       component: layout,
       redirect: 'alarmSet',
-      name: 'alarmSet',
+      name: 'alarmSet1',
       meta: {
         title: '报警设置',
         icon: 'alarm'
@@ -147,7 +147,7 @@ export default new Router({
       ownpath: 'systemSet',
       component: layout,
       redirect: 'systemSet',
-      name: 'systemSet',
+      name: 'systemSet1',
       meta: {
         title: '系统设置',
         icon: 'systemset'

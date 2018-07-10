@@ -116,6 +116,7 @@ export default {
     };
   },
   methods: {
+    //更新卫星数据
     update() {
       let gpsSetL = this.GpsSet.length;
       let glonassSetL = this.GlonassSet.length;
@@ -126,6 +127,7 @@ export default {
       let bdSingalL = this.BdsSingal.length;
       let galieoSingalL = this.GalieoSingal.length;
       let gpsSetStr = '', glonassSetStr = '', bdSetStr = '', galieoSetStr = '',gpsSingalStr = '', glonassSingalStr = '', bdSingalStr = '',galieoSingalStr = '';
+      //获取现有数据，重新拼接成字符串，并去掉最后一个多余的逗号
       for (let i = 0; i < gpsSetL; i++) {
         gpsSetStr += this.GpsSet[i].name + ':' + this.backToNum(this.GpsSet[i].value) + ',';
       }
@@ -192,40 +194,6 @@ export default {
           value: galieoSingalStr
         }
       ];
-      var a = [
-        {
-            "key": "glonass_setting",
-            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1"
-        },
-        {
-            "key": "gps_setting",
-            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1"
-        },
-        {
-            "key": "bd_setting",
-            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1,33:1,34:1,35:1,36:1,37:1"
-        },
-        {
-            "key": "galieo_setting",
-            "value": "1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1,31:1,32:1,33:1,34:1,35:1,36:1"
-        },
-        {
-            "key": "gps_singal",
-            "value": "1C:1,1P:1,1W:1,2C:1,2P:1,2W:1,2S:1,2L:1,2X:1,5I:1,5Q:1,5X:1"
-        },
-        {
-            "key": "glonass_singal",
-            "value": "1C:1,1P:1,2C:1,2P:1"
-        },
-        {
-            "key": "bd_singal",
-            "value": "1I:1,1Q:1,1X:1,7I:1,7Q:1,7X:1,6I:1,6Q:1,6X:1"
-        },
-        {
-            "key": "galieo_singal",
-            "value": "1C:0,1A:0,1B:0,1X:0,1Z:0,6C:0,6A:0,6B:0,6Z:0,7I:0,7Q:0,7X:0,8I:1,8Q:1,8X:1,5I:1,5Q:1,5X:1"
-        }
-    ]
       upDateSatelliteSetting(JSON.stringify(tempGroup)).then(
         response=>{
           this.dialogSatelliteSet = false;
@@ -239,6 +207,7 @@ export default {
         }
       )
     },
+    //全选
     selectAll(v) {
       if (v === 'GpsSet') {
         let leng = this.GpsSet.length;
@@ -262,6 +231,7 @@ export default {
         }
       }
     },
+    //全不选
     unselectAll(v) {
       if (v === 'GpsSet') {
         var leng = this.GpsSet.length;
@@ -286,6 +256,7 @@ export default {
         }
       }
     },
+    //获取卫星数据并处理成数组形式
     SatelliteSettingData() {
       getSatelliteSetting().then(
         response => {
@@ -324,6 +295,7 @@ export default {
         }
       );
     },
+    //将字符串数据转换成数据形式，并将1,0以true false形式展现
     transform(v) {
       var tempGroup = v.split(',');
       var groupData = [];
@@ -333,6 +305,7 @@ export default {
       }
       return groupData;
     },
+    //将数组中的字符串参数处理成数组形式
     convertTo(v) {
       let leng = v.length;
       let temp = {
