@@ -18,6 +18,8 @@ import management from '@/components/baseStation/management';
 import olmap from '@/components/baseStation/olmap';
 import alarmSet from '@/components/baseStation/alarmSet';
 import systemSet from '@/components/baseStation/systemSet';
+import userList from '@/components/baseStation/userList';
+import addUser from '@/components/baseStation/addUser';
 Vue.use(Router);
 
 export default new Router({
@@ -43,12 +45,6 @@ export default new Router({
           name: 'olmap',
           meta: { title: 'openlayers地图', noCache: true }
         }
-        // {
-        //   path: 'satelliteList',
-        //   component: satelliteList,
-        //   name: 'satelliteList',
-        //   meta: { title: '卫星列表', noCache: true }
-        // }
       ]
     },
     {
@@ -189,7 +185,32 @@ export default new Router({
         }
       ]
     },
-
+    {
+      path: '',
+      ownpath: 'userList',
+      component: layout,
+      redirect: 'userList',
+      name: 'userList',
+      meta: {
+        title: '用户管理',
+        icon: 'userManagement'
+      },
+      children: [
+        {
+          path: 'userList',
+          component: userList,
+          name: 'userList1',
+          meta: { title: '用户列表', noCache: true }
+        },
+        {
+          path: 'addUser',
+          component: addUser,
+          name: 'addUser',
+          redirect: 'userList',
+          meta: { title: '新增用户', noCache: true }
+        }
+      ]
+    },
     { path: '*', redirect: '/404', hidden: true }
 
   ]

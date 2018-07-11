@@ -711,7 +711,9 @@ export default {
   margin-bottom: 5px;
   margin-right: 0;
 }
-
+.left-bottom .el-input__suffix{
+  right: 5px;
+}
 .middle-content .middle-right {
   width: 38%;
   height: 100%;

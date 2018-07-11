@@ -69,7 +69,7 @@ export default {
     };
   },
   mounted() {
-    //  箭头函数作用域，自己百度。
+    //  箭头函数作用域
     bus.$on('changeParameterSet', reg => {
       this.dialogParameterSet = reg;
     });
@@ -84,14 +84,18 @@ export default {
   position: relative;
   padding-left: 40px;
   padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .top-div .el-checkbox {
-  width: 120px;
+  width: 100px;
   margin-left: 0;
 }
 .top-div .el-select {
-  margin-right: 70px;
-  margin-left: 30px;
+  padding-right: 10px;
+}
+.top-div .el-input{
+  width: 86%;
 }
 .bottom-div {
   margin-top: 20px;

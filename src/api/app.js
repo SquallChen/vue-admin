@@ -288,6 +288,55 @@ function upDateSatelliteSetting(setting) {
     }
   });
 }
+//获取用户列表
+function getUserList(page_num,num_per_page) {
+  return request({
+    url: 'cors_user/list_page',
+    method: 'post',
+    data: {
+      page_num,
+      num_per_page
+    }
+  });
+}
+//新增用户
+function createUser(userName,password,deviceType,deviceSn) {
+  return request({
+    url: 'cors_user/create_index',
+    method: 'post',
+    data: {
+      userName,
+      password,
+      deviceType,
+      deviceSn
+    }
+  });
+}
+
+//更新用户信息
+function updateUser(id,password,deviceType,deviceSn) {
+  return request({
+    url: 'cors_user/update',
+    method: 'post',
+    data: {
+      id,
+      password,
+      deviceType,
+      deviceSn
+    }
+  });
+}
+
+//删除用户
+function deleteUser(id) {
+  return request({
+    url: 'cors_user/delete_index',
+    method: 'post',
+    data: {
+      id
+    }
+  });
+}
 
 // 新增基站
 function AddBaseStation(
@@ -394,5 +443,9 @@ export {
   getNRSData,
   updateNRSData,
   getSatelliteSetting,
-  upDateSatelliteSetting
+  upDateSatelliteSetting,
+  getUserList,
+  createUser,
+  updateUser,
+  deleteUser,
 };

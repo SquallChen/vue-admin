@@ -82,6 +82,9 @@ export default {
         case 'systemParameterSet':
           bus.$emit('changeSystemParameterSet', true);
           break;
+        case 'addUser':
+          bus.$emit('changeAddUser', true);
+          break;
       }
     }
   }

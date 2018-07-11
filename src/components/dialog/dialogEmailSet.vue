@@ -70,7 +70,7 @@ export default {
     };
   },
   mounted() {
-    //  箭头函数作用域，自己百度。
+    //  箭头函数作用域
     bus.$on('changeEmailSet', reg => {
       this.dialogEmailSet = reg;
     });
