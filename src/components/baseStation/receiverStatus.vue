@@ -114,6 +114,11 @@ export default {
     receiverStatus() {
       getReceiverStatus(this.stationId).then(
         response => {
+          if(response.receiverStatus===null){
+            this.receiverData=[];
+            console.log('无法获取基站接收机状态！');
+            return;
+          }
            if(response.status===0&&response.receiverStatus.length!==0){
              this.receiverData = response.receiverStatus;
            }

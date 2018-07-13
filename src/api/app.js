@@ -72,6 +72,16 @@ function BaseInfo(page_num, num_per_page) {
     }
   });
 }
+
+//获取历元时间，历元数数据
+function epochInfo() {
+  return request({
+    url: 'cors_station/get_run_info',
+    method: 'post',
+    data: {}
+  });
+}
+
 //获取卫星列表数据
 function getSatelliteData(station_id) {
   return request({
@@ -338,6 +348,15 @@ function deleteUser(id) {
   });
 }
 
+//获取星历
+function getEphemeris() {
+  return request({
+    url: 'systemStatus/get_ephemeris',
+    method: 'post',
+    data: {}
+  });
+}
+
 // 新增基站
 function AddBaseStation(
   station_name,
@@ -448,4 +467,6 @@ export {
   createUser,
   updateUser,
   deleteUser,
+  epochInfo,
+  getEphemeris,
 };

@@ -1,17 +1,20 @@
 <template>
   <div class="TableContent">
     <el-tabs v-model="activeName" type="card" :tab-position="tabPosition">
-      <el-tab-pane label="基站情况" name="first">
+      <el-tab-pane label="基站列表" name="first">
         <basesituation></basesituation>
       </el-tab-pane>
-      <el-tab-pane label="卫星列表" name="second">
+      <el-tab-pane label="运行状况" name="second">
+        <baseStatus></baseStatus>
+      </el-tab-pane>
+      <el-tab-pane label="卫星列表" name="third">
         <satelliteList></satelliteList>
       </el-tab-pane>
-      <el-tab-pane label="误差汇总" name="third">误差汇总</el-tab-pane>
-      <el-tab-pane label="卫星信号" name="fourth">
+      <el-tab-pane label="误差汇总" name="fourth">误差汇总</el-tab-pane>
+      <el-tab-pane label="卫星信号" name="fifth">
         <satelliteSignal></satelliteSignal>
       </el-tab-pane>
-      <el-tab-pane label="接收机状态" name="fifth">
+      <el-tab-pane label="接收机状态" name="sixth">
         <receiverStatus></receiverStatus>
       </el-tab-pane>
     </el-tabs>
@@ -29,6 +32,7 @@ import satelliteList from '@/components/baseStation/satelliteList';
 import satelliteSignal from '@/components/baseStation/satelliteSignal';
 import receiverStatus from '@/components/baseStation/receiverStatus';
 import basesituation from '@/components/baseStation/basesituation';
+import baseStatus from '@/components/baseStation/baseStatus';
 export default {
   name: 'situation',
   methods: {
@@ -49,7 +53,8 @@ export default {
     satelliteList,
     satelliteSignal,
     receiverStatus,
-    basesituation
+    basesituation,
+    baseStatus
   }
 };
 </script>

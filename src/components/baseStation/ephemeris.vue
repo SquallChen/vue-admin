@@ -3,13 +3,13 @@
     <div class="ephemeris-content">
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data1" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+          <span v-for="(item,k) in gpsvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GPS SP3</span>
       </div>
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data2" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in gpsephvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GPS EPH</span>
       </div>
@@ -17,13 +17,13 @@
     <div class="ephemeris-content">
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data3" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+          <span v-for="(item,k) in glonassvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GLONASS SP3</span>
       </div>
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data4" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+          <span v-for="(item,k) in glonassephvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GLONASS EPH</span>
       </div>
@@ -31,13 +31,13 @@
     <div class="ephemeris-content">
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data5" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+          <span v-for="(item,k) in bdvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">BDS SP3</span>
       </div>
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data6" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in bdephvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">BDS EPH</span>
       </div>
@@ -45,13 +45,13 @@
     <div class="ephemeris-content">
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data7" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in galvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GAL SP3</span>
       </div>
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data8" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in galephvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">GAL EPH</span>
       </div>
@@ -59,13 +59,13 @@
     <div class="ephemeris-content">
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data9" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in qzssvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">QZSS SP3</span>
       </div>
       <div class="ephemeris-main">
         <div>
-          <span v-for="item in data10" :key="item.num" :class="[item.status===true ? 'bg1':'bg2']">{{item.num}}</span>
+           <span v-for="(item,k) in qzssephvalue" :key="k" :class="[item.value===true ? 'bg1':'bg2']">{{item.name}}</span>
         </div>
         <span class="top-title">QZSS EPH</span>
       </div>
@@ -75,311 +75,92 @@
 </template>
 
 <script>
+import { getEphemeris } from '@/api/app.js';
 export default {
   name: 'ephemeris',
   data() {
     return {
-      data1: [
-        { num: '01', status: true },
-        { num: '02', status: true },
-        { num: '03', status: true },
-        { num: '04', status: true },
-        { num: '05', status: true },
-        { num: '06', status: true },
-        { num: '07', status: true },
-        { num: '08', status: true },
-        { num: '09', status: true },
-        { num: '10', status: true },
-        { num: '11', status: true },
-        { num: '12', status: true },
-        { num: '13', status: true },
-        { num: '14', status: true },
-        { num: '15', status: true },
-        { num: '16', status: true },
-        { num: '17', status: true },
-        { num: '18', status: true },
-        { num: '19', status: true },
-        { num: '20', status: true },
-        { num: '21', status: true },
-        { num: '22', status: true },
-        { num: '23', status: true },
-        { num: '24', status: true },
-        { num: '25', status: true },
-        { num: '26', status: true },
-        { num: '27', status: true },
-        { num: '28', status: true },
-        { num: '29', status: true },
-        { num: '30', status: true },
-        { num: '31', status: true },
-        { num: '32', status: true }
-      ],
-      data2: [
-        { num: '01', status: false },
-        { num: '02', status: false },
-        { num: '03', status: false },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false },
-        { num: '11', status: false },
-        { num: '12', status: false },
-        { num: '13', status: false },
-        { num: '14', status: false },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: false },
-        { num: '19', status: false },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: false },
-        { num: '25', status: false },
-        { num: '26', status: false },
-        { num: '27', status: false },
-        { num: '28', status: false },
-        { num: '29', status: false },
-        { num: '30', status: false },
-        { num: '31', status: false },
-        { num: '32', status: false }
-      ],
-      data3: [
-        { num: '01', status: true },
-        { num: '02', status: true },
-        { num: '03', status: true },
-        { num: '04', status: true },
-        { num: '05', status: true },
-        { num: '06', status: true },
-        { num: '07', status: true },
-        { num: '08', status: true },
-        { num: '09', status: true },
-        { num: '10', status: true },
-        { num: '11', status: true },
-        { num: '12', status: true },
-        { num: '13', status: true },
-        { num: '14', status: true },
-        { num: '15', status: true },
-        { num: '16', status: true },
-        { num: '17', status: true },
-        { num: '18', status: true },
-        { num: '19', status: true },
-        { num: '20', status: true },
-        { num: '21', status: true },
-        { num: '22', status: true },
-        { num: '23', status: true },
-        { num: '24', status: true }
-      ],
-      data4: [
-        { num: '01', status: false },
-        { num: '02', status: false },
-        { num: '03', status: false },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false },
-        { num: '11', status: false },
-        { num: '12', status: false },
-        { num: '13', status: false },
-        { num: '14', status: false },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: false },
-        { num: '19', status: false },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: false }
-      ],
-      data5: [
-        { num: '01', status: true },
-        { num: '02', status: true },
-        { num: '03', status: true },
-        { num: '04', status: true },
-        { num: '05', status: true },
-        { num: '06', status: true },
-        { num: '07', status: true },
-        { num: '08', status: true },
-        { num: '09', status: true },
-        { num: '10', status: true },
-        { num: '11', status: true },
-        { num: '12', status: true },
-        { num: '13', status: true },
-        { num: '14', status: true },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: false },
-        { num: '19', status: false },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: false },
-        { num: '25', status: false },
-        { num: '26', status: false },
-        { num: '27', status: false },
-        { num: '28', status: false },
-        { num: '29', status: false },
-        { num: '30', status: false },
-        { num: '31', status: false },
-        { num: '32', status: false },
-        { num: '33', status: false },
-        { num: '34', status: false },
-        { num: '35', status: false },
-        { num: '36', status: false },
-        { num: '37', status: false }
-      ],
-      data6: [
-        { num: '01', status: false },
-        { num: '02', status: false },
-        { num: '03', status: false },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false },
-        { num: '11', status: false },
-        { num: '12', status: false },
-        { num: '13', status: false },
-        { num: '14', status: false },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: false },
-        { num: '19', status: false },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: false },
-        { num: '25', status: false },
-        { num: '26', status: false },
-        { num: '27', status: false },
-        { num: '28', status: false },
-        { num: '29', status: false },
-        { num: '30', status: false },
-        { num: '31', status: false },
-        { num: '32', status: false },
-        { num: '33', status: false },
-        { num: '34', status: false },
-        { num: '35', status: false },
-        { num: '36', status: false },
-        { num: '37', status: false }
-      ],
-      data7: [
-        { num: '01', status: true },
-        { num: '02', status: true },
-        { num: '03', status: true },
-        { num: '04', status: true },
-        { num: '05', status: true },
-        { num: '06', status: false },
-        { num: '07', status: true },
-        { num: '08', status: true },
-        { num: '09', status: true },
-        { num: '10', status: false },
-        { num: '11', status: true },
-        { num: '12', status: true },
-        { num: '13', status: false },
-        { num: '14', status: true },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: true },
-        { num: '19', status: true },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: true },
-        { num: '25', status: false },
-        { num: '26', status: true },
-        { num: '27', status: false },
-        { num: '28', status: false },
-        { num: '29', status: false },
-        { num: '30', status: true },
-        { num: '31', status: false },
-        { num: '32', status: false },
-        { num: '33', status: false },
-        { num: '34', status: false },
-        { num: '35', status: false },
-        { num: '36', status: false },
-        { num: '37', status: false }
-      ],
-      data8: [
-        { num: '01', status: false },
-        { num: '02', status: false },
-        { num: '03', status: false },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false },
-        { num: '11', status: false },
-        { num: '12', status: false },
-        { num: '13', status: false },
-        { num: '14', status: false },
-        { num: '15', status: false },
-        { num: '16', status: false },
-        { num: '17', status: false },
-        { num: '18', status: false },
-        { num: '19', status: false },
-        { num: '20', status: false },
-        { num: '21', status: false },
-        { num: '22', status: false },
-        { num: '23', status: false },
-        { num: '24', status: false },
-        { num: '25', status: false },
-        { num: '26', status: false },
-        { num: '27', status: false },
-        { num: '28', status: false },
-        { num: '29', status: false },
-        { num: '30', status: false },
-        { num: '31', status: false },
-        { num: '32', status: false },
-        { num: '33', status: false },
-        { num: '34', status: false },
-        { num: '35', status: false },
-        { num: '36', status: false },
-        { num: '37', status: false }
-      ],
-      data9: [
-        { num: '01', status: false },
-        { num: '02', status: true },
-        { num: '03', status: true },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false }
-      ],
-      data10: [
-        { num: '01', status: false },
-        { num: '02', status: false },
-        { num: '03', status: false },
-        { num: '04', status: false },
-        { num: '05', status: false },
-        { num: '06', status: false },
-        { num: '07', status: false },
-        { num: '08', status: false },
-        { num: '09', status: false },
-        { num: '10', status: false }
-      ]
+      list: null,
+      gpsvalue: '',
+      glonassvalue: '',
+      bdvalue: '',
+      galvalue: '',
+      qzssvalue: '',
+      gpsephvalue: '',
+      glonassephvalue: '',
+      bdephvalue: '',
+      galephvalue: '',
+      qzssephvalue: ''
     };
+  },
+  methods: {
+    ephemerisInfo() {
+      getEphemeris().then(
+        response => {
+          this.list = response.ephemeris;
+          let leng = this.list.length;
+          for (var i = 0; i < leng; i++) {
+            if (this.list[i].key === 'gps') {
+              var tempgpsvalue = this.list[i].value;
+            } else if (this.list[i].key === 'glonass') {
+              var tempglonassvalue = this.list[i].value;
+            } else if (this.list[i].key === 'bd') {
+              var tempbdvalue = this.list[i].value;
+            } else if (this.list[i].key === 'gal') {
+              var tempgalvalue = this.list[i].value;
+            } else if (this.list[i].key === 'qzss') {
+              var tempqzssvalue = this.list[i].value;
+            } else if (this.list[i].key === 'gps_eph') {
+              var tempgpsephvalue = this.list[i].value;
+            } else if (this.list[i].key === 'glonass_eph') {
+              var tempglonassephvalue = this.list[i].value;
+            } else if (this.list[i].key === 'bd_eph') {
+              var tempbdephvalue = this.list[i].value;
+            } else if (this.list[i].key === 'gal_eph') {
+              var tempgalephvalue = this.list[i].value;
+            } else {
+              var tempqzssephvalue = this.list[i].value;
+            }
+          }
+          this.gpsvalue = this.transform(tempgpsvalue);
+          this.glonassvalue = this.transform(tempglonassvalue);
+          this.bdvalue = this.transform(tempbdvalue);
+          this.galvalue = this.transform(tempgalvalue);
+          this.qzssvalue = this.transform(tempqzssvalue);
+          this.gpsephvalue = this.transform(tempgpsephvalue);
+          this.glonassephvalue = this.transform(tempglonassephvalue);
+          this.bdephvalue = this.transform(tempbdephvalue);
+          this.galephvalue = this.transform(tempgalephvalue);
+          this.qzssephvalue = this.transform(tempqzssephvalue);
+        },
+        reject => {}
+      );
+    },
+    //将字符串数据转换成数据形式，并将1,0以true false形式展现
+    transform(v) {
+      var tempGroup = v.split(',');
+      var groupData = [];
+      let leng = tempGroup.length;
+      for (var i = 0; i < leng; i++) {
+        groupData.push(this.convertTo(tempGroup[i]));
+      }
+      return groupData;
+    },
+    //将数组中的字符串参数处理成数组形式
+    convertTo(v) {
+      let leng = v.length;
+      let temp = {
+        name: v.substring(leng - 2, -2),
+        value: this.trueOfFlase(v.substring(leng - 1))
+      };
+      return (v = temp);
+    },
+    trueOfFlase(v) {
+      return v == 1 ? true : false;
+    }
+  },
+  created() {
+    this.ephemerisInfo();
   }
 };
 </script>
@@ -429,10 +210,10 @@ export default {
     font-size: 16px;
   }
   .bg1 {
-    background:#00FF00;
+    background: #00ff00;
   }
   .bg2 {
-    background: #FF0000;
+    background: #ff0000;
   }
 }
 </style>
