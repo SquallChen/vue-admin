@@ -18,7 +18,7 @@ import management from '@/components/baseStation/management';
 import olmap from '@/components/baseStation/olmap';
 import alarmSet from '@/components/baseStation/alarmSet';
 import systemSet from '@/components/baseStation/systemSet';
-import userList from '@/components/baseStation/userList';
+import userManagement from '@/components/baseStation/userManagement';
 import addUser from '@/components/baseStation/addUser';
 Vue.use(Router);
 
@@ -187,26 +187,26 @@ export default new Router({
     },
     {
       path: '',
-      ownpath: 'userList',
+      ownpath: 'userManagement',
       component: layout,
-      redirect: 'userList',
-      name: 'userList',
+      redirect: 'userManagement',
+      name: 'userManagement',
       meta: {
         title: '用户管理',
         icon: 'userManagement'
       },
       children: [
         {
-          path: 'userList',
-          component: userList,
-          name: 'userList1',
+          path: 'userManagement',
+          component: userManagement,
+          name: 'userManagement1',
           meta: { title: '用户列表', noCache: true }
         },
         {
           path: 'addUser',
           component: addUser,
           name: 'addUser',
-          redirect: 'userList',
+          redirect: 'userManagement',
           meta: { title: '新增用户', noCache: true }
         }
       ]

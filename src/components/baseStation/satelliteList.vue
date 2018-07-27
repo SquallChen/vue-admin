@@ -9,17 +9,17 @@
 
     <div class="data" id="tableContent">
       <el-table :data="baseStationData" border style="width: 100%" height="100%">
-        <el-table-column prop="sateliteId" label="卫星号" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="sateliteId" label="卫星号" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
-        <el-table-column prop="azimuth" label="方向角" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="azimuth" label="方向角" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
-        <el-table-column prop="elevation" label="高度角" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="elevation" label="高度角" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
-        <el-table-column prop="snr1" label="SNR1" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="snr1" label="SNR1" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
-        <el-table-column prop="snr2" label="SNR2" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="snr2" label="SNR2" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
-        <el-table-column prop="snr3" label="SNR3" show-overflow-tooltip :min-width=widthvalue>
+        <el-table-column prop="snr3" label="SNR3" show-overflow-tooltip :min-width="widthvalue">
         </el-table-column>
       </el-table>
     </div>
@@ -37,6 +37,7 @@ export default {
       stationId: '',
       baseStationData: [],
       widthvalue: '',
+      count: 0,
       listQuery: {
         page_num: 1,
         num_per_page: 5
@@ -45,14 +46,6 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      // 将回调延迟到下次 DOM 更新循环之后执行,否则js将先于html加载而无法获取canvas节点
-      // var c = this.$refs.skyPic;
-      // var ctx = c.getContext('2d');
-      // var img = document.getElementById('scream');
-      // // 绘制背景
-      // img.onload = function() {
-      //   ctx.drawImage(img, -160, 30);
-      // };
     });
   },
   mounted() {
@@ -61,15 +54,15 @@ export default {
       this.stationId = reg;
       //先调用执行一次，5秒后计时器自动执行
       this.SatelliteData();
-      this.timeClock();
+      this.count += 1;
+      if (this.count <= 1) {
+        var a = setInterval(() => {
+          this.SatelliteData();
+        }, 5000);
+      }
     });
   },
   methods: {
-    timeClock() {
-      setInterval(() => {
-        this.SatelliteData();
-      }, 5000);
-    },
     SatelliteData() {
       getSatelliteData(this.stationId).then(
         response => {

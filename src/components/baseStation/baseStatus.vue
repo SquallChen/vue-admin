@@ -1,11 +1,11 @@
 <template class="station-table-content">
   <div style="height:100%; position: relative;">
     <el-table :data="list"  border style="width: 100%;" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中..." >
-      <el-table-column prop="baseStationId" label="基站ID" min-width="200" show-overflow-tooltip>
+      <el-table-column prop="baseStationId" label="基站ID" :min-width="widthvalue" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="epochNum" label="历元数" min-width="200" show-overflow-tooltip>
+      <el-table-column prop="epochNum" label="历元数" :min-width="widthvalue" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="epochTime" label="历元时间" min-width="200" show-overflow-tooltip>
+      <el-table-column prop="epochTime" label="历元时间" :min-width="widthvalue" show-overflow-tooltip>
       </el-table-column>
     </el-table>
   </div>
@@ -39,9 +39,14 @@ export default {
     return {
       list: null,
       listLoading: true,
+      widthvalue:''
     };
   },
   created() {
+    this.$nextTick(() => {
+       //计算容器宽度，设置自适应的最小列宽（还需增加页面resize时的方法）
+    this.widthvalue = (document.querySelector('.navbar').offsetWidth) / 3-6 + 'px';
+    });
     this.getEpochList();
     this.timeClock();
   },

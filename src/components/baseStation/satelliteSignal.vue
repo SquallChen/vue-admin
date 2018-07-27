@@ -32,6 +32,7 @@ export default {
       stationId: '',
       stationInfo: '',
       radio: '1',
+      count: 0,
       satelliteSignalInfo: {
         credits: {
           enabled: false
@@ -108,15 +109,15 @@ export default {
     bus.$on('currentBaseStationsId', reg => {
       this.stationId = reg;
       this.SatelliteData();
-      this.timeClock();
+      this.count += 1;
+      if (this.count <= 1) {
+        var a = setInterval(() => {
+          this.SatelliteData();
+        }, 5000);
+      }
     });
   },
   methods: {
-    timeClock() {
-      setInterval(() => {
-        this.SatelliteData();
-      }, 5000);
-    },
     //根据radio切换处理对应数据
     stationIdChange() {
       if (this.radio === '1') {

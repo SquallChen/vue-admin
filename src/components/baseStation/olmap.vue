@@ -7,13 +7,6 @@
 export default {
   name: 'olmap',
   created() {
-    /* var Layer = new ol.layer.Tile({
-        title: 'test',
-        preload: Infinity,
-        source: new ol.source.XYZ({
-          url: 'http://172.16.10.118:9879/geoserver/cors/wms?service=WMS&version=1.1.0&request=GetMap&layers=cors:station_info&styles=&bbox=0.351635485887527,0.284759908914566,117.299736022949,39.3228225708008&width=768&height=330&srs=EPSG:4326&format=application/openlayers'
-        })
-      }); */
     this.$nextTick(() => {
       var format = 'image/png';
       var untiled = new ol.layer.Image({
@@ -28,20 +21,6 @@ export default {
           }
         })
       });
-      // var tiled = new ol.layer.Tile({
-      //   visible: false,
-      //   source: new ol.source.TileWMS({
-      //     url: 'http://172.16.10.118:9879/geoserver/cors/wms',
-      //     params: {
-      //       FORMAT: format,
-      //       VERSION: '1.1.1',
-      //       tiled: true,
-      //       STYLES: '',
-      //       LAYERS: 'cors:station_info',
-      //       tilesOrigin: 0.351635485887527 + ',' + 0.284759908914566
-      //     }
-      //   })
-      // });
 
       // 天地图加载资源
       var tianDiTuMapLayer = new ol.layer.Tile({
@@ -59,12 +38,16 @@ export default {
       });
       // 创建地图
       new ol.Map({
-        layers: [tianDiTuMapLayer,tianDiTuAnnotation,untiled],
+        //默认控件隐藏，并添加比例尺控件
+        controls: ol.control.defaults({
+          attribution: false,
+        }).extend([ new ol.control.ScaleLine()]),
+        layers: [tianDiTuMapLayer, tianDiTuAnnotation, untiled],
         view: new ol.View({
           // 设置地图中心
           projection: 'EPSG:4326',
-          center: [116.90470419	, 39.001189],
-          zoom: 10,
+          center: [116.90470419, 34.001189],
+          zoom: 5,
           minZoom: 0,
           maxZoom: 24
         }),
@@ -75,7 +58,4 @@ export default {
 };
 </script>
 <style>
-.ol-attribution{
-  display: none;
-}
 </style>

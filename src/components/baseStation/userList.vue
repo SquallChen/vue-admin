@@ -1,8 +1,8 @@
 <template class="station-table-content">
   <div style="height:100%; position: relative; padding-bottom:40px">
     <el-table :data="list" highlight-current-row  border style="width: 100%;" height="100%" tooltip-effect="dark" v-loading="false" element-loading-text="加载中...">
-      <el-table-column prop="id" label="id" min-width="150" show-overflow-tooltip>
-      </el-table-column>
+      <!-- <el-table-column prop="id" label="id" min-width="150" show-overflow-tooltip>
+      </el-table-column> -->
       <el-table-column prop="userName" label="登陆名" min-width="120" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="password" label="登陆密码" min-width="148" show-overflow-tooltip>
@@ -19,9 +19,14 @@
       </el-table-column>
       <el-table-column prop="expireTime" label="失效日期" min-width="80" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" min-width="50" show-overflow-tooltip>
+      <el-table-column fixed="right" label="操作" width="56" show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="management(scope.$index)">管理</el-button>
+          <el-button type="text" size="small" @click="management(scope.$index)">修改</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column fixed="right" label="查看" width="56" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="track(scope.$index)">轨迹</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -29,27 +34,31 @@
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page_num" :page-sizes="[5,10,15,20]" :page-size="listQuery.num_per_page" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-    <dialogAddUser></dialogAddUser>
     <dialogUserModify></dialogUserModify>
+    <dialogUserTrack></dialogUserTrack>
   </div>
 </template>
 
 <script>
 import bus from '@/store/eventbus';
 import { getUserList } from '@/api/app.js';
-import dialogAddUser from '@/components/dialog/dialogAddUser';
 import dialogUserModify from '@/components/dialog/dialogUserModify';
+import dialogUserTrack from '@/components/dialog/dialogUserTrack';
 export default {
   name: 'userList',
   components: {
-    dialogAddUser,
-    dialogUserModify
+    dialogUserModify,
+    dialogUserTrack
   },
   methods: {
     // 点击时打开dialog，并传递当前点击的基站index值
     management(index) {
-      var currentData = this.list[index];
+      let currentData = this.list[index];
       bus.$emit('currentUserData', currentData);
+    },
+    track(index) {
+      let currentUser = this.list[index].userName;
+      bus.$emit('currentUser', currentUser);
     },
     userList() {
       this.listLoading = true;
@@ -117,7 +126,8 @@ export default {
 .pagination-container {
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding-left: 100px;
+  width: 330px;
+  right: 50px;
+  z-index: 3;
 }
 </style>

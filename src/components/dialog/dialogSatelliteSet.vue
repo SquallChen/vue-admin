@@ -235,7 +235,6 @@ export default {
     unselectAll(v) {
       if (v === 'GpsSet') {
         var leng = this.GpsSet.length;
-        console.log(leng);
         for (var i = 0; i < leng; i++) {
           this.GpsSet[i].value = false;
         }

@@ -65,6 +65,9 @@ export default {
       BaseInfo(this.listQuery.page_num, this.listQuery.num_per_page).then(
         response => {
           this.list = response.recordList;
+          for(var i=0;i<this.list.length;i++){
+            this.list[i].status=this.list[i].status=== 1 ? '在线' : '离线'
+           }
           this.total = response.totalCount;
           this.listLoading = false;
         },
